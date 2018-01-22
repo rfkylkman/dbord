@@ -10,7 +10,8 @@
                       <div class="Content">
                           <p style="margin-top: 0px; margin-bottom:0px;"><b>Statistical Indicator</b></p>
                           <div class="contain-fixed">   
-                              <p-dataTable 
+                              <p-dataTable
+                                class="ui-datatable" 
                                   id="headerTabel"
                                   [value]="cars"
                                   [responsive]="true">
@@ -32,11 +33,12 @@
                         </div>
                       
                       <div class="Content">
-                            <p style="margin-top: 0px; font-size: 13px;"><u>Supporting Information</u></p>
+                            <p style="margin-top: 0px; font-size: 14px;"><u>Supporting Information</u></p>
                           <div class="contain">
                             
                                   <p-dataTable 
                                       id="headerTabel"
+                                      class="ui-datatable" 
                                       [value]="cars2"
                                       [responsive]="true">
                                       <p-column field="year" header="Year" ></p-column>
@@ -65,14 +67,15 @@
                                       </table>
                                   </div>
                                   <div class="subContent-2" align="left">
-                                          <p><u> Connection Status:</u></p>
+                                          <p style="font-size: 14px;"><u> Connection Status:</u></p>
                                           <p-chart type="doughnut" [data]="data2"></p-chart>
                                   </div>
                                   
                                   <div class="subContent-3" align="left">
-                                          <p><u>Disconnected Member :</u></p>
+                                          <p style="font-size: 14px;"><u>Disconnected Member :</u></p>
                                           <p-dataTable 
                                           id="headerTabel"
+                                          class="ui-datatable" 
                                           [value]="cars2"
                                           [responsive]="true"
                                           tableStyleClass="prime-table">
@@ -85,32 +88,32 @@
                           </div>
                                  
                           <div class="Content" align="left">
-                              <p style="margin-top: 0px;"><u>Surrrounding Connection Status</u></p>
+                              <p style="margin-top: 0px;  font-size: 14px;"><u>Surrrounding Connection Status</u></p>
                           <div class="Content" align="center" style="border: 0;">
-                          <table>
-                            <tr>
-                              <td><img src='assets/picture/server.png' width="40" height="33"></td>
-                              <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                              <td rowspan="5"><img src='assets/picture/arrow2.png' width="40" height="100"></td>
-                              <td rowspan="5"><img src='assets/picture/core-RTGS.png' width="120" height="80"></td>
-                            </tr>
-                            <tr>
-                              <td><img src='assets/picture/server.png' width="40" height="33"></td>
-                              <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                            </tr>
-                            <tr>
-                              <td><img src='assets/picture/server.png' width="40" height="33"></td>
-                              <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                            </tr>
-                            <tr>
-                              <td ><img src='assets/picture/server.png' width="40" height="33"></td>
-                              <td ><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                            </tr>
-                            <tr>
-                              <td><img src='assets/picture/server.png' width="40" height="33"></td>
-                              <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                            </tr>
-                          </table>
+                            <table>
+                                <tr>
+                                  <td><img src='assets/picture/sosa.png' width="65" height="33"></td>
+                                  <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                  <td rowspan="5"><img src='assets/picture/arrow2.png' width="40" height="130"></td>
+                                  <td rowspan="5"><img src='assets/picture/core-RTGS.png' width="130" height="80"></td>
+                                </tr>
+                                <tr>
+                                  <td><img src='assets/picture/hartis.png' width="65" height="33"></td>
+                                  <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                </tr>
+                                <tr>
+                                  <td><img src='assets/picture/sknbi.png' width="65" height="33"></td>
+                                  <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                </tr>
+                                <tr>
+                                  <td><img src='assets/picture/ssss.png' width="65" height="33"></td>
+                                  <td ><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                </tr>
+                                <tr>
+                                  <td><img src='assets/picture/pvp.png' width="65" height="33"></td>
+                                  <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                </tr>
+                              </table>
                           </div>
                       </div>   
                       
@@ -120,7 +123,7 @@
                                   <table>
                                       <tr>
                                           <td>
-                                              <u>Processing Status</u>
+                                              <u style="font-size: 14px;">Processing Status</u>
                                           </td>
                                       </tr>
                                       <tr>
@@ -137,7 +140,7 @@
                               </div>
                               <div class="subContent-3-2">
                                   <table>
-                                          <u>Server & Replication Status</u>
+                                          <u  style="font-size: 14px;">Server & Replication Status</u>
                                   </table>
                                   <div class="Content" style="border:0;" align="center">
                                   <table border="0">
@@ -173,59 +176,27 @@
                                       <p-column field="brand" header="Brand" ></p-column>
                                       <p-column field="color" header="Color" ></p-column>
                               </p-dataTable>
-                              <p-dialog header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
-                                      <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="car">
-                                          <div class="ui-grid-row">
-                                              <div class="ui-grid-col-4"><label for="year">Year</label></div>
-                                              <div class="ui-grid-col-8"><input pInputText id="year" [(ngModel)]="car.year" /></div>
-                                          </div>
-                                          <div class="ui-grid-row">
-                                              <div class="ui-grid-col-4"><label for="brand">Brand</label></div>
-                                              <div class="ui-grid-col-8"><input pInputText id="brand" [(ngModel)]="car.brand" /></div>
-                                          </div>
-                                          <div class="ui-grid-row">
-                                              <div class="ui-grid-col-4"><label for="color">Color</label></div>
-                                              <div class="ui-grid-col-8"><input pInputText id="color" [(ngModel)]="car.color" /></div>
-                                          </div>
-                                      </div>
-                                      <p-footer>
-                                          <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                                              <button type="button" pButton icon="fa-close" (click)="delete()" label="Delete"></button>
-                                              <button type="button" pButton icon="fa-check" (click)="save()" label="Save"></button>
-                                          </div>
-                                      </p-footer>
-                              </p-dialog>
+
                               </div>
                           </div>
                           <div class="Content">
-                          <p-chart type="horizontalBar" [data]="data"></p-chart>
-                          <div class="contain">
-                                  <p-dataTable 
-                                      id="headerTabel"
-                                      [value]="cars"
-                                      [responsive]="true">
-                                      <p-column field="year" header="Year" ></p-column>
-                                      <p-column field="brand" header="Brand" ></p-column>
-                                      <p-column field="color" header="Color" ></p-column>
-                                  </p-dataTable>
-                                      <p-dialog id="isiTabel" header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
-                                          <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="car">
-                                              <div class="ui-grid-row">
-                                                  <div class="ui-grid-col-4"><label for="year">Year</label></div>
-                                                  <div class="ui-grid-col-8"><input pInputText id="year" [(ngModel)]="car.year" /></div>
-                                              </div>
-                                              <div class="ui-grid-row">
-                                                  <div class="ui-grid-col-4"><label for="brand">Brand</label></div>
-                                                  <div class="ui-grid-col-8"><input pInputText id="brand" [(ngModel)]="car.brand" /></div>
-                                              </div>
-                                              <div class="ui-grid-row">
-                                                  <div class="ui-grid-col-4"><label for="color">Color</label></div>
-                                                  <div class="ui-grid-col-8"><input pInputText id="color" [(ngModel)]="car.color" /></div>
-                                              </div>
-                                          </div>
-                                      </p-dialog>
-                               </div> 
-                               </div>
+                          <u  style="font-size: 14px;">Turn Over Ratio</u>
+                                <p-chart type="horizontalBar" [data]="data"></p-chart>
+                          </div>
+                          <div class="Content">
+                                <u  style="font-size: 14px;">Intraday Liquidity Facility</u>      
+                                <div class="contain">
+                                        <p-dataTable 
+                                            id="headerTabel"
+                                            [value]="cars"
+                                            [responsive]="true">
+                                            <p-column field="year" header="Year" ></p-column>
+                                            <p-column field="brand" header="Brand" ></p-column>
+                                            <p-column field="color" header="Color" ></p-column>
+                                        </p-dataTable>
+                                </div>
+                            </div> 
+                        
                               
                   </div>
               </div>
