@@ -13,6 +13,11 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class SsssComponent {
 
           currParam : string = this.router.snapshot.queryParams["curr"];
+        
+
+          businessDay : string = "Morning 2";
+          timeExt : string = "30 Menit"
+  
 
           connHARTIS: boolean;
           connRTGS: boolean;

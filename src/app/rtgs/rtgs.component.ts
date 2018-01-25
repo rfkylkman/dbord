@@ -14,7 +14,10 @@ export class RtgsComponent {
 
           currParam : string = this.router.snapshot.queryParams["curr"];
 
-          ip : any;
+          ip : any = window.location.hostname;
+
+          businessDay : string = "Morning 3";
+          timeExt : string = "60 Menit"
   
           connHARTIS: boolean;
           connSSSS: boolean;
@@ -134,18 +137,19 @@ export class RtgsComponent {
                           };
           }
 
-          getIP() {
+          /*getIP() {
             this.ConnectionService.getIPaddress().subscribe(
               data => {
                 this.ip = data;
+                this.ip = window.location.hostname;
               }
             )
-          }
+          } */
 
           
       
           ngOnInit() {
-              this.getIP();
+              //this.getIP();
               this.getData();
               this.interval_satu = setInterval(() => {
                   this.getData();

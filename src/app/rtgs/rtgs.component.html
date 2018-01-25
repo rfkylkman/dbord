@@ -1,207 +1,232 @@
-
 <div class="masterheader">
-  <div class="header"> Dashboard</div>
-  <div class="header2"> SISTEM BI-RTGS </div>
-  </div>
-  <div class="background">
-      <div class="rows">
-              <div class="column">
-                  <div class="columnContent">
-                      <div class="Content">
-                          <p style="margin-top: 0px; margin-bottom:0px;"><b>Statistical Indicator</b></p>
-                          <div class="contain-fixed">   
-                              <p-dataTable
-                                class="ui-datatable" 
-                                  id="headerTabel"
-                                  [value]="cars"
-                                  [responsive]="true">
-                                  <p-column field="year" header="Year" ></p-column>
-                                  <p-column field="brand" header="Brand" ></p-column>
-                                  <p-column field="color" header="Color" ></p-column>
-                                </p-dataTable>
-                          </div>
-                          </div>
-                        <div class="Content">
-                              <div class="rows">
-                                  <div class="subContent-2-3">
-                                    <p-chart type="horizontalBar" [data]="data3"></p-chart>
-                                   </div>
-                                  <div class="subContent-2-3">
-                                    <p-chart type="horizontalBar" [data]="data3"></p-chart>
-                                  </div>
-                              </div>
+    <div class="header"> Dashboard</div>
+    <div class="header2"> SISTEM BI-RTGS </div>
+</div>
+{{ip}}
+<div class="background">
+    <div class="rows">
+        <div class="column">
+            <div class="columnContent">
+                <div class="Content">
+                    <p style="margin-top: 0px; margin-bottom:0px;">
+                        <b>Statistical Indicator</b>
+                    </p>
+                    <div class="contain-fixed">
+                        <p-dataTable class="ui-datatable" id="headerTabel" [value]="cars" [responsive]="true">
+                            <p-column field="year" header="Year"></p-column>
+                            <p-column field="brand" header="Brand"></p-column>
+                            <p-column field="color" header="Color"></p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+                <div class="Content">
+                    <div class="rows">
+                        <div class="subContent-2-3">
+                            <p-chart type="horizontalBar" [data]="data3"></p-chart>
                         </div>
-                      
-                      <div class="Content">
-                            <p style="margin-top: 0px; font-size: 14px;"><u>Supporting Information</u></p>
-                          <div class="contain">
-                            
-                                  <p-dataTable 
-                                      id="headerTabel"
-                                      class="ui-datatable" 
-                                      [value]="cars2"
-                                      [responsive]="true">
-                                      <p-column field="year" header="Year" ></p-column>
-                                      <p-column field="brand" header="Brand" ></p-column>
-                                      <p-column field="color" header="Color" ></p-column>
-                                  </p-dataTable>
-                              </div> 
-                      </div>
-                  </div>    
-              </div>
-              <div class="column">
-                  <div class="columnContent" >                  
-                          <div class="Content">
-                              <div class="rows">
-                                  <div class="subContent-1">
-                                          <p style="margin-top: 0px; margin-bottom:0px;"><b>Operational Indicator</b></p>
-                                      <table>
-                                          <tr>
-                                              <td style="">Business Day</td>
-                                              <td><p-message severity="info" text="Morning 3"></p-message></td>
-                                          </tr>
-                                          <tr>
-                                              <td>Time Extension</td>
-                                              <td><p-message severity="info" text="30 Menit"></p-message></td>
-                                          </tr>
-                                      </table>
-                                  </div>
-                                  <div class="subContent-2" align="left">
-                                          <p style="font-size: 14px;"><u> Connection Status:</u></p>
-                                          <p-chart type="doughnut" [data]="data2"></p-chart>
-                                  </div>
-                                  
-                                  <div class="subContent-3" align="left">
-                                          <p style="font-size: 14px;"><u>Disconnected Member :</u></p>
-                                          <p-dataTable 
-                                          id="headerTabel"
-                                          class="ui-datatable" 
-                                          [value]="cars2"
-                                          [responsive]="true"
-                                          tableStyleClass="prime-table">
-                                          <p-column field="year" header="Year" ></p-column>
-                                          <p-column field="brand" header="Brand" ></p-column>
-                                          <p-column field="color" header="Color" ></p-column>
-                                      </p-dataTable>
-                                  </div>
-                              </div>
-                          </div>
-                                 
-                          <div class="Content" align="left">
-                              <p style="margin-top: 0px;  font-size: 14px;"><u>Surrrounding Connection Status</u></p>
-                          <div class="Content" align="center" style="border: 0;">
+                        <div class="subContent-2-3">
+                            <p-chart type="horizontalBar" [data]="data3"></p-chart>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Content">
+                    <p style="margin-top: 0px; font-size: 14px;">
+                        <u>Supporting Information</u>
+                    </p>
+                    <div class="contain">
+
+                        <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true">
+                            <p-column field="year" header="Year"></p-column>
+                            <p-column field="brand" header="Brand"></p-column>
+                            <p-column field="color" header="Color"></p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="columnContent">
+                <div class="Content">
+                    <div class="rows">
+                        <div class="subContent-1">
+                            <p style="margin-top: 0px; margin-bottom:0px;">
+                                <b>Operational Indicator</b>
+                            </p>
                             <table>
                                 <tr>
-                                  <td><img src='assets/picture/sosa.png' width="65" height="33"></td>
-                                  <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                                  <td rowspan="5"><img src='assets/picture/arrow2.png' width="40" height="130"></td>
-                                  <td rowspan="5"><img src='assets/picture/core-RTGS.png' width="130" height="80"></td>
+                                    <td style="">Business Day</td>
+                                    <td>
+                                        <p-message severity="info" text={{businessDay}}></p-message>
+                                    </td>
                                 </tr>
                                 <tr>
-                                  <td><img src='assets/picture/hartis.png' width="65" height="33"></td>
-                                  <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                    <td>Time Extension</td>
+                                    <td>
+                                        <p-message severity="info" text={{timeExt}}></p-message>
+                                    </td>
                                 </tr>
-                                <tr>
-                                  <td><img src='assets/picture/sknbi.png' width="65" height="33"></td>
-                                  <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                                </tr>
-                                <tr>
-                                  <td><img src='assets/picture/ssss.png' width="65" height="33"></td>
-                                  <td ><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                                </tr>
-                                <tr>
-                                  <td><img src='assets/picture/pvp.png' width="65" height="33"></td>
-                                  <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
-                                </tr>
-                              </table>
-                          </div>
-                      </div>   
-                      
-                      <div class="Content">
-                          <div class="rows">
-                              <div class="subContent-2-2">
-                                  <table>
-                                      <tr>
-                                          <td>
-                                              <u style="font-size: 14px;">Processing Status</u>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td align="center" bgcolor="#aaffbf" height="80">
-                                              <b>0.051 ms</b>
-                                          </td>
-                                      </tr>
-                                      <tr>
-                                          <td align="center" bgcolor="#37fc68">
-                                              Normal
-                                          </td>
-                                      </tr>
-                                  </table>
-                              </div>
-                              <div class="subContent-3-2">
-                                  <table>
-                                          <u  style="font-size: 14px;">Server & Replication Status</u>
-                                  </table>
-                                  <div class="Content" style="border:0;" align="center">
-                                  <table border="0">
-                                      <tr>
-                                          <td>
-                                              <img src='assets/picture/server.png' width="50" height="50">
-                                          </td>
-                                          <td>
-                                              <img src='assets/picture/arrow.png' width="50" height="40">
-                                          </td>
-                                          <td>
-                                              <img src='assets/picture/server.png' width="50" height="50">
-                                          </td>
-                                      </tr>
-                                  </table>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-  
-                      </div>           
-              </div>
-              <div class="column">
-                  <div class="columnContent">
-                      <div class="Content">
-                              <p style="margin-top: 0px; margin-bottom:0px;"><b>Liquidity Indicator</b></p>
-                              
-                              <p-chart type="horizontalBar" [data]="data3"></p-chart  >
-                              
-                              <div class="contain">
-                              <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true">
-                                      <p-column field="year" header="Year" ></p-column>
-                                      <p-column field="brand" header="Brand" ></p-column>
-                                      <p-column field="color" header="Color" ></p-column>
-                              </p-dataTable>
+                            </table>
+                        </div>
+                        <div class="subContent-2" align="left">
+                            <p style="font-size: 14px;">
+                                <u> Connection Status:</u>
+                            </p>
+                            <p-chart type="doughnut" [data]="data2"></p-chart>
+                        </div>
 
-                              </div>
-                          </div>
-                          <div class="Content">
-                          <u  style="font-size: 14px;">Turn Over Ratio</u>
-                                <p-chart type="horizontalBar" [data]="data"></p-chart>
-                          </div>
-                          <div class="Content">
-                                <u  style="font-size: 14px;">Intraday Liquidity Facility</u>      
-                                <div class="contain">
-                                        <p-dataTable 
-                                            id="headerTabel"
-                                            [value]="cars"
-                                            [responsive]="true">
-                                            <p-column field="year" header="Year" ></p-column>
-                                            <p-column field="brand" header="Brand" ></p-column>
-                                            <p-column field="color" header="Color" ></p-column>
-                                        </p-dataTable>
-                                </div>
-                            </div> 
-                        
-                              
-                  </div>
-              </div>
-  
-      </div>
-  
-  </div>
-      
+                        <div class="subContent-3" align="left">
+                            <p style="font-size: 14px;">
+                                <u>Disconnected Member :</u>
+                            </p>
+                            <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true" tableStyleClass="prime-table">
+                                <p-column field="year" header="Year"></p-column>
+                                <p-column field="brand" header="Brand"></p-column>
+                                <p-column field="color" header="Color"></p-column>
+                            </p-dataTable>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="Content" align="left">
+                    <p style="margin-top: 0px;  font-size: 14px;">
+                        <u>Surrrounding Connection Status</u>
+                    </p>
+                    <div class="Content" align="center" style="border: 0;">
+                        <table>
+                            <tr>
+                                <td>
+                                    <img src='assets/picture/sosa.png' width="65" height="33">
+                                </td>
+                                <td>
+                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                </td>
+                                <td rowspan="5">
+                                    <img src='assets/picture/arrow2.png' width="40" height="130">
+                                </td>
+                                <td rowspan="5">
+                                    <img src='assets/picture/core-RTGS.png' width="130" height="80">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src='assets/picture/hartis.png' width="65" height="33">
+                                </td>
+                                <td>
+                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src='assets/picture/sknbi.png' width="65" height="33">
+                                </td>
+                                <td>
+                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src='assets/picture/ssss.png' width="65" height="33">
+                                </td>
+                                <td>
+                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <img src='assets/picture/pvp.png' width="65" height="33">
+                                </td>
+                                <td>
+                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="Content">
+                    <div class="rows">
+                        <div class="subContent-2-2">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <u style="font-size: 14px;">Processing Status</u>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#aaffbf" height="80">
+                                        <b>0.051 ms</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="center" bgcolor="#37fc68">
+                                        Normal
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="subContent-3-2">
+                            <table>
+                                <u style="font-size: 14px;">Server & Replication Status</u>
+                            </table>
+                            <div class="Content" style="border:0;" align="center">
+                                <table border="0">
+                                    <tr>
+                                        <td>
+                                            <img src='assets/picture/server.png' width="50" height="50">
+                                        </td>
+                                        <td>
+                                            <img src='assets/picture/arrow.png' width="50" height="40">
+                                        </td>
+                                        <td>
+                                            <img src='assets/picture/server.png' width="50" height="50">
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="column">
+            <div class="columnContent">
+                <div class="Content">
+                    <p style="margin-top: 0px; margin-bottom:0px;">
+                        <b>Liquidity Indicator</b>
+                    </p>
+
+                    <p-chart type="horizontalBar" [data]="data3"></p-chart>
+
+                    <div class="contain">
+                        <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true">
+                            <p-column field="year" header="Year"></p-column>
+                            <p-column field="brand" header="Brand"></p-column>
+                            <p-column field="color" header="Color"></p-column>
+                        </p-dataTable>
+
+                    </div>
+                </div>
+                <div class="Content">
+                    <u style="font-size: 14px;">Turn Over Ratio</u>
+                    <p-chart type="horizontalBar" [data]="data"></p-chart>
+                </div>
+                <div class="Content">
+                    <u style="font-size: 14px;">Intraday Liquidity Facility</u>
+                    <div class="contain">
+                        <p-dataTable id="headerTabel" [value]="cars" [responsive]="true">
+                            <p-column field="year" header="Year"></p-column>
+                            <p-column field="brand" header="Brand"></p-column>
+                            <p-column field="color" header="Color"></p-column>
+                        </p-dataTable>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
