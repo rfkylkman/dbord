@@ -14,7 +14,8 @@
                               <p-dataTable 
                                   id="headerTabel"
                                   [value]="total"
-                                  [responsive]="true">
+                                  [responsive]="true"
+                                  class="ui-datatable">
                                   <p-column field="summary" header="Summary" ></p-column>
                                   <p-column field="volume" header="Volume" ></p-column>
                                   <p-column field="amount" header="Amount" >
@@ -47,7 +48,8 @@
                                   <p-dataTable 
                                       id="headerTabel"
                                       [value]="cars2"
-                                      [responsive]="true">
+                                      [responsive]="true"
+                                      class="ui-datatable">
                                       <p-column field="year" header="Year" ></p-column>
                                       <p-column field="brand" header="Brand" ></p-column>
                                       <p-column field="color" header="Color" ></p-column>
@@ -59,7 +61,8 @@
                                 <p-dataTable 
                                     id="headerTabel"
                                     [value]="cars2"
-                                    [responsive]="true">
+                                    [responsive]="true"
+                                    class="ui-datatable">
                                     <p-column field="year" header="Year" ></p-column>
                                     <p-column field="brand" header="Brand" ></p-column>
                                     <p-column field="color" header="Color" ></p-column>
@@ -100,7 +103,8 @@
                                           id="headerTabel"
                                           [value]="cars2"
                                           [responsive]="true"
-                                          tableStyleClass="prime-table">
+                                          tableStyleClass="prime-table"
+                                          class="ui-datatable">
                                           <p-column field="year" header="Year" ></p-column>
                                           <p-column field="brand" header="Brand" ></p-column>
                                           <p-column field="color" header="Color" ></p-column>
@@ -211,7 +215,7 @@
                                   <tr>
                                       <td>
                                           <div class="contain">
-                                                      <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true">
+                                                      <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
                                                               <p-column field="year" header="Year" ></p-column>
                                                               <p-column field="brand" header="Brand" ></p-column>
                                                               <p-column field="color" header="Color" ></p-column>
@@ -239,7 +243,7 @@
                                       <tr>
                                           <td>
                                               <div class="contain">
-                                                          <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true">
+                                                          <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
                                                                   <p-column field="year" header="Year" ></p-column>
                                                                   <p-column field="brand" header="Brand" ></p-column>
                                                                   <p-column field="color" header="Color" ></p-column>
@@ -267,7 +271,7 @@
                                           <tr>
                                               <td>
                                                   <div class="contain">
-                                                              <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true">
+                                                              <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
                                                                       <p-column field="year" header="Year" ></p-column>
                                                                       <p-column field="brand" header="Brand" ></p-column>
                                                                       <p-column field="color" header="Color" ></p-column>
@@ -293,7 +297,7 @@
                                               <tr>
                                                   <td>
                                                       <div class="contain">
-                                                                  <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true">
+                                                                  <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
                                                                           <p-column field="year" header="Year" ></p-column>
                                                                           <p-column field="brand" header="Brand" ></p-column>
                                                                           <p-column field="color" header="Color" ></p-column>

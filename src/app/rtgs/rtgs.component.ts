@@ -18,7 +18,10 @@ export class RtgsComponent {
 
           businessDay : string = "Morning 3";
           timeExt : string = "60 Menit"
-  
+
+          processingSpeed : string = "0.052";
+          processingSpeedStatus : string = "Normal";
+
           connHARTIS: boolean;
           connSSSS: boolean;
           connSOSA: boolean;

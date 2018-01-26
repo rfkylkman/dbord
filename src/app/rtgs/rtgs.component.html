@@ -12,7 +12,7 @@
                         <b>Statistical Indicator</b>
                     </p>
                     <div class="contain-fixed">
-                        <p-dataTable class="ui-datatable" id="headerTabel" [value]="cars" [responsive]="true">
+                        <p-dataTable class="ui-datatable" id="headerTabel" [value]="cars" [responsive]="true" class="ui-datatable">
                             <p-column field="year" header="Year"></p-column>
                             <p-column field="brand" header="Brand"></p-column>
                             <p-column field="color" header="Color"></p-column>
@@ -36,7 +36,7 @@
                     </p>
                     <div class="contain">
 
-                        <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true">
+                        <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true" class="ui-datatable">
                             <p-column field="year" header="Year"></p-column>
                             <p-column field="brand" header="Brand"></p-column>
                             <p-column field="color" header="Color"></p-column>
@@ -79,7 +79,7 @@
                             <p style="font-size: 14px;">
                                 <u>Disconnected Member :</u>
                             </p>
-                            <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true" tableStyleClass="prime-table">
+                            <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true" tableStyleClass="prime-table" class="ui-datatable">
                                 <p-column field="year" header="Year"></p-column>
                                 <p-column field="brand" header="Brand"></p-column>
                                 <p-column field="color" header="Color"></p-column>
@@ -155,12 +155,12 @@
                                 </tr>
                                 <tr>
                                     <td align="center" bgcolor="#aaffbf" height="80">
-                                        <b>0.051 ms</b>
+                                        <b>{{processingSpeed}}</b>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td align="center" bgcolor="#37fc68">
-                                        Normal
+                                        {{processingSpeedStatus}}
                                     </td>
                                 </tr>
                             </table>
@@ -200,7 +200,7 @@
                     <p-chart type="horizontalBar" [data]="data3"></p-chart>
 
                     <div class="contain">
-                        <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true">
+                        <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
                             <p-column field="year" header="Year"></p-column>
                             <p-column field="brand" header="Brand"></p-column>
                             <p-column field="color" header="Color"></p-column>
@@ -215,7 +215,7 @@
                 <div class="Content">
                     <u style="font-size: 14px;">Intraday Liquidity Facility</u>
                     <div class="contain">
-                        <p-dataTable id="headerTabel" [value]="cars" [responsive]="true">
+                        <p-dataTable id="headerTabel" [value]="cars" [responsive]="true" class="ui-datatable">
                             <p-column field="year" header="Year"></p-column>
                             <p-column field="brand" header="Brand"></p-column>
                             <p-column field="color" header="Color"></p-column>
