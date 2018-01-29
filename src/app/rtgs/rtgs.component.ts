@@ -21,7 +21,13 @@ export class RtgsComponent {
 
           processingSpeed : string = "0.052";
           processingSpeedStatus : string = "Normal";
+/*
+          businessDay : string = "Morning 3";
+          timeExt : string = "60 Menit"
 
+          processingSpeed : string = "0.052";
+          processingSpeedStatus : string = "Normal";
+*/
           connHARTIS: boolean;
           connSSSS: boolean;
           connSOSA: boolean;
@@ -34,7 +40,8 @@ export class RtgsComponent {
     
           interval_satu: any;
           
-          selectedCar: Car;
+          totalVolume: any;
+          totalAmount: any;
           
           newCar: boolean;
       
@@ -42,7 +49,10 @@ export class RtgsComponent {
       
           cars2: Car[];
       
-          total: Total[];
+          statisticalIndicatorTable: Total[];
+          statisticalIndicatorChart: Total[];
+
+          errorInformation : Total[];
       
           data: any;
       
@@ -52,6 +62,10 @@ export class RtgsComponent {
 
           data4: any[] = [];
           barChartLabels: string[] = [];
+
+          total: any;
+
+          data5: any[] = [];
       
           options: any = {
               legend: { position: 'bottom' }
@@ -63,44 +77,65 @@ export class RtgsComponent {
           constructor(private ConnectionService: ConnectionService, private router:ActivatedRoute) {}
           
           getData() {
-                  this.ConnectionService.getDataSatu(this.currParam).subscribe(
-                      data => {
-                          this.cars = data;
-                          this.z = this.cars.map(item => item.brand);
-                          this.z1 = this.cars.map(item => item.year);
-                      }
-                      
-                  ),
-                  this.ConnectionService.getDataDua().subscribe(
-                      data => {
+            
+            this.ConnectionService.getStatisticalIndicatorTable(this.currParam).subscribe(
+                data => {
+                    this.statisticalIndicatorTable = data;
+                }
+            ),
+
+            this.ConnectionService.getStatisticalIndicatorChart(this.currParam).subscribe(
+                data => {
+                    this.statisticalIndicatorChart = data;
+                    this.z = this.statisticalIndicatorChart.map(item => item.summary)
+                    this.z1 = this.statisticalIndicatorChart.map(item => item.amount)
+
+                    this.data3 = {
+                        labels: this.z,
+                        datasets: [
+                            {
+                                data: this.z1,
+                                backgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB",
+                                    "#FFCE56"
+                                ],
+                                hoverBackgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB",
+                                    "#FFCE56"
+                                ]
+                            }]
+                        }
+                }
+            ),
+
+            this.ConnectionService.getErrorInformation(this.currParam).subscribe(
+                data => {
+                    this.errorInformation = data;
+                }
+            ),
+
+            this.ConnectionService.getOperationalIndicators(this.currParam).subscribe(
+                data => {
+                }
+            ),
+                    
+            
+            this.ConnectionService.getDataDua(this.currParam).subscribe(
+                data => {
                           this.cars2 = data;
                       }
                   ),
-                  this.ConnectionService.getDataTotal().subscribe(
-                      data => {
+            this.ConnectionService.getDataTotal(this.currParam).subscribe(
+                data => {
                           this.total = data;
                       }
                   )
 
                   this.connHARTIS = false;
 
-                  this.data3 = {
-                      labels: this.z,
-                      datasets: [
-                          {
-                              data: this.z1,
-                              backgroundColor: [
-                                  "#FF6384",
-                                  "#36A2EB",
-                                  "#FFCE56"
-                              ],
-                              hoverBackgroundColor: [
-                                  "#FF6384",
-                                  "#36A2EB",
-                                  "#FFCE56"
-                              ]
-                          }]
-                      };
+                  
 
                       var a = ['A','B','C','D','E','F','G'];
                       this.data = {
@@ -156,7 +191,7 @@ export class RtgsComponent {
               this.getData();
               this.interval_satu = setInterval(() => {
                   this.getData();
-              },2500);
+              },7500);
               /*
               this.ConnectionService.getCarsSmall().then(cars => this.cars = cars);
               this.ConnectionService.getCarsSmaller().then(cars2 =>this.cars2 = cars2);

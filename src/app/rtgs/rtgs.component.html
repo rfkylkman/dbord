@@ -2,7 +2,6 @@
     <div class="header"> Dashboard</div>
     <div class="header2"> SISTEM BI-RTGS </div>
 </div>
-{{ip}}
 <div class="background">
     <div class="rows">
         <div class="column">
@@ -12,31 +11,28 @@
                         <b>Statistical Indicator</b>
                     </p>
                     <div class="contain-fixed">
-                        <p-dataTable class="ui-datatable" id="headerTabel" [value]="cars" [responsive]="true" class="ui-datatable">
-                            <p-column field="year" header="Year"></p-column>
-                            <p-column field="brand" header="Brand"></p-column>
-                            <p-column field="color" header="Color"></p-column>
+                        <p-dataTable class="ui-datatable" id="headerTabel" [value]="statisticalIndicatorTable" [responsive]="true" class="ui-datatable">
+                            <p-column field="summary" header="Summary"></p-column>
+                            <p-column field="volume" header="Volume"></p-column>
+                            <p-column field="amount" header="Amount"></p-column>
                         </p-dataTable>
                     </div>
-                </div>
-                <div class="Content">
                     <div class="rows">
-                        <div class="subContent-2-3">
-                            <p-chart type="horizontalBar" [data]="data3"></p-chart>
+                            <div class="subContent-2-3">
+                                <p-chart type="horizontalBar" [data]="data3"></p-chart>
+                            </div>
+                            <div class="subContent-2-3">
+                                <p-chart type="horizontalBar" [data]="data3"></p-chart>
+                            </div>
                         </div>
-                        <div class="subContent-2-3">
-                            <p-chart type="horizontalBar" [data]="data3"></p-chart>
-                        </div>
-                    </div>
                 </div>
-
                 <div class="Content">
                     <p style="margin-top: 0px; font-size: 14px;">
                         <u>Supporting Information</u>
                     </p>
                     <div class="contain">
 
-                        <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true" class="ui-datatable">
+                        <p-dataTable id="headerTabel" class="ui-datatable" [value]="errorInformation" [responsive]="true" class="ui-datatable">
                             <p-column field="year" header="Year"></p-column>
                             <p-column field="brand" header="Brand"></p-column>
                             <p-column field="color" header="Color"></p-column>
@@ -102,7 +98,7 @@
                                     <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
                                 </td>
                                 <td rowspan="5">
-                                    <img src='assets/picture/arrow2.png' width="40" height="130">
+                                    <img src='assets/picture/arrow3.png' width="30" height="180">
                                 </td>
                                 <td rowspan="5">
                                     <img src='assets/picture/core-RTGS.png' width="130" height="80">

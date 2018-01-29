@@ -60,12 +60,12 @@ export class SsssComponent {
                           this.cars = data;
                       }
                   )
-                  this.ConnectionService.getDataDua().subscribe(
+                  this.ConnectionService.getDataDua(this.currParam).subscribe(
                       data => {
                           this.cars2 = data;
                       }
                   )
-                  this.ConnectionService.getDataTotal().subscribe(
+                  this.ConnectionService.getDataTotal(this.currParam).subscribe(
                       data => {
                           this.total = data;
                       }

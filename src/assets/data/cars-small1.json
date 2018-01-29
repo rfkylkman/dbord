@@ -1,51 +1,12 @@
 {  
     "idr":{
         "StatisticalIndicatorTable": [
-            {"summary":"Total A", "volume":"4150","amount": 5000110},
-            {"summary":"Total B", "volume":"6150","amount": 7000777},
-            {"summary":"Total C", "volume":"5150","amount": 6000000},
-            {"summary":"Total D", "volume":"3150","amount": 4000000},
-            {"summary":"Total E", "volume":"2150","amount": 1000000}
-        ],
-
-        "StatisticalIndicatorChart": [
-            {"summary":"Total A", "volume":"4150","amount": 5000110},
-            {"summary":"Total B", "volume":"6150","amount": 7000777},
-            {"summary":"Total C", "volume":"5150","amount": 6000000}
-        ],
-
-        "ErrorInformation": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2015, "color": "Black"}
-        ],
-
-        "DisconnectedMember": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2015, "color": "Black"}
-        ],
-
-        "Throughput": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"}
-        ],
-
-        "CurrentQueue": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"}
-        ],
-
-        "TurnOverRatio": [
             {"brand": "VW", "year": 2012, "color": "Orange"},
             {"brand": "Audi", "year": 2011, "color": "Black"},
             {"brand": "Renault", "year": 2005, "color": "Gray"},
-            {"brand": "BMW", "year": 2011, "color": "Blue"}
-        ],
-
-        "IntradayLiquidityFacility": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2015, "color": "Black"}
+            {"brand": "BMW", "year": 2011, "color": "Blue"},
+            {"brand": "Mercedes", "year": 1995, "color": "Orange"},
+            {"brand": "Volvo", "year": 2005, "color": "Black"}
         ],
 
         "isi": [
@@ -83,7 +44,7 @@
             {"brand": "Toyota", "year": 1.995, "color": "Orange"}
         ]
     },
-
+    
     "usd":{
         "StatisticalIndicatorTable": [
             {"brand": "VW", "year": 2012, "color": "Orange"},
@@ -92,46 +53,6 @@
             {"brand": "BMW", "year": 2011, "color": "Blue"},
             {"brand": "Mercedes", "year": 1995, "color": "Orange"},
             {"brand": "Volvo", "year": 2005, "color": "Black"}
-        ],
-
-        "StatisticalIndicatorChart": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"}
-        ],
-
-        "ErrorInformation": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2015, "color": "Black"}
-        ],
-
-        "DisconnectedMember": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2015, "color": "Black"}
-        ],
-
-        "Throughput": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"}
-        ],
-
-        "CurrentQueue": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"}
-        ],
-
-        "TurnOverRatio": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"},
-            {"brand": "BMW", "year": 2011, "color": "Blue"}
-        ],
-
-        "IntradayLiquidityFacility": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2015, "color": "Black"}
         ],
 
         "isi": [
@@ -168,7 +89,5 @@
             {"brand": "Mitsubishi", "year": 2.015, "color": "Black"},
             {"brand": "Toyota", "year": 1.995, "color": "Orange"}
         ]
-    }
-    
-    
+    }   
 }
