@@ -16,11 +16,9 @@ export class RtgsComponent {
 
           ip : any = window.location.hostname;
 
-          businessDay : string = "Morning 3";
-          timeExt : string = "60 Menit"
+          
 
-          processingSpeed : string = "0.052";
-          processingSpeedStatus : string = "Normal";
+          
 /*
           businessDay : string = "Morning 3";
           timeExt : string = "60 Menit"
@@ -28,12 +26,7 @@ export class RtgsComponent {
           processingSpeed : string = "0.052";
           processingSpeedStatus : string = "Normal";
 */
-          connHARTIS: boolean;
-          connSSSS: boolean;
-          connSOSA: boolean;
-          connSKNBI: boolean;
-          connPVP: boolean;
-
+          
 
           connOk: string = "assets/picture/ok.png";
           connBad: string = "assets/picture/x.png";
@@ -51,8 +44,39 @@ export class RtgsComponent {
       
           statisticalIndicatorTable: Total[];
           statisticalIndicatorChart: Total[];
-
           errorInformation : Total[];
+
+          //operationalIndicator
+          businessDay : string = "Morning 3";
+          timeExt : string = "60 Menit"
+          
+          membersConnectionStatus : any;
+          disconnectedMember : any;
+
+          //surrounding status
+          connHARTIS: boolean;
+          connSSSS : boolean;
+          connSOSA : boolean;
+          connSKNBI : boolean;
+          connPVP : boolean;
+          
+          //processing status
+          processingSpeed : string = "0.052";
+          processingSpeedStatus : string = "Normal";
+
+          //server status
+          dcStatus : boolean;
+          drcStatus : boolean;
+          replicationSpeed : any;
+
+          throughput : any;
+          
+          currentQueue : any;
+
+          turnOverRatio : any;
+
+          intradayLiquidity: any;
+
       
           data: any;
       
@@ -118,6 +142,61 @@ export class RtgsComponent {
 
             this.ConnectionService.getOperationalIndicators(this.currParam).subscribe(
                 data => {
+
+                }
+            ),
+
+            this.ConnectionService.getMembersConnectionStatus(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getDisconnectedMember(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getSurroundingStatus(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getProcessingStatus(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getServerStatus(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getThroughput(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getCurrentQueue(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getTurnOverRatio(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getIntradayLiquidityFacility(this.currParam).subscribe(
+                data => {
+                    
                 }
             ),
                     

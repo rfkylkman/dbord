@@ -55,17 +55,97 @@ export class SsssComponent {
           constructor(public ConnectionService: ConnectionService, private router:ActivatedRoute) {}
       
           getData() {
-                  this.ConnectionService.getDataSatu(this.currParam).subscribe(
+
+            this.ConnectionService.getStatisticalIndicatorTable_SSSS(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getStatisticalIndicatorChart_SSSS(this.currParam).subscribe(
+                data => {
+
+                }
+            ),
+
+            this.ConnectionService.getExchangeRate(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getErrorInformation_SSSS(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getMembersConnectionStatus_SSSS(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getDisconnectedMember_SSSS(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getSurroundingStatus_SSSS(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getProcessingStatus_SSSS(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getServerStatus_SSSS(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getQueueInsufficientSecurities(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getQueueInsufficientFund(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getMaturitySecurities(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+
+            this.ConnectionService.getCouponPayment(this.currParam).subscribe(
+                data => {
+                    
+                }
+            ),
+                  
+            this.ConnectionService.getDataSatu(this.currParam).subscribe(
                       data => {
                           this.cars = data;
                       }
                   )
-                  this.ConnectionService.getDataDua(this.currParam).subscribe(
+                  
+            this.ConnectionService.getDataDua(this.currParam).subscribe(
                       data => {
                           this.cars2 = data;
                       }
                   )
-                  this.ConnectionService.getDataTotal(this.currParam).subscribe(
+            this.ConnectionService.getDataTotal(this.currParam).subscribe(
                       data => {
                           this.total = data;
                       }
