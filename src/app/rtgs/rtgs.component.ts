@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { Car } from 'app/domain/car';
 import { Total } from 'app/domain/total';
+import { currentQueue } from 'app/domain/currentQueue';
+import { turnOverRatio } from 'app/domain/turnOverRatio';
+import { intradayLiquidityFacility } from 'app/domain/intradayLiquidityFacility';
 import { ConnectionService} from 'app/services/ConnectionService';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -16,9 +19,6 @@ export class RtgsComponent {
 
           ip : any = window.location.hostname;
 
-          
-
-          
 /*
           businessDay : string = "Morning 3";
           timeExt : string = "60 Menit"
@@ -32,10 +32,7 @@ export class RtgsComponent {
           connBad: string = "assets/picture/x.png";
     
           interval_satu: any;
-          
-          totalVolume: any;
-          totalAmount: any;
-          
+         
           newCar: boolean;
       
           cars: Car[];
@@ -44,7 +41,14 @@ export class RtgsComponent {
       
           statisticalIndicatorTable: Total[];
           statisticalIndicatorChart: Total[];
+          totalVolume: any;
+          totalAmount: any;
+
           errorInformation : Total[];
+          currentQueue : currentQueue[];
+          turnOverRatio : turnOverRatio[];
+
+          intradayLiquidityFacility : intradayLiquidityFacility[];
 
           //operationalIndicator
           businessDay : string = "Morning 3";
@@ -70,14 +74,7 @@ export class RtgsComponent {
           replicationSpeed : any;
 
           throughput : any;
-          
-          currentQueue : any;
 
-          turnOverRatio : any;
-
-          intradayLiquidity: any;
-
-      
           data: any;
       
           data2: any;
@@ -171,37 +168,40 @@ export class RtgsComponent {
 
             this.ConnectionService.getProcessingStatus(this.currParam).subscribe(
                 data => {
-                    
+                    this.processingSpeed = "0.052";
+                    this.processingSpeedStatus = "Normal";
                 }
             ),
 
             this.ConnectionService.getServerStatus(this.currParam).subscribe(
                 data => {
-                    
+                    this.dcStatus = true;
+                    this.drcStatus = true;
+                    this.replicationSpeed = "";
                 }
             ),
 
             this.ConnectionService.getThroughput(this.currParam).subscribe(
                 data => {
-                    
+                    this.throughput = data;
                 }
             ),
 
             this.ConnectionService.getCurrentQueue(this.currParam).subscribe(
                 data => {
-                    
+                    this.currentQueue = data;
                 }
             ),
 
             this.ConnectionService.getTurnOverRatio(this.currParam).subscribe(
                 data => {
-                    
+                    this.turnOverRatio = data;
                 }
             ),
 
             this.ConnectionService.getIntradayLiquidityFacility(this.currParam).subscribe(
                 data => {
-                    
+                    this.intradayLiquidityFacility = data;
                 }
             ),
                     
