@@ -142,25 +142,30 @@ export class RtgsComponent {
 
             this.ConnectionService.getOperationalIndicators(this.currParam).subscribe(
                 data => {
-
+                    this.businessDay = "Morning 3";
+                    this.timeExt = "60 Menit";
                 }
             ),
 
             this.ConnectionService.getMembersConnectionStatus(this.currParam).subscribe(
                 data => {
-                    
+                    this.membersConnectionStatus = data;
                 }
             ),
 
             this.ConnectionService.getDisconnectedMember(this.currParam).subscribe(
                 data => {
-                    
+                    this.disconnectedMember = data;
                 }
             ),
 
             this.ConnectionService.getSurroundingStatus(this.currParam).subscribe(
                 data => {
-                    
+                    this.connHARTIS = true;
+                    this.connPVP = true;
+                    this.connSKNBI = true;
+                    this.connSOSA = true;
+                    this.connSSSS = true;
                 }
             ),
 

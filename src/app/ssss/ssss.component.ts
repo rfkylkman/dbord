@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Car } from 'app/domain/car';
 import { Total } from 'app/domain/total';
+import { exchangeRate } from 'app/domain/exchangeRate';
+import { errorCode } from 'app/domain/errorCode';
 import { ConnectionService} from 'app/services/ConnectionService';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -13,21 +15,46 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 export class SsssComponent {
 
           currParam : string = this.router.snapshot.queryParams["curr"];
-        
 
+          connOk: string = "assets/picture/ok.png";
+          connBad: string = "assets/picture/x.png";
+
+          statisticalIndicatorTable: Total[];
+          statisticalIndicatorChart: Total[];
+          exchangeRate : exchangeRate[];
+          errorInformation : errorCode[];
+
+          membersConnectionStatus : any;
+          disconnectedMember : any;
+        
+          //operational indicator
           businessDay : string = "Morning 2";
           timeExt : string = "30 Menit"
-  
 
+          //processing status
+          processingSpeed : string = "0.052";
+          processingSpeedStatus : string = "Normal";
+  
+          //surrounding status
           connHARTIS: boolean;
           connRTGS: boolean;
           connSOSA: boolean;
           connSKNBI: boolean;
           connETP: boolean;
 
+          //server status
+          dcStatus : boolean;
+          drcStatus : boolean;
+          replicationSpeed : any;
 
-          connOk: string = "assets/picture/ok.png";
-          connBad: string = "assets/picture/x.png";
+          //liquidity indicator
+          queueInsufficientSecurities: any;
+          queueInsufficientFund: any;
+          maturitySecurities: any;
+          couponPayment: any;
+
+
+          
 
 
           interval_satu: any;
@@ -58,79 +85,86 @@ export class SsssComponent {
 
             this.ConnectionService.getStatisticalIndicatorTable_SSSS(this.currParam).subscribe(
                 data => {
-                    
+                    this.statisticalIndicatorTable = data;
                 }
             ),
 
             this.ConnectionService.getStatisticalIndicatorChart_SSSS(this.currParam).subscribe(
                 data => {
-
+                    this.statisticalIndicatorChart = data;
                 }
             ),
 
             this.ConnectionService.getExchangeRate(this.currParam).subscribe(
                 data => {
-                    
+                    this.exchangeRate = data;
                 }
             ),
 
             this.ConnectionService.getErrorInformation_SSSS(this.currParam).subscribe(
                 data => {
-                    
+                    this.errorInformation = data;
                 }
             ),
 
             this.ConnectionService.getMembersConnectionStatus_SSSS(this.currParam).subscribe(
                 data => {
-                    
+                    this.membersConnectionStatus = data;
                 }
             ),
 
             this.ConnectionService.getDisconnectedMember_SSSS(this.currParam).subscribe(
                 data => {
-                    
+                    this.disconnectedMember = data;
                 }
             ),
 
             this.ConnectionService.getSurroundingStatus_SSSS(this.currParam).subscribe(
                 data => {
-                    
+                    this.connHARTIS = true;
+                    this.connRTGS = false;
+                    this.connSOSA = true;
+                    this.connSKNBI = true;
+                    this.connETP = true;
                 }
             ),
 
             this.ConnectionService.getProcessingStatus_SSSS(this.currParam).subscribe(
                 data => {
-                    
+                    this.processingSpeed = "0.052";
+                    this.processingSpeedStatus  = "Normal";
                 }
             ),
 
             this.ConnectionService.getServerStatus_SSSS(this.currParam).subscribe(
                 data => {
-                    
+                    this.drcStatus = true;
+                    this.dcStatus = true;
+                    this.replicationSpeed = "00:11:01";
                 }
             ),
 
             this.ConnectionService.getQueueInsufficientSecurities(this.currParam).subscribe(
                 data => {
-                    
+                    this.queueInsufficientSecurities = data;
                 }
             ),
 
             this.ConnectionService.getQueueInsufficientFund(this.currParam).subscribe(
                 data => {
-                    
+                    this.queueInsufficientFund = data;
                 }
             ),
 
             this.ConnectionService.getMaturitySecurities(this.currParam).subscribe(
                 data => {
-                    
+                    this.maturitySecurities = data;
                 }
             ),
 
             this.ConnectionService.getCouponPayment(this.currParam).subscribe(
                 data => {
-                    
+                    this.couponPayment = data;
                 }
             ),
                   
