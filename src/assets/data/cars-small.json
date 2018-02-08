@@ -8,11 +8,19 @@
             {"summary":"Total E", "volume":"2150","amount": 1000000}
         ],
 
-        "StatisticalIndicatorChart": [
-            {"summary":"Total A", "volume":"4150","amount": 5000110},
-            {"summary":"Total B", "volume":"6150","amount": 7000777},
-            {"summary":"Total C", "volume":"5150","amount": 6000000}
-        ],
+        "StatisticalIndicatorChart": {
+            "totalVolume": [
+                    {"period":"Previous Week", "volume":"4150"},
+                    {"period":"Previous Day", "volume":"6150"},
+                    {"period":"Today", "volume":"5150"}
+            ],
+            "totalAmount": [
+                    {"period":"Previous Week", "amount":"6150"},
+                    {"period":"Previous Day", "amount":"6150"},
+                    {"period":"Today", "amount":"5150"}
+            ]
+        
+        },
 
         "ErrorInformation": [
             {"brand": "VW", "year": 2012, "color": "Orange"},
@@ -25,10 +33,17 @@
         ],
 
         "Throughput": [
-            {"brand": "VW", "year": 2012, "color": "Orange"},
-            {"brand": "Audi", "year": 2011, "color": "Black"},
-            {"brand": "Renault", "year": 2005, "color": "Gray"}
+            {"period":"Previous Day", "block1": 40, "block2": 30, "block3": 30},
+            {"period":"Previous Week", "block1": 30, "block2": 40, "block3": 30},
+            {"period":"Today", "block1": 30, "block2": 30, "block3": 40}
         ],
+        
+        "truput2": [
+            {"period":"Previous Day", "block1": 40, "block2": 30, "block3": 30},
+            {"period":"Previous Week", "block1": 30, "block2": 40, "block3": 30},
+            {"period":"Today", "block1": 30, "block2": 30, "block3": 40}
+        ],
+
 
         "CurrentQueue": [
             {"brand": "VW", "year": 2012, "color": "Orange"},

@@ -24,6 +24,7 @@
     "@angular/router": "^4.2.0",
     "@types/node": "^6.0.96",
     "chart.js": "^2.7.1",
+    "chartjs-plugin-datalabels": "^0.2.0",
     "core-js": "^2.5.3",
     "font-awesome": "^4.7.0",
     "karma-jasmine": "^1.1.1",

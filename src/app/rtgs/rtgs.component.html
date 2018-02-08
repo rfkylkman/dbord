@@ -18,18 +18,19 @@
                         </p-dataTable>
                     </div>
                     <div class="rows">
-                            <div class="subContent-2-3">
-                                <p-chart type="horizontalBar" [data]="data3"></p-chart>
+                            <div class="subContent-2-3a">
+                                <p-chart type="horizontalBar" [data]="totalVolume" [options]='totalVolumeOption' height='85px'></p-chart>
                             </div>
-                            <div class="subContent-2-3">
-                                <p-chart type="horizontalBar" [data]="data3"></p-chart>
+                            <div class="subContent-2-3a">
+                                <p-chart type="horizontalBar" [data]="totalAmount" [options]='totalAmountOption' height='85px'></p-chart>
                             </div>
                         </div>
                 </div>
                 <div class="Content">
-                    <p style="margin-top: 0px; font-size: 14px;">
-                        <u>Supporting Information</u>
+                    <p style="margin-top: 0px; margin-bottom:0px;">
+                        <b>Supporting Information</b>
                     </p>
+                    <u style="font-size: 15px;">Error Information</u>
                     <div class="contain">
 
                         <p-dataTable id="headerTabel" class="ui-datatable" [value]="errorInformation" [responsive]="true" class="ui-datatable">
@@ -65,14 +66,14 @@
                             </table>
                         </div>
                         <div class="subContent-2" align="left">
-                            <p style="font-size: 14px;">
+                            <p style="font-size: 15px;">
                                 <u> Connection Status:</u>
                             </p>
                             <p-chart type="doughnut" [data]="data2"></p-chart>
                         </div>
 
                         <div class="subContent-3" align="left">
-                            <p style="font-size: 14px;">
+                            <p style="font-size: 15px;">
                                 <u>Disconnected Member :</u>
                             </p>
                             <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true" tableStyleClass="prime-table" class="ui-datatable">
@@ -85,7 +86,7 @@
                 </div>
 
                 <div class="Content" align="left">
-                    <p style="margin-top: 0px;  font-size: 14px;">
+                    <p style="margin-top: 0px;  font-size: 15px;">
                         <u>Surrrounding Connection Status</u>
                     </p>
                     <div class="Content" align="center" style="border: 0;">
@@ -146,7 +147,7 @@
                             <table>
                                 <tr>
                                     <td>
-                                        <u style="font-size: 14px;">Processing Status</u>
+                                        <u style="font-size: 15px;">Processing Status</u>
                                     </td>
                                 </tr>
                                 <tr>
@@ -163,7 +164,7 @@
                         </div>
                         <div class="subContent-3-2">
                             <table>
-                                <u style="font-size: 14px;">Server & Replication Status</u>
+                                <u style="font-size: 15px;">Server & Replication Status</u>
                             </table>
                             <div class="Content" style="border:0;" align="center">
                                 <table border="0">
@@ -192,11 +193,13 @@
                     <p style="margin-top: 0px; margin-bottom:0px;">
                         <b>Liquidity Indicator</b>
                     </p>
-
-                    <p-chart type="horizontalBar" [data]="data3"></p-chart>
-
+                    <u style="font-size: 15px;">Throughput</u>
+                    <p-chart type="horizontalBar" [data]="throughputChart" [options]='throughputOption' height='75px'></p-chart>
+                </div>
+                <div class="Content">
+                    <u style="font-size: 15px;">Current Queue</u>
                     <div class="contain">
-                        <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
+                        <p-dataTable [value]="cars" selectionMode="single" [responsive]="true" class="ui-datatable">
                             <p-column field="year" header="Year"></p-column>
                             <p-column field="brand" header="Brand"></p-column>
                             <p-column field="color" header="Color"></p-column>
@@ -205,11 +208,11 @@
                     </div>
                 </div>
                 <div class="Content">
-                    <u style="font-size: 14px;">Turn Over Ratio</u>
-                    <p-chart type="horizontalBar" [data]="data"></p-chart>
+                    <u style="font-size: 15px;">Turn Over Ratio</u>
+                    <p-chart type="horizontalBar" [data]="data" [options]='dataOption'></p-chart>
                 </div>
                 <div class="Content">
-                    <u style="font-size: 14px;">Intraday Liquidity Facility</u>
+                    <u style="font-size: 15px;">Intraday Liquidity Facility</u>
                     <div class="contain">
                         <p-dataTable id="headerTabel" [value]="cars" [responsive]="true" class="ui-datatable">
                             <p-column field="year" header="Year"></p-column>
