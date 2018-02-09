@@ -140,9 +140,16 @@ export class ConnectionService {
         .catch(this.handleError);
     }
 
-    getStatisticalIndicatorChart_SSSS(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorChart)
+    getStatisticalVolume_SSSS(itema: string): Observable<Car[]>{
+        return this.http.get('assets/data/cars-small.json')
+            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorChart.totalVolume)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getStatisticalAmount_SSSS(itema: string): Observable<Car[]>{
+        return this.http.get('assets/data/cars-small.json')
+            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorChart.totalAmount)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }

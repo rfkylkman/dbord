@@ -8,7 +8,7 @@
                   <div class="columnContent">
                       <div class="Content">
                           <p style="margin-top: 0px; margin-bottom:0px;"><b>Statistical Indicator</b></p>
-                          <div class="contain1">
+                          <div class="contain-fixed">
                               <p-dataTable 
                                   id="headerTabel"
                                   [value]="total"
@@ -24,22 +24,22 @@
                           <div class="rows">
                                 <div class="subContent-2-3a">
                                     
-                                        <p-chart type="horizontalBar" [data]="data3" height='85px'></p-chart>
+                                        <p-chart type="horizontalBar" [data]="totalVolume" [options]="totalVolumeOption" height='85px'></p-chart>
 
                                 </div>
                                 <div class="subContent-2-3a">
                                         
-                                        <p-chart type="horizontalBar" [data]="data3" height='85px'></p-chart>
+                                        <p-chart type="horizontalBar" [data]="totalAmount" [options]="totalAmountOption"  height='85px'></p-chart>
                                            
                                 </div>
                             </div>
                         </div>
                       
                       <div class="Content">
-                        <p style="margin-top: 0px; margin-bottom: 0px;"><b>Supporting Information</b></p>
-                        <p style="font-size: 15px;">
-                                <u>Exchange Rate</u>
-                            </p>
+                            <p style="margin-top: 0px; margin-bottom:0px;">
+                                    <b>Supporting Information</b>
+                                </p>
+                                <u style="font-size: 15px;">Exchange Rate</u>
                           <div class="contain" style="height:auto;">
                                   <p-dataTable 
                                       id="headerTabel"
@@ -53,9 +53,7 @@
                               </div> 
                       </div>
                       <div class="Content">
-                            <p style="font-size: 15px;">
-                                    <u>Error Information</u>
-                                </p>
+                            <u style="font-size: 15px;">Error Information</u>
                         <div class="contain" style="height:auto;">
                                 <p-dataTable 
                                     id="headerTabel"

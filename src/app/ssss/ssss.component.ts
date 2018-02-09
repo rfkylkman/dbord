@@ -20,9 +20,23 @@ export class SsssComponent {
           connBad: string = "assets/picture/x.png";
 
           statisticalIndicatorTable: Total[];
-          statisticalIndicatorChart: Total[];
-          exchangeRate : exchangeRate[];
-          errorInformation : errorCode[];
+          statisticalIndicatorChart: any[];
+
+          statisticalVolume: any;
+          totalVolume: any;
+          totalVolumeLabel: any;
+          totalVolumeData: any;
+          totalVolumeOption: any;
+
+          statisticalAmount: any;
+          totalAmount: any;
+          totalAmountLabel: any;
+          totalAmountData: any;
+          totalAmountOption: any;
+
+
+          exchangeRate : any[];
+          errorInformation : any[];
 
           membersConnectionStatus : any;
           disconnectedMember : any;
@@ -55,13 +69,7 @@ export class SsssComponent {
 
 
           
-
-
           interval_satu: any;
-          
-          selectedCar: Car;
-          
-          newCar: boolean;
       
           cars: Car[];
       
@@ -89,9 +97,84 @@ export class SsssComponent {
                 }
             ),
 
-            this.ConnectionService.getStatisticalIndicatorChart_SSSS(this.currParam).subscribe(
+            this.ConnectionService.getStatisticalVolume_SSSS(this.currParam).subscribe(
                 data => {
-                    this.statisticalIndicatorChart = data;
+                    this.statisticalVolume = data;
+                    this.totalVolumeLabel = this.statisticalVolume.map(item => item.period)
+                    this.totalVolumeData = this.statisticalVolume.map(item => item.volume)
+
+                    this.totalVolume = {
+                        labels: this.totalVolumeLabel,
+                        
+                        datasets: [
+                            {
+                                data: this.totalVolumeData,
+                                backgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB",
+                                    "#FFCE56"
+                                ]
+                            }]
+                        },
+                    this.totalVolumeOption = {
+                        legend: {
+                            display: false,
+                              labels: {
+                                display: false
+                              }
+                          },
+                        maintainAspectRatio: true,
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero:true
+                                }
+                            }]
+                        }
+                    }
+                }
+            ),
+
+            this.ConnectionService.getStatisticalAmount_SSSS(this.currParam).subscribe(
+                data => {
+                    this.statisticalAmount = data;
+                    this.totalAmountLabel = this.statisticalAmount.map(item => item.period)
+                    this.totalAmountData = this.statisticalAmount.map(item => item.amount)
+
+                    this.totalAmount = {
+                        labels: this.totalAmountLabel,
+                        datasets: [
+                            {
+                                data: this.totalAmountData,
+                                backgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB",
+                                    "#FFCE56"
+                                ],
+                                hoverBackgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB",
+                                    "#FFCE56"
+                                ]
+                            }]
+                        };
+                        this.totalAmountOption = {
+                            legend: {
+                                display: false,
+                                  labels: {
+                                    display: false
+                                  }
+                              },
+                            maintainAspectRatio: true,
+                            scales: {
+                                xAxes: [{
+                                    ticks: {
+                                        beginAtZero:true
+                                    }
+                                }]
+                            }
+                             
+                        }
                 }
             ),
 

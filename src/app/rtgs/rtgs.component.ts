@@ -162,11 +162,21 @@ export class RtgsComponent {
                           },
                         maintainAspectRatio: true,
                         scales: {
-                            yAxes: [{
+                            xAxes: [{
                                 ticks: {
                                     beginAtZero:true
                                 }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    display: false
+                                }
                             }]
+                        },
+                        title: {
+                            display: true,
+                            text: 'Total Volume',
+                            position: 'top'
                         }
                     }
                 }
@@ -204,11 +214,21 @@ export class RtgsComponent {
                               },
                             maintainAspectRatio: true,
                             scales: {
-                                yAxes: [{
+                                xAxes: [{
                                     ticks: {
                                         beginAtZero:true
                                     }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        display: false
+                                    }
                                 }]
+                            },
+                            title: {
+                                display: true,
+                                text: 'Total Amount',
+                                position: 'top'
                             }
                              
                         }
