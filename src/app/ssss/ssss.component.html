@@ -91,7 +91,7 @@
                                   </div>
                                   <div class="subContent-2" align="left">
                                           <p><u> Connection Status:</u></p>
-                                          <p-chart type="doughnut" [data]="data2"></p-chart>
+                                          <p-chart type="pie" [data]="connectionStatus" [options]="connectionStatusOption"></p-chart>
                                   </div>
                                   
                                   <div class="subContent-3" align="left">
@@ -132,7 +132,7 @@
                             <table>
                               <tr>
                                 <td><img src='assets/picture/sosa.png' width="65" height="33"></td>
-                                <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                <td><img [src]="connSOSA ? connOk : connBad" width="15" height="15"></td>
                                 <td rowspan="5"><img src='assets/picture/arrow3.png' width="30" height="180"></td>
                                 <td rowspan="5"><img src='assets/picture/core-SSSS.png' width="130" height="80"></td>
                               </tr>
@@ -142,15 +142,15 @@
                               </tr>
                               <tr>
                                 <td><img src='assets/picture/sknbi.png' width="65" height="33"></td>
-                                <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                <td><img [src]="connSKNBI ? connOk : connBad" width="15" height="15"></td>
                               </tr>
                               <tr>
                                 <td><img src='assets/picture/rtgs.png' width="65" height="33"></td>
-                                <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                <td><img [src]="connRTGS ? connOk : connBad" width="15" height="15"></td>
                               </tr>
                               <tr>
                                 <td><img src='assets/picture/etp.png' width="65" height="33"></td>
-                                <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                <td><img [src]="connETP ? connOk : connBad" width="15" height="15"></td>
                               </tr>
                             </table>
                           </div>

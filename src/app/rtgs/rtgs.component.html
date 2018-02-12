@@ -69,7 +69,7 @@
                             <p style="font-size: 15px;">
                                 <u> Connection Status:</u>
                             </p>
-                            <p-chart type="doughnut" [data]="data2"></p-chart>
+                            <p-chart type="pie" [data]="connectionStatus" [options]="connectionStatusOption"></p-chart>
                         </div>
 
                         <div class="subContent-3" align="left">
@@ -96,7 +96,7 @@
                                     <img src='assets/picture/sosa.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connSOSA ? connOk : connBad" width="15" height="15">
                                 </td>
                                 <td rowspan="5">
                                     <img src='assets/picture/arrow3.png' width="30" height="180">
@@ -118,7 +118,7 @@
                                     <img src='assets/picture/sknbi.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connSKNBI ? connOk : connBad" width="15" height="15">
                                 </td>
                             </tr>
                             <tr>
@@ -126,7 +126,7 @@
                                     <img src='assets/picture/ssss.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connSSSS ? connOk : connBad" width="15" height="15">
                                 </td>
                             </tr>
                             <tr>
@@ -134,7 +134,7 @@
                                     <img src='assets/picture/pvp.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connPVP ? connOk : connBad" width="15" height="15">
                                 </td>
                             </tr>
                         </table>

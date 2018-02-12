@@ -64,7 +64,11 @@ export class RtgsComponent {
           businessDay : string = "Morning 3";
           timeExt : string = "60 Menit"
           
-          membersConnectionStatus : any;
+          //membersConnectionStatus
+          connectionStatus: any;
+          connectionStatusLabel: any;
+          connectionStatusData: any;
+          connectionStatusOption: any;
           disconnectedMember : any;
 
           //surrounding status
@@ -177,7 +181,22 @@ export class RtgsComponent {
                             display: true,
                             text: 'Total Volume',
                             position: 'top'
-                        }
+                        },
+                        animation: {
+                            onComplete: function () {
+                                var chartInstance = this.chart,
+                                ctx = chartInstance.ctx;
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'bottom';
+                                this.data.datasets.forEach(function (dataset, i) {
+                                    var meta = chartInstance.controller.getDatasetMeta(i);
+                                    meta.data.forEach(function (bar, index) {
+                                        var data = dataset.data[index];
+                                        ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
+                                    });
+                                });
+                            }
+                        }   
                     }
                 }
             ),
@@ -229,6 +248,21 @@ export class RtgsComponent {
                                 display: true,
                                 text: 'Total Amount',
                                 position: 'top'
+                            },
+                            animation: {
+                                onComplete: function () {
+                                    var chartInstance = this.chart,
+                                    ctx = chartInstance.ctx;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'bottom';
+                                    this.data.datasets.forEach(function (dataset, i) {
+                                        var meta = chartInstance.controller.getDatasetMeta(i);
+                                        meta.data.forEach(function (bar, index) {
+                                            var data = dataset.data[index];
+                                            ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
+                                        });
+                                    });
+                                }
                             }
                              
                         }
@@ -250,7 +284,29 @@ export class RtgsComponent {
 
             this.ConnectionService.getMembersConnectionStatus(this.currParam).subscribe(
                 data => {
-                    this.membersConnectionStatus = data;
+                    this.connectionStatus = {
+                        labels: ['Connected','Disconnected'],
+                        datasets: [
+                            {
+                                data: [10, 2],
+                                backgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB"
+                                ],
+                                hoverBackgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB"
+                                ]
+                            }]    
+                        };
+                    this.connectionStatusOption = {
+                        legend: {
+                            display: false,
+                              labels: {
+                                display: false
+                              }
+                          }
+                    }
                 }
             ),
 
@@ -263,7 +319,7 @@ export class RtgsComponent {
             this.ConnectionService.getSurroundingStatus(this.currParam).subscribe(
                 data => {
                     this.connHARTIS = true;
-                    this.connPVP = true;
+                    this.connPVP = false;
                     this.connSKNBI = true;
                     this.connSOSA = true;
                     this.connSSSS = true;
@@ -357,11 +413,28 @@ export class RtgsComponent {
                                   labels: {
                                     display: false
                                   }
-                              }    
+                            },
+                            animation: {
+                                onComplete: function () {
+                                    var chartInstance = this.chart,
+                                    ctx = chartInstance.ctx;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'bottom';
+                                    this.data.datasets.forEach(function (dataset, i) {
+                                        var meta = chartInstance.controller.getDatasetMeta(i);
+                                        meta.data.forEach(function (bar, index) {
+                                            var data = dataset.data[index];
+                                            ctx.fillText(data + "%", bar._model.x - 14, bar._model.y + 8);
+                                        });
+                                    });
+                                }
+                            }     
                         
                         }
                 }
             ),
+
+            
 
             this.ConnectionService.getCurrentQueue(this.currParam).subscribe(
                 data => {
@@ -393,9 +466,6 @@ export class RtgsComponent {
                       }
                   )
 
-            this.connHARTIS = false;
-
-                  
 
                     var a = ['A','B','C','D','E','F','G'];
                         this.data = {
@@ -422,57 +492,15 @@ export class RtgsComponent {
                             }
                           ]
                         };
-                       /* this.dataOption = {
-                            scales: {
-                                xAxes: [{
-                                    stacked: true
-                                }],
-                                yAxes: [{
-                                    stacked: true
-                                }]
-                            }
-                        } */
-          
-          
-                      var aB = ['Connected','Disconnected'];
-                      this.data2 = {
-                          labels: aB,
-                          datasets: [
-                              {
-                                  data: [10, 2],
-                                  backgroundColor: [
-                                      "#FF6384",
-                                      "#36A2EB"
-                                  ],
-                                  hoverBackgroundColor: [
-                                      "#FF6384",
-                                      "#36A2EB"
-                                  ]
-                              }]    
-                          };
+
           }
 
-          /*getIP() {
-            this.ConnectionService.getIPaddress().subscribe(
-              data => {
-                this.ip = data;
-                this.ip = window.location.hostname;
-              }
-            )
-          } */
-
-          
-      
           ngOnInit() {
               //this.getIP();
               this.getData();
               this.interval_satu = setInterval(() => {
                   this.getData();
               },7500);
-              /*
-              this.ConnectionService.getCarsSmall().then(cars => this.cars = cars);
-              this.ConnectionService.getCarsSmaller().then(cars2 =>this.cars2 = cars2);
-              */
           }
             
           

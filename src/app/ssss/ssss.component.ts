@@ -38,7 +38,11 @@ export class SsssComponent {
           exchangeRate : any[];
           errorInformation : any[];
 
-          membersConnectionStatus : any;
+          //membersConnectionStatus
+          connectionStatus: any;
+          connectionStatusLabel: any;
+          connectionStatusData: any;
+          connectionStatusOption: any;
           disconnectedMember : any;
         
           //operational indicator
@@ -125,11 +129,21 @@ export class SsssComponent {
                           },
                         maintainAspectRatio: true,
                         scales: {
-                            yAxes: [{
+                            xAxes: [{
                                 ticks: {
                                     beginAtZero:true
                                 }
+                            }],
+                            yAxes: [{
+                                ticks: {
+                                    display: false
+                                }
                             }]
+                        },
+                        title: {
+                            display: true,
+                            text: 'Total Volume',
+                            position: 'top'
                         }
                     }
                 }
@@ -171,7 +185,17 @@ export class SsssComponent {
                                     ticks: {
                                         beginAtZero:true
                                     }
+                                }],
+                                yAxes: [{
+                                    ticks: {
+                                        display: false
+                                    }
                                 }]
+                            },
+                            title: {
+                                display: true,
+                                text: 'Total Amount',
+                                position: 'top'
                             }
                              
                         }
@@ -192,8 +216,31 @@ export class SsssComponent {
 
             this.ConnectionService.getMembersConnectionStatus_SSSS(this.currParam).subscribe(
                 data => {
-                    this.membersConnectionStatus = data;
+                    this.connectionStatus = {
+                        labels: ['Connected','Disconnected'],
+                        datasets: [
+                            {
+                                data: [10, 2],
+                                backgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB"
+                                ],
+                                hoverBackgroundColor: [
+                                    "#FF6384",
+                                    "#36A2EB"
+                                ]
+                            }]    
+                        };
+                    this.connectionStatusOption = {
+                        legend: {
+                            display: false,
+                              labels: {
+                                display: false
+                              }
+                          }
+                    }
                 }
+                
             ),
 
             this.ConnectionService.getDisconnectedMember_SSSS(this.currParam).subscribe(
@@ -268,27 +315,6 @@ export class SsssComponent {
                       }
                   )
 
-                  this.connHARTIS = false;
-      
-                  var a = ['A','B','C','D','E','F','G'];
-                  this.data = {
-                      labels: a,
-                      datasets: [
-                          {
-                              label: '.',
-                              backgroundColor: '#42A5F5',
-                              borderColor: '#1E88E5',
-                              data: [65, 59, 80, 81, 56, 55, 40]
-                          },
-                          {
-                              label: '.',
-                              backgroundColor: '#9CCC65',
-                              borderColor: '#7CB342',
-                              data: [28, 48, 40, 19, 86, 27, 90]
-                          }
-                      ]  
-                      };
-          
                   var z = ['A','B','C']
                   this.data3 = {
                       labels: z,
