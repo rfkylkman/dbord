@@ -120,6 +120,10 @@
             {"brand": "Audi", "year": 2015, "color": "Black"}
         ],
 
+        "ConnectionStatus": [
+            {"connected": 15, "disconnected": 3}
+        ],
+
         "DisconnectedMember": [
             {"brand": "VW", "year": 2012, "color": "Orange"},
             {"brand": "Audi", "year": 2015, "color": "Black"}

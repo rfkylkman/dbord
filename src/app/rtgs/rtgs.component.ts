@@ -69,7 +69,9 @@ export class RtgsComponent {
           connectionStatusLabel: any;
           connectionStatusData: any;
           connectionStatusOption: any;
-          disconnectedMember : any;
+          connected: any;
+          disconnected: any;
+          disconnectedMemberTable : any;
 
           //surrounding status
           connHARTIS: boolean;
@@ -79,8 +81,9 @@ export class RtgsComponent {
           connPVP : boolean;
           
           //processing status
-          processingSpeed : string = "0.052";
-          processingSpeedStatus : string = "Normal";
+          processingSpeed : any;
+          processingSpeedStatus : string;
+          processingSpeedColor: any ;
 
           //server status
           dcStatus : boolean;
@@ -306,13 +309,15 @@ export class RtgsComponent {
                                 display: false
                               }
                           }
-                    }
+                    };
+                    this.connected = 3;
+                    this.disconnected = 12;
                 }
             ),
 
             this.ConnectionService.getDisconnectedMember(this.currParam).subscribe(
                 data => {
-                    this.disconnectedMember = data;
+                    this.disconnectedMemberTable = data;
                 }
             ),
 
@@ -328,8 +333,18 @@ export class RtgsComponent {
 
             this.ConnectionService.getProcessingStatus(this.currParam).subscribe(
                 data => {
-                    this.processingSpeed = "0.052";
-                    this.processingSpeedStatus = "Normal";
+                    this.processingSpeed = 52;
+                    if(this.processingSpeed >= 300)
+                    {
+                        this.processingSpeedStatus = "Slow";
+                        this.processingSpeedColor = "#ff111d";
+                    }
+                    else{
+                        this.processingSpeedStatus = "Normal";
+                        this.processingSpeedColor = "#0cff85";
+                    }
+
+                    this.processingSpeed = this.processingSpeed + " ms";
                 }
             ),
 
@@ -414,7 +429,7 @@ export class RtgsComponent {
                                     display: false
                                   }
                             },
-                            animation: {
+                        animation: {
                                 onComplete: function () {
                                     var chartInstance = this.chart,
                                     ctx = chartInstance.ctx;

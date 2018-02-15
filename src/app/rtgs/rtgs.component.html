@@ -65,11 +65,28 @@
                                 </tr>
                             </table>
                         </div>
-                        <div class="subContent-2" align="left">
-                            <p style="font-size: 15px;">
-                                <u> Connection Status:</u>
-                            </p>
-                            <p-chart type="pie" [data]="connectionStatus" [options]="connectionStatusOption"></p-chart>
+                        <div class="subContent-2">
+                            <p style="font-size: 15px;"><u> Connection Status:</u></p>
+                            <div class="subContent-2-4" align="left">
+                                <table>
+                                    <tr>
+                                        <td style="font-size:13px;">Connected</td>
+                                        <td></td>
+                                        <td style="text-align: center;" bgColor="#FF6384">{{connected}}</td>
+                                    </tr>
+                                    <tr>
+                                            <td style="font-size:13px;">Disconnected</td>
+                                            <td></td>
+                                            <td style="text-align: center;" bgColor="#36A2EB">{{disconnected}}</td>
+                                    </tr>
+                                    <td rowspan="2"> 
+                                        
+                                    </td>
+                                </table>
+                            </div>
+                            <div class="subContent-2-5">
+                                <p-chart type="pie" [data]="connectionStatus" [options]="connectionStatusOption"></p-chart>
+                            </div>
                         </div>
 
                         <div class="subContent-3" align="left">
@@ -143,20 +160,20 @@
 
                 <div class="Content">
                     <div class="rows">
-                        <div class="subContent-2-2">
-                            <table>
+                        <div class="processingStatus">
+                            <table id="table">
                                 <tr>
                                     <td>
                                         <u style="font-size: 15px;">Processing Status</u>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="center" bgcolor="#aaffbf" height="80">
+                                    <td align="center" [style.background-color]="processingSpeedColor" height="80">
                                         <b>{{processingSpeed}}</b>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td align="center" bgcolor="#37fc68">
+                                    <td align="center" [style.background-color]="processingSpeedColor">
                                         {{processingSpeedStatus}}
                                     </td>
                                 </tr>

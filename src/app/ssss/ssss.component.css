@@ -90,6 +90,18 @@
     height: 100%;
 }
 
+.subContent-2-4{
+    float: left;
+    width: 53%;
+    height: 100%;
+}
+
+.subContent-2-5{
+    float: right;
+    width: 47%;
+    height: 100%;
+}
+
 .subContent-1{
     width: 100%;
     height: 50%;
@@ -186,6 +198,9 @@
     font-size: 15px;
 }
 
+#table td {
+    border-radius: 0.5em;
+  }
 
 
 

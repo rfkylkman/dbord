@@ -50,8 +50,9 @@ export class SsssComponent {
           timeExt : string = "30 Menit"
 
           //processing status
-          processingSpeed : string = "0.052";
-          processingSpeedStatus : string = "Normal";
+          processingSpeed : any;
+          processingSpeedStatus : string;;
+          processingSpeedColor: any ;
   
           //surrounding status
           connHARTIS: boolean;
@@ -67,9 +68,17 @@ export class SsssComponent {
 
           //liquidity indicator
           queueInsufficientSecurities: any;
+          queueInsufficientSecuritiesTotal: any;
+
           queueInsufficientFund: any;
+          queueInsufficientFundTotal: any;
+
           maturitySecurities: any;
+          maturitySecuritiesTotal: any;
+
           couponPayment: any;
+          couponPaymentTotal: any;
+         
 
 
           
@@ -109,7 +118,6 @@ export class SsssComponent {
 
                     this.totalVolume = {
                         labels: this.totalVolumeLabel,
-                        
                         datasets: [
                             {
                                 data: this.totalVolumeData,
@@ -144,6 +152,21 @@ export class SsssComponent {
                             display: true,
                             text: 'Total Volume',
                             position: 'top'
+                        },
+                        animation: {
+                            onComplete: function () {
+                                var chartInstance = this.chart,
+                                ctx = chartInstance.ctx;
+                                ctx.textAlign = 'center';
+                                ctx.textBaseline = 'bottom';
+                                this.data.datasets.forEach(function (dataset, i) {
+                                    var meta = chartInstance.controller.getDatasetMeta(i);
+                                    meta.data.forEach(function (bar, index) {
+                                        var data = dataset.data[index];
+                                        ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
+                                    });
+                                });
+                            }
                         }
                     }
                 }
@@ -196,6 +219,21 @@ export class SsssComponent {
                                 display: true,
                                 text: 'Total Amount',
                                 position: 'top'
+                            },
+                            animation: {
+                                onComplete: function () {
+                                    var chartInstance = this.chart,
+                                    ctx = chartInstance.ctx;
+                                    ctx.textAlign = 'center';
+                                    ctx.textBaseline = 'bottom';
+                                    this.data.datasets.forEach(function (dataset, i) {
+                                        var meta = chartInstance.controller.getDatasetMeta(i);
+                                        meta.data.forEach(function (bar, index) {
+                                            var data = dataset.data[index];
+                                            ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
+                                        });
+                                    });
+                                }
                             }
                              
                         }
@@ -268,9 +306,20 @@ export class SsssComponent {
 
             this.ConnectionService.getServerStatus_SSSS(this.currParam).subscribe(
                 data => {
-                    this.drcStatus = true;
-                    this.dcStatus = true;
-                    this.replicationSpeed = "00:11:01";
+
+                    this.processingSpeed = 52;
+
+                    if(this.processingSpeed >= 300)
+                    {
+                        this.processingSpeedStatus = "Slow";
+                        this.processingSpeedColor = "#ff111d";
+                    }
+                    else{
+                        this.processingSpeedStatus = "Normal";
+                        this.processingSpeedColor = "#0cff85";
+                    }
+
+                    this.processingSpeed = this.processingSpeed + " ms";
                 }
             ),
 

@@ -80,15 +80,28 @@
 
 .subContent-2-2{
     float: left;
-    width: 40%;
+    width: 50%;
     height: 100%;
 }
 
 .subContent-2-3{
     float: left;
-    width: 65%;
+    width: 50%;
     height: 100%;
 }
+
+.subContent-2-4{
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+
+.subContent-2-5{
+    float: right;
+    width: 50%;
+    height: 100%;
+}
+
 
 .subContent-1{
     width: 100%;
@@ -144,7 +157,11 @@
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
-
+.processingStatus {
+    float: left;
+    width: 40%;
+    height: 100%;
+}
 
 
 
@@ -188,6 +205,9 @@
     font-size: 15px;
 }
 
+#table td {
+    border-radius: 0.5em;
+  }
 
 
 
