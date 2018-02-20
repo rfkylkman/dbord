@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Car } from 'app/domain/car';
 import { Total } from 'app/domain/total';
 import { exchangeRate } from 'app/domain/exchangeRate';
@@ -10,7 +10,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'app-ssss',
   templateUrl: './ssss.component.html',
-  styleUrls: ['./ssss.component.css']
+  styleUrls: ['./ssss.component.css'],
+  encapsulation : ViewEncapsulation.None
 })
 export class SsssComponent {
 

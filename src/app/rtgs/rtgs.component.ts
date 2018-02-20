@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { Car } from 'app/domain/car';
 import { Total } from 'app/domain/total';
 import { currentQueue } from 'app/domain/currentQueue';
@@ -11,7 +11,8 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'app-rtgs',
   templateUrl: './rtgs.component.html',
-  styleUrls: ['./rtgs.component.css']
+  styleUrls: ['./rtgs.component.css'],
+  encapsulation : ViewEncapsulation.None
 })
 export class RtgsComponent {
 

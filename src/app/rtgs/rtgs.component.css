@@ -205,6 +205,16 @@
     font-size: 15px;
 }
 
+div.ui-widget-header.ui-datatable-scrollable-header {
+    position: sticky;
+    position: -webkit-sticky;
+    position: -moz-sticky;
+    position: -ms-sticky;
+    position: -o-sticky;
+    top: 0;
+    z-index: 100;
+}
+
 #table td {
     border-radius: 0.4em;
   }
