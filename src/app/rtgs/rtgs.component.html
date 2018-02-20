@@ -215,13 +215,30 @@
                 </div>
                 <div class="Content">
                     <u style="font-size: 15px;">Current Queue</u>
-                    <div class="contain">
-                        <p-dataTable [value]="cars" selectionMode="single" [responsive]="true" class="ui-datatable">
-                            <p-column field="year" header="Year"></p-column>
-                            <p-column field="brand" header="Brand"></p-column>
-                            <p-column field="color" header="Color"></p-column>
-                        </p-dataTable>
-
+                    <div class="rows">
+                        <table id="table">
+                            <tr>
+                                <td>
+                                    <div class="contain">
+                                                <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
+                                                        <p-column field="year" header="Year" ></p-column>
+                                                        <p-column field="brand" header="Brand" ></p-column>
+                                                        <p-column field="color" header="Color" ></p-column>
+                                                </p-dataTable>
+                                        </div>
+                                </td>
+                                <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
+                                    3
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                  Total Amount (Rp) [Total]
+                                </td>
+                            </tr>
+                                
+                        </table>                   
+                        
                     </div>
                 </div>
                 <div class="Content">

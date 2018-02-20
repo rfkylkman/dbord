@@ -287,7 +287,7 @@ export class RtgsComponent {
 
             this.ConnectionService.getMembersConnectionStatus(this.currParam).subscribe(
                 data => {
-                    this.connectionStatus = {
+                     this.connectionStatus = {
                         labels: ['Connected','Disconnected'],
                         datasets: [
                             {
@@ -312,6 +312,7 @@ export class RtgsComponent {
                     };
                     this.connected = 3;
                     this.disconnected = 12;
+               
                 }
             ),
 

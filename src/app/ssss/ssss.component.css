@@ -54,7 +54,7 @@
     background: #ffffff;
     padding: 5px;
     margin-top: 2px;
-    border: 1px solid #ffe6e6;
+    border: 1px transparent #ffe6e6;
     border-radius: 5px;
     height: 100%;
 }
@@ -62,7 +62,7 @@
 .Content{
     margin-top: 4px;
     padding: 5px;
-    border: 1px solid grey;
+    border: 1px solid #0036f9;
     border-radius: 5px;
 }
 
@@ -92,13 +92,13 @@
 
 .subContent-2-4{
     float: left;
-    width: 53%;
+    width: 50%;
     height: 100%;
 }
 
 .subContent-2-5{
     float: right;
-    width: 47%;
+    width: 50%;
     height: 100%;
 }
 
@@ -198,8 +198,10 @@
     font-size: 15px;
 }
 
+
+
 #table td {
-    border-radius: 0.5em;
+    border-radius: 0.4em;
   }
 
 

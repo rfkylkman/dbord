@@ -69,9 +69,11 @@ export class SsssComponent {
           //liquidity indicator
           queueInsufficientSecurities: any;
           queueInsufficientSecuritiesTotal: any;
+          queueInsufficientSecuritiesCount: any;
 
           queueInsufficientFund: any;
           queueInsufficientFundTotal: any;
+          queueInsufficientFundCount: any;
 
           maturitySecurities: any;
           maturitySecuritiesTotal: any;

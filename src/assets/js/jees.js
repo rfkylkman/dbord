@@ -10,6 +10,8 @@ $(document).ready(function() {
     getWidthHeader('table_fixed','table_scroll');
     
   });
+
+
   
  /** var my_time;
   function pageScroll() {

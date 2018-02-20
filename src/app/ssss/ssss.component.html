@@ -229,11 +229,11 @@
                           <p style="margin-top: 0px; margin-bottom:0px;"><b>Liquidity  Indicator</b></p>
                           <div class="rows">
                               <p style="margin-top: 0px;"><u>Queue Insufficient Securities :</u></p>
-                              <table>
+                              <table id="table">
                                   <tr>
                                       <td>
                                           <div class="contain">
-                                                      <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
+                                                      <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" scrollable="true" class="ui-datatable">
                                                               <p-column field="year" header="Year" ></p-column>
                                                               <p-column field="brand" header="Brand" ></p-column>
                                                               <p-column field="color" header="Color" ></p-column>
@@ -257,7 +257,7 @@
                       <div class="Content-LiquidIndicator-2-S4">
                               <div class="rows">
                                   <p style="margin-top: 0px;"><u>Queue Insufficient Fund :</u></p>
-                                  <table>
+                                  <table id="table">
                                       <tr>
                                           <td>
                                               <div class="contain">
