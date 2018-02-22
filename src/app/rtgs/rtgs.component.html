@@ -12,9 +12,11 @@
                     </p>
                     <div class="contain1">
                         <p-dataTable class="ui-datatable" id="headerTabel" [value]="statisticalIndicatorTable" [responsive]="true" class="ui-datatable">
-                            <p-column field="summary" header="Summary"></p-column>
-                            <p-column field="volume" header="Volume"></p-column>
-                            <p-column field="amount" header="Amount"></p-column>
+                            <p-column field="descripsion" header="Summary"></p-column>
+                            <p-column field="volume" [style]="{'width': '70px', 'text-align':'right'}" header="Volume"></p-column>
+                            <p-column field="amount" [style]="{'width': '150px'}" header="Amount">
+                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount}} </div></ng-template>
+                            </p-column>
                         </p-dataTable>
                     </div>
                     <div class="rows">
@@ -33,10 +35,10 @@
                     <u style="font-size: 15px;">Error Information</u>
                     <div class="contain">
 
-                        <p-dataTable id="headerTabel" class="ui-datatable" [value]="errorInformation" [responsive]="true" class="ui-datatable">
-                            <p-column field="year" header="Year"></p-column>
-                            <p-column field="brand" header="Brand"></p-column>
-                            <p-column field="color" header="Color"></p-column>
+                        <p-dataTable id="headerTabel" class="ui-datatable" [value]="errorInformation" [responsive]="true" scrollable="true" class="ui-datatable">
+                            <p-column field="code" header="Code"></p-column>
+                            <p-column field="description" header="Description"></p-column>
+                            <p-column field="time" header="Time"></p-column>
                         </p-dataTable>
                     </div>
                 </div>
@@ -55,6 +57,9 @@
                                     <td style="">Business Day</td>
                                     <td>
                                         <p-message severity="info" text={{businessDay}}></p-message>
+                                    </td>
+                                    <td>
+                                        {{today}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -93,10 +98,9 @@
                             <p style="font-size: 15px;">
                                 <u>Disconnected Member :</u>
                             </p>
-                            <p-dataTable id="headerTabel" class="ui-datatable" [value]="cars2" [responsive]="true" tableStyleClass="prime-table" class="ui-datatable">
-                                <p-column field="year" header="Year"></p-column>
-                                <p-column field="brand" header="Brand"></p-column>
-                                <p-column field="color" header="Color"></p-column>
+                            <p-dataTable id="headerTabel" class="ui-datatable" [value]="disconnectedMemberTable" [responsive]="true"  class="ui-datatable">
+                                <p-column field="bic" header="BIC"></p-column>
+                                <p-column field="lastConnected" header="Last Online"></p-column>
                             </p-dataTable>
                         </div>
                     </div>
@@ -220,20 +224,21 @@
                             <tr>
                                 <td>
                                     <div class="contain">
-                                                <p-dataTable [value]="cars" selectionMode="single" [(selection)]="selectedCar" (onRowSelect)="onRowSelect($event)" [responsive]="true" class="ui-datatable">
-                                                        <p-column field="year" header="Year" ></p-column>
-                                                        <p-column field="brand" header="Brand" ></p-column>
-                                                        <p-column field="color" header="Color" ></p-column>
+                                                <p-dataTable [value]="currentQueue" scrollable="true" class="ui-datatable">
+                                                        <p-column field="time" header="Time" ></p-column>
+                                                        <p-column field="bic" header="BIC" ></p-column>
+                                                        <p-column field="amount" header="Amount" ></p-column>
                                                 </p-dataTable>
                                         </div>
                                 </td>
                                 <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
-                                    3
+                                    {{currentQueueParticipant}}
+                                    Members
                                 </td>
                             </tr>
                             <tr>
                                 <td align="right">
-                                  Total Amount (Rp) [Total]
+                                  Total Amount (Rp) {{currentQueueTotal}}
                                 </td>
                             </tr>
                                 
@@ -243,16 +248,40 @@
                 </div>
                 <div class="Content">
                     <u style="font-size: 15px;">Turn Over Ratio</u>
-                    <p-chart type="horizontalBar" [data]="data" [options]='dataOption'></p-chart>
+                    <p-chart type="horizontalBar" [data]="data" [options]='dataOption'  height='130px'></p-chart>
                 </div>
                 <div class="Content">
                     <u style="font-size: 15px;">Intraday Liquidity Facility</u>
-                    <div class="contain">
-                        <p-dataTable id="headerTabel" [value]="cars" [responsive]="true" class="ui-datatable">
-                            <p-column field="year" header="Year"></p-column>
-                            <p-column field="brand" header="Brand"></p-column>
-                            <p-column field="color" header="Color"></p-column>
-                        </p-dataTable>
+                    <div class="rows">
+                        <table id="table">
+                            <tr>
+                                <td>
+                                    <div class="contain">
+                                                <p-dataTable [value]="intradayTable" scrollable="true" class="ui-datatable">
+                                                        <p-column field="bic" header="BIC" ></p-column>
+                                                        <p-column field="amount" header="Amount" ></p-column>
+                                                        <p-column field="paidStatus" [style]="{'width': '75px'}" header="Status" ></p-column>
+                                                </p-dataTable>
+                                        </div>
+                                </td>
+                                <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
+                                    {{intradayParticipant}}
+                                    Members
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                  Total Amount (Rp) {{intradayTotal1}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                  Total Amount (Rp) {{intradayTotal2}}
+                                </td>
+                            </tr>
+                                
+                        </table>                   
+                        
                     </div>
                 </div>
 

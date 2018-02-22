@@ -28,8 +28,8 @@ export class ConnectionService {
 // RTGS
 
     getStatisticalIndicatorTable(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorTable)
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/statistical/settlementsummary/'+itema)
+            .map((res:Response) => <Car[]> res.json().currentDay)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
@@ -55,44 +55,121 @@ export class ConnectionService {
             .catch(this.handleError);
     }
 
-    getErrorInformation(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].ErrorInformation)
+    getErrorInformation(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/statistical/supporterrorinfos')
+            .map((res:Response) => <any> res.json())
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getOperationalIndicators(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].OperationalIndicator)
+    getOperationalIndicators_windowTime(): Observable<string>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/businessday')
+            .map((res:Response) => <string> res.json().windowTime)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getMembersConnectionStatus(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].MembersConnectionStatus)
+    getOperationalIndicators_extended(): Observable<string>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/businessday')
+            .map((res:Response) => <string> res.json().extendedPeriod)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getDisconnectedMember(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].DisconnectedMember)
+    getOperationalIndicators_today(): Observable<string>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/businessday')
+            .map((res:Response) => <string> res.json().valueDate)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getSurroundingStatus(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].SurroundingStatus)
+    getDisconnectedMember(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/membersconnectionstatus')
+            .map((res:Response) => <any> res.json().disconnectedMembers)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getProcessingStatus(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].ProcessingStatus)
+    getMembersConnected(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/membersconnectionstatus')
+            .map((res:Response) => <any> res.json().numOfConnectedMembers)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getMembersDisconnected(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/membersconnectionstatus')
+            .map((res:Response) => <any> res.json().numOfDisconnectedMembers)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getPvpStatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/systemconnections')
+            .map((res:Response) => <any> res.json().pvpgateway)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getHartisstatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/systemconnections')
+            .map((res:Response) => <any> res.json().hartis)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getBIsosastatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/systemconnections')
+            .map((res:Response) => <any> res.json().bisosa)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getSKNstatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/systemconnections')
+            .map((res:Response) => <any> res.json().sknbi)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getS4status(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/systemconnections')
+            .map((res:Response) => <any> res.json().bissss)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getDCstatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/serverperformancestatus')
+            .map((res:Response) => <any> res.json().dcSystemStatus)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getActiveSystem(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/serverperformancestatus')
+            .map((res:Response) => <any> res.json().activeSystem)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getDRCstatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/serverperformancestatus')
+            .map((res:Response) => <any> res.json().drcSystemStatus)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getProcessingTime(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/serverperformancestatus')
+            .map((res:Response) => <any> res.json().processingTime)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getProcessingStatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/operational/serverperformancestatus')
+            .map((res:Response) => <any> res.json().processingStatus)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
@@ -105,18 +182,33 @@ export class ConnectionService {
     }
 
     getThroughput(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].Throughput)
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/throughputguideline/idr')
+            .map((res:Response) => <Car[]> res.json())
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getCurrentQueue(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].CurrentQueue)
+    getCurrentQueueTable(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/currentqueue/'+itema)
+            .map((res:Response) => <any> res.json().queueList)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
+
+    getCurrentQueueParticipant(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/currentqueue/'+itema)
+            .map((res:Response) => <any> res.json().numOfParticipants)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getCurrentQueueTotal(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/currentqueue/'+itema)
+            .map((res:Response) => <any> res.json().sumOfTransactions)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
 
     getTurnOverRatio(itema: string): Observable<Car[]>{
         return this.http.get('assets/data/cars-small.json')
@@ -125,9 +217,30 @@ export class ConnectionService {
             .catch(this.handleError);
     }
 
-    getIntradayLiquidityFacility(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].IntradayLiquidityFacility)
+    getIntradayTable(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/ilf/'+itema)
+            .map((res:Response) => <any> res.json().ilfTransactions)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getIntradayParticipant(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/ilf/'+itema)
+            .map((res:Response) => <any> res.json().ilfSummary.numOfParticipants)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getIntradayActiveTotal(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/ilf/'+itema)
+            .map((res:Response) => <any> res.json().ilfSummary.sumOfActiveItems)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getIntradayPaidTotal(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/ilf/'+itema)
+            .map((res:Response) => <any> res.json().ilfSummary.sumOfPaidItems)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }

@@ -6,6 +6,7 @@ import { turnOverRatio } from 'app/domain/turnOverRatio';
 import { intradayLiquidityFacility } from 'app/domain/intradayLiquidityFacility';
 import { ConnectionService} from 'app/services/ConnectionService';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
@@ -18,7 +19,8 @@ export class RtgsComponent {
 
           currParam : string = this.router.snapshot.queryParams["curr"];
 
-          ip : any = window.location.hostname;
+          ip : any;
+          ip2 : any;
 
 /*
           businessDay : string = "Morning 3";
@@ -56,14 +58,12 @@ export class RtgsComponent {
           totalAmountOption: any;
 
           errorInformation : Total[];
-          currentQueue : currentQueue[];
-          
-
-          intradayLiquidityFacility : intradayLiquidityFacility[];
 
           //operationalIndicator
-          businessDay : string = "Morning 3";
-          timeExt : string = "60 Menit"
+          operationalIndicator: any;
+          businessDay : string ;
+          timeExt : string ;
+          today : any ;
           
           //membersConnectionStatus
           connectionStatus: any;
@@ -87,6 +87,7 @@ export class RtgsComponent {
           processingSpeedColor: any ;
 
           //server status
+          activeSystem: any;
           dcStatus : boolean;
           drcStatus : boolean;
           replicationSpeed : any;
@@ -102,6 +103,11 @@ export class RtgsComponent {
           throughputDataBlock5: any;
           throughputChart: any;
           throughputOption: any;
+
+          //current queue
+          currentQueue : any;
+          currentQueueParticipant: any;
+          currentQueueTotal: any ;
           
           //turn over ratio
           turnOverModel : any;
@@ -109,6 +115,13 @@ export class RtgsComponent {
           turnOverRatioLabel: any;
           turnOverRatioData: any;
           turnOverRatioChart: any;
+
+          //intraday
+          intradayTable : any;
+          intradayDetail: any;
+          intradayParticipant: any;
+          intradayTotal1 : any;
+          intradayTotal2: any;
           
 
           data: any;
@@ -279,63 +292,113 @@ export class RtgsComponent {
                 }
             ),
 
-            this.ConnectionService.getOperationalIndicators(this.currParam).subscribe(
+            this.ConnectionService.getOperationalIndicators_windowTime().subscribe(
                 data => {
-                    this.businessDay = "Morning 3";
-                    this.timeExt = "60 Menit";
+                    this.businessDay = data
                 }
             ),
 
-            this.ConnectionService.getMembersConnectionStatus(this.currParam).subscribe(
+            this.ConnectionService.getOperationalIndicators_extended().subscribe(
                 data => {
-                     this.connectionStatus = {
+                    if (data == "0"){
+                        this.timeExt = "-"
+                    }
+                    else{
+                        this.timeExt = data;
+                    }
+                    
+                }
+            ),
+
+            this.ConnectionService.getOperationalIndicators_today().subscribe(
+                data => {
+                    this.today = data
+                }
+            ),
+
+            this.ConnectionService.getMembersConnected(this.currParam).subscribe(
+                data => {
+                    this.connected = data;
+                }
+            ),
+
+            this.ConnectionService.getMembersDisconnected(this.currParam).subscribe(
+                data => {
+                   //this.connected = data;
+                    this.disconnected = data;      
+                    
+                    
+                    this.connectionStatus = {
                         labels: ['Connected','Disconnected'],
                         datasets: [
                             {
-                                data: [10, 2],
+                                data: [this.connected,this.disconnected],
                                 backgroundColor: [
                                     "#FF6384",
                                     "#36A2EB"
-                                ],
-                                hoverBackgroundColor: [
-                                    "#FF6384",
-                                    "#36A2EB"
                                 ]
-                            }]    
+                            },
+                            
+                        ]    
                         };
-                    this.connectionStatusOption = {
-                        legend: {
-                            display: false,
-                              labels: {
-                                display: false
-                              }
-                          }
-                    };
-                    this.connected = 3;
-                    this.disconnected = 12;
-               
-                }
+                            this.connectionStatusOption = {
+                                legend: {
+                                    display: false,
+                                    labels: {
+                                        display: false
+                                    }
+                                }
+                            };
+                },
+                
             ),
-
+            
             this.ConnectionService.getDisconnectedMember(this.currParam).subscribe(
                 data => {
                     this.disconnectedMemberTable = data;
                 }
             ),
 
-            this.ConnectionService.getSurroundingStatus(this.currParam).subscribe(
+            this.ConnectionService.getPvpStatus().subscribe(
                 data => {
-                    this.connHARTIS = true;
-                    this.connPVP = false;
-                    this.connSKNBI = true;
-                    this.connSOSA = true;
-                    this.connSSSS = true;
+                    this.connPVP = data
                 }
             ),
 
-            this.ConnectionService.getProcessingStatus(this.currParam).subscribe(
+            this.ConnectionService.getPvpStatus().subscribe(
                 data => {
-                    this.processingSpeed = 52;
+                    this.connPVP = data
+                }
+            ),
+
+            this.ConnectionService.getHartisstatus().subscribe(
+                data => {
+                    this.connHARTIS = data
+                }
+            ),
+
+            this.ConnectionService.getBIsosastatus().subscribe(
+                data => {
+                    this.connSOSA = data
+                }
+            ),
+
+            this.ConnectionService.getSKNstatus().subscribe(
+                data => {
+                    this.connSKNBI = data
+                }
+            ),
+
+            this.ConnectionService.getS4status().subscribe(
+                data => {
+                    this.connSSSS = data
+                }
+            ),
+
+            this.ConnectionService.getProcessingTime().subscribe(
+                data => {
+                    this.processingSpeed = data;
+                    /*
                     if(this.processingSpeed >= 300)
                     {
                         this.processingSpeedStatus = "Slow";
@@ -345,8 +408,21 @@ export class RtgsComponent {
                         this.processingSpeedStatus = "Normal";
                         this.processingSpeedColor = "#0cff85";
                     }
-
+                    */
                     this.processingSpeed = this.processingSpeed + " ms";
+                }
+            ),
+
+            this.ConnectionService.getProcessingStatus().subscribe(
+                data => {
+                    this.processingSpeedStatus = data;
+                    if (this.processingSpeedStatus == "Normal")
+                    {
+                        this.processingSpeedColor = "#0cff85";
+                    }
+                    else{
+                        this.processingSpeedColor = "#ff111d";
+                    }
                 }
             ),
 
@@ -361,7 +437,7 @@ export class RtgsComponent {
             this.ConnectionService.getThroughput(this.currParam).subscribe(
                 data => {
                     this.throughput = data;
-                    this.throughputLabel = this.throughput.map(item => item.period);
+                    this.throughputLabel = this.throughput.map(item => item.Periode);
                     this.throughputDataBlock1 = this.throughput.map(item => item.block1);
                     this.throughputDataBlock2 = this.throughput.map(item => item.block2);
                     this.throughputDataBlock3 = this.throughput.map(item => item.block3);
@@ -453,9 +529,21 @@ export class RtgsComponent {
 
             
 
-            this.ConnectionService.getCurrentQueue(this.currParam).subscribe(
+            this.ConnectionService.getCurrentQueueTable(this.currParam).subscribe(
                 data => {
                     this.currentQueue = data;
+                }
+            ),
+
+            this.ConnectionService.getCurrentQueueParticipant(this.currParam).subscribe(
+                data => {
+                    this.currentQueueParticipant = data;
+                }
+            ),
+
+            this.ConnectionService.getCurrentQueueTotal(this.currParam).subscribe(
+                data => {
+                    this.currentQueueTotal = data;
                 }
             ),
 
@@ -465,11 +553,31 @@ export class RtgsComponent {
                 }
             ),
 
-            this.ConnectionService.getIntradayLiquidityFacility(this.currParam).subscribe(
+            this.ConnectionService.getIntradayTable(this.currParam).subscribe(
                 data => {
-                    this.intradayLiquidityFacility = data;
+                    this.intradayTable = data;
                 }
             ),
+
+            this.ConnectionService.getIntradayParticipant(this.currParam).subscribe(
+                data => {
+                    this.intradayParticipant = data
+                }
+            ),
+
+            this.ConnectionService.getIntradayActiveTotal(this.currParam).subscribe(
+                data => {
+                    this.intradayTotal1 = data
+                }
+            ),
+
+            this.ConnectionService.getIntradayPaidTotal(this.currParam).subscribe(
+                data => {
+                    this.intradayTotal2 = data
+                }
+            ),
+
+
                     
             
             this.ConnectionService.getDataDua(this.currParam).subscribe(
@@ -484,7 +592,7 @@ export class RtgsComponent {
                   )
 
 
-                    var a = ['A','B','C','D','E','F','G'];
+                    var a = ['A','B','C','D'];
                         this.data = {
                           labels: a,
                           datasets: [
