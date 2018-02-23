@@ -27,30 +27,30 @@ export class ConnectionService {
 
 // RTGS
 
-    getStatisticalIndicatorTable(itema: string): Observable<Car[]>{
+    getStatisticalIndicatorTable(itema: string): Observable<any>{
         return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/statistical/settlementsummary/'+itema)
-            .map((res:Response) => <Car[]> res.json().currentDay)
+            .map((res:Response) => <any> res.json().currentDay)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getStatisticalIndicatorChart(itema: string): Observable<Car[]>{
+    getStatisticalIndicatorChart(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorChart2)
+            .map((res:Response) => <any> res.json()[itema].StatisticalIndicatorChart2)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getStatisticalVolume(itema: string): Observable<Car[]>{
+    getStatisticalVolume(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorChart.totalVolume)
+            .map((res:Response) => <any> res.json()[itema].StatisticalIndicatorChart.totalVolume)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getStatisticalAmount(itema: string): Observable<Car[]>{
+    getStatisticalAmount(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorChart.totalAmount)
+            .map((res:Response) => <any> res.json()[itema].StatisticalIndicatorChart.totalAmount)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
@@ -174,16 +174,16 @@ export class ConnectionService {
             .catch(this.handleError);
     }
 
-    getServerStatus(itema: string): Observable<Car[]>{
+    getServerStatus(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].ServerStatus)
+            .map((res:Response) => <any> res.json()[itema].ServerStatus)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getThroughput(itema: string): Observable<Car[]>{
+    getThroughput(itema: string): Observable<any>{
         return this.http.get('http://10.205.19.78:8080/dashboard/api/rtgs/liquidity/throughputguideline/idr')
-            .map((res:Response) => <Car[]> res.json())
+            .map((res:Response) => <any> res.json())
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
@@ -210,9 +210,9 @@ export class ConnectionService {
     }
 
 
-    getTurnOverRatio(itema: string): Observable<Car[]>{
+    getTurnOverRatio(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].TurnOverRatio)
+            .map((res:Response) => <any> res.json()[itema].TurnOverRatio)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
@@ -244,123 +244,183 @@ export class ConnectionService {
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // SSSS
-    getStatisticalIndicatorTable_SSSS(itema: string): Observable<Car[]>{
-    return this.http.get('assets/data/cars-small1.json')
-        .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorTable)
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    getStatisticalIndicatorTable_SSSS(itema: string): Observable<any>{
+    return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/statistical/settlementsummary/'+itema)
+        .map((res:Response) => <any> res.json().currentDay)
         .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
         .catch(this.handleError);
     }
 
-    getStatisticalVolume_SSSS(itema: string): Observable<Car[]>{
+    getStatisticalVolume_SSSS(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorChart.totalVolume)
+            .map((res:Response) => <any> res.json()[itema].StatisticalIndicatorChart.totalVolume)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getStatisticalAmount_SSSS(itema: string): Observable<Car[]>{
+    getStatisticalAmount_SSSS(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].StatisticalIndicatorChart.totalAmount)
+            .map((res:Response) => <any> res.json()[itema].StatisticalIndicatorChart.totalAmount)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getExchangeRate(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].ExchangeRate)
+    getExchangeRate(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/statistical/exchangerateinfo')
+            .map((res:Response) => <any> res.json())
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getErrorInformation_SSSS(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].ErrorInformation)
+    getErrorInformation_SSSS(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/statistical/supporterrorinfos')
+            .map((res:Response) => <any> res.json())
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getOperationalIndicators_SSSS(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].OperationalIndicator)
+    getOperationalIndicators_windowTime_SSSS(): Observable<string>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/businessday')
+            .map((res:Response) => <string> res.json().windowTime)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getMembersConnectionStatus_SSSS(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].MembersConnectionStatus)
+    getOperationalIndicators_extended_SSSS(): Observable<string>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/businessday')
+            .map((res:Response) => <string> res.json().extendedPeriod)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getDisconnectedMember_SSSS(itema: string): Observable<Car[]>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].DisconnectedMember)
+    getOperationalIndicators_today_SSSS(): Observable<string>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/businessday')
+            .map((res:Response) => <string> res.json().valueDate)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getSurroundingStatus_SSSS(itema: string): Observable<Car[]>{
+    getDisconnectedMember_SSSS(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/membersconnectionstatus')
+            .map((res:Response) => <any> res.json().disconnectedMembers)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getMembersConnected_SSSS(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/membersconnectionstatus')
+            .map((res:Response) => <any> res.json().numOfConnectedMembers)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getMembersDisconnected_SSSS(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/membersconnectionstatus')
+            .map((res:Response) => <any> res.json().numOfDisconnectedMembers)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getETPstatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/systemconnections')
+            .map((res:Response) => <any> res.json().pvpgateway)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getRTGSstatus(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/systemconnections')
+            .map((res:Response) => <any> res.json().birtgs)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getHartisstatus_SSSS(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/systemconnections')
+            .map((res:Response) => <any> res.json().hartis)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getBIsosastatus_SSSS(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/systemconnections')
+            .map((res:Response) => <any> res.json().bisosa)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getSKNstatus_SSSS(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/systemconnections')
+            .map((res:Response) => <any> res.json().sknbi)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+
+
+    getSurroundingStatus_SSSS(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].SurroundingStatus)
+            .map((res:Response) => <any> res.json()[itema].SurroundingStatus)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
     
-    getProcessingStatus_SSSS(itema: string): Observable<Car[]>{
+    getProcessingStatus_SSSS(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].ProcessingStatus)
+            .map((res:Response) => <any> res.json()[itema].ProcessingStatus)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getServerStatus_SSSS(itema: string): Observable<Car[]>{
+    getServerStatus_SSSS(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].ServerStatus)
+            .map((res:Response) => <any> res.json()[itema].ServerStatus)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getQueueInsufficientSecurities(itema: string): Observable<Car[]>{
+    getQueueInsufficientSecurities(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].QueueInsufficientSecurities)
+            .map((res:Response) => <any> res.json()[itema].QueueInsufficientSecurities)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getQueueInsufficientFund(itema: string): Observable<Car[]>{
+    getQueueInsufficientFund(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].QueueInsufficientFund)
+            .map((res:Response) => <any> res.json()[itema].QueueInsufficientFund)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getMaturitySecurities(itema: string): Observable<Car[]>{
+    getMaturitySecurities(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].MaturitySecurities)
+            .map((res:Response) => <any> res.json()[itema].MaturitySecurities)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
     
-    getCouponPayment(itema: string): Observable<Car[]>{
+    getCouponPayment(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <Car[]> res.json()[itema].CouponPayment)
+            .map((res:Response) => <any> res.json()[itema].CouponPayment)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 // TEST
-    getDataSatu(itema: string): Observable<Car[]>{
+    getDataSatu(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].isi)
+            .map((res:Response) => <any> res.json()[itema].isi)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE
             .catch(this.handleError);
     }
 
-    getDataDua(itema: string): Observable<Car[]>{
+    getDataDua(itema: string): Observable<any>{
         return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Car[]> res.json()[itema].isi2)
+            .map((res:Response) => <any> res.json()[itema].isi2)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE
             .catch(this.handleError);
     }

@@ -11,25 +11,25 @@
                           <div class="contain-fixed">
                               <p-dataTable 
                                   id="headerTabel"
-                                  [value]="total"
+                                  [value]="statisticalIndicatorTable"
                                   [responsive]="true"
                                   class="ui-datatable">
-                                  <p-column field="summary" header="Summary" ></p-column>
-                                  <p-column field="volume" header="Volume" ></p-column>
-                                  <p-column field="amount" header="Amount" >
-
+                                  <p-column field="descripsion" header="Summary" ></p-column>
+                                  <p-column field="volume" [style]="{'width': '70px', 'text-align':'right'}" header="Volume" ></p-column>
+                                  <p-column field="amount" [style]="{'width': '150px'}" header="Amount" >
+                                    <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount}} </div></ng-template>
                                   </p-column>
                               </p-dataTable>
                           </div>
                           <div class="rows">
                                 <div class="subContent-2-3a">
                                     
-                                        <p-chart type="horizontalBar" [data]="totalVolume" [options]="totalVolumeOption" height='85px'></p-chart>
+                                        <p-chart type="horizontalBar" [data]="totalVolume" [options]="totalVolumeOption" height='70px'></p-chart>
 
                                 </div>
                                 <div class="subContent-2-3a">
                                         
-                                        <p-chart type="horizontalBar" [data]="totalAmount" [options]="totalAmountOption"  height='85px'></p-chart>
+                                        <p-chart type="horizontalBar" [data]="totalAmount" [options]="totalAmountOption"  height='70px'></p-chart>
                                            
                                 </div>
                             </div>
@@ -43,12 +43,12 @@
                           <div class="contain" style="height:auto;">
                                   <p-dataTable 
                                       id="headerTabel"
-                                      [value]="cars2"
+                                      [value]="exchangeRate"
                                       [responsive]="true"
                                       class="ui-datatable">
-                                      <p-column field="year" header="Year" ></p-column>
-                                      <p-column field="brand" header="Brand" ></p-column>
-                                      <p-column field="color" header="Color" ></p-column>
+                                      <p-column field="currency" header="Currency" ></p-column>
+                                      <p-column field="date" header="Date" ></p-column>
+                                      <p-column field="kurs" header="Kurs" ></p-column>
                                   </p-dataTable>
                               </div> 
                       </div>
@@ -57,12 +57,12 @@
                         <div class="contain" style="height:auto;">
                                 <p-dataTable 
                                     id="headerTabel"
-                                    [value]="cars2"
+                                    [value]="errorInformation"
                                     [responsive]="true"
                                     class="ui-datatable">
-                                    <p-column field="year" header="Year" ></p-column>
-                                    <p-column field="brand" header="Brand" ></p-column>
-                                    <p-column field="color" header="Color" ></p-column>
+                                    <p-column field="code" header="Code" ></p-column>
+                                    <p-column field="description" header="Description" ></p-column>
+                                    <p-column field="time" header="Time" ></p-column>
                                 </p-dataTable>
                             </div> 
                     </div>
@@ -96,12 +96,12 @@
                                                 <tr>
                                                     <td style="font-size:13px;">Connected</td>
                                                     <td></td>
-                                                    <td style="text-align: center;" bgColor="#FF6384">3</td>
+                                                    <td style="text-align: center;" bgColor="#FF6384">{{connected}}</td>
                                                 </tr>
                                                 <tr>
                                                         <td style="font-size:13px;">Disconnected</td>
                                                         <td></td>
-                                                        <td style="text-align: center;" bgColor="#36A2EB">12</td>
+                                                        <td style="text-align: center;" bgColor="#36A2EB">{{disconnected}}</td>
                                                 </tr>
                                                 <td rowspan="2"> 
                                                     
@@ -117,13 +117,12 @@
                                           <p style="font-size: 15px;"><u>Disconnected Member :</u></p>
                                           <p-dataTable 
                                           id="headerTabel"
-                                          [value]="cars2"
+                                          [value]="disconnectedMemberTable"
                                           [responsive]="true"
                                           tableStyleClass="prime-table"
                                           class="ui-datatable">
-                                          <p-column field="year" header="Year" ></p-column>
-                                          <p-column field="brand" header="Brand" ></p-column>
-                                          <p-column field="color" header="Color" ></p-column>
+                                          <p-column field="bic" header="BIC" ></p-column>
+                                          <p-column field="lastConnected" header="Last Online" ></p-column>
                                       </p-dataTable>
                                           <p-dialog id="isiTabel" header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
                                               <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="car">

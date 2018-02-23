@@ -1,4 +1,4 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation    } from '@angular/core';
 import { Car } from 'app/domain/car';
 import { Total } from 'app/domain/total';
 import { currentQueue } from 'app/domain/currentQueue';
@@ -20,7 +20,6 @@ export class RtgsComponent {
           currParam : string = this.router.snapshot.queryParams["curr"];
 
           ip : any;
-          ip2 : any;
 
 /*
           businessDay : string = "Morning 3";

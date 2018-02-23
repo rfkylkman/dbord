@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { RtgsComponent } from './rtgs/rtgs.component';
 import { SsssComponent } from './ssss/ssss.component';
 import { ConnectionService } from './services/ConnectionService';
+import { ConnectionServiceSSSS } from './services/ConnectionServiceSSSS';
 import { AuthGuard } from '../auth/authentication';
 
 

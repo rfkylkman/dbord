@@ -20,7 +20,7 @@ export class SsssComponent {
           connOk: string = "assets/picture/ok.png";
           connBad: string = "assets/picture/x.png";
 
-          statisticalIndicatorTable: Total[];
+          statisticalIndicatorTable: any[];
           statisticalIndicatorChart: any[];
 
           statisticalVolume: any;
@@ -44,11 +44,14 @@ export class SsssComponent {
           connectionStatusLabel: any;
           connectionStatusData: any;
           connectionStatusOption: any;
-          disconnectedMember : any;
+          connected: any;
+          disconnected: any;
+          disconnectedMemberTable : any;
         
           //operational indicator
-          businessDay : string = "Morning 2";
-          timeExt : string = "30 Menit"
+          businessDay : string ;
+          timeExt : string ;
+          today : string ;
 
           //processing status
           processingSpeed : any;
@@ -113,7 +116,7 @@ export class SsssComponent {
                 }
             ),
 
-            this.ConnectionService.getStatisticalVolume_SSSS(this.currParam).subscribe(
+            this.ConnectionService.getStatisticalVolume(this.currParam).subscribe(
                 data => {
                     this.statisticalVolume = data;
                     this.totalVolumeLabel = this.statisticalVolume.map(item => item.period)
@@ -175,7 +178,7 @@ export class SsssComponent {
                 }
             ),
 
-            this.ConnectionService.getStatisticalAmount_SSSS(this.currParam).subscribe(
+            this.ConnectionService.getStatisticalAmount(this.currParam).subscribe(
                 data => {
                     this.statisticalAmount = data;
                     this.totalAmountLabel = this.statisticalAmount.map(item => item.period)
@@ -243,88 +246,143 @@ export class SsssComponent {
                 }
             ),
 
-            this.ConnectionService.getExchangeRate(this.currParam).subscribe(
+            this.ConnectionService.getExchangeRate().subscribe(
                 data => {
                     this.exchangeRate = data;
                 }
             ),
 
-            this.ConnectionService.getErrorInformation_SSSS(this.currParam).subscribe(
+            this.ConnectionService.getErrorInformation_SSSS().subscribe(
                 data => {
                     this.errorInformation = data;
                 }
             ),
 
-            this.ConnectionService.getMembersConnectionStatus_SSSS(this.currParam).subscribe(
+            this.ConnectionService.getOperationalIndicators_windowTime_SSSS().subscribe(
                 data => {
+                    this.businessDay = data
+                }
+            ),
+
+            this.ConnectionService.getOperationalIndicators_extended_SSSS().subscribe(
+                data => {
+                    if (data == "0"){
+                        this.timeExt = "-"
+                    }
+                    else{
+                        this.timeExt = data;
+                    }
+                    
+                }
+            ),
+
+            this.ConnectionService.getOperationalIndicators_today_SSSS().subscribe(
+                data => {
+                    this.today = data
+                }
+            ),
+
+            this.ConnectionService.getMembersConnected_SSSS(this.currParam).subscribe(
+                data => {
+                    this.connected = data;
+                }
+            ),
+
+            this.ConnectionService.getMembersDisconnected_SSSS(this.currParam).subscribe(
+                data => {
+                   //this.connected = data;
+                    this.disconnected = data;      
+                    
+                    
                     this.connectionStatus = {
                         labels: ['Connected','Disconnected'],
                         datasets: [
                             {
-                                data: [10, 2],
+                                data: [this.connected,this.disconnected],
                                 backgroundColor: [
                                     "#FF6384",
                                     "#36A2EB"
-                                ],
-                                hoverBackgroundColor: [
-                                    "#FF6384",
-                                    "#36A2EB"
                                 ]
-                            }]    
+                            },
+                            
+                        ]    
                         };
-                    this.connectionStatusOption = {
-                        legend: {
-                            display: false,
-                              labels: {
-                                display: false
-                              }
-                          }
-                    }
-                }
+                            this.connectionStatusOption = {
+                                legend: {
+                                    display: false,
+                                    labels: {
+                                        display: false
+                                    }
+                                }
+                            };
+                },
                 
             ),
-
+            
             this.ConnectionService.getDisconnectedMember_SSSS(this.currParam).subscribe(
                 data => {
-                    this.disconnectedMember = data;
+                    this.disconnectedMemberTable = data;
                 }
             ),
 
-            this.ConnectionService.getSurroundingStatus_SSSS(this.currParam).subscribe(
+            this.ConnectionService.getETPstatus().subscribe(
                 data => {
-                    this.connHARTIS = true;
-                    this.connRTGS = false;
-                    this.connSOSA = true;
-                    this.connSKNBI = true;
-                    this.connETP = true;
+                    this.connETP = data
                 }
             ),
 
-            this.ConnectionService.getProcessingStatus_SSSS(this.currParam).subscribe(
+            this.ConnectionService.getHartisstatus_SSSS().subscribe(
                 data => {
-                    this.processingSpeed = "0.052";
-                    this.processingSpeedStatus  = "Normal";
+                    this.connHARTIS = data
                 }
             ),
 
-            this.ConnectionService.getServerStatus_SSSS(this.currParam).subscribe(
+            this.ConnectionService.getBIsosastatus_SSSS().subscribe(
                 data => {
+                    this.connSOSA = data
+                }
+            ),
 
-                    this.processingSpeed = 52;
+            this.ConnectionService.getSKNstatus_SSSS().subscribe(
+                data => {
+                    this.connSKNBI = data
+                }
+            ),
 
-                    if(this.processingSpeed >= 300)
-                    {
-                        this.processingSpeedStatus = "Slow";
-                        this.processingSpeedColor = "#ff111d";
-                    }
-                    else{
-                        this.processingSpeedStatus = "Normal";
-                        this.processingSpeedColor = "#0cff85";
-                    }
+            this.ConnectionService.getRTGSstatus().subscribe(
+                data => {
+                    this.connRTGS = data
+                }
+            ),
 
+            this.ConnectionService.getProcessingTime().subscribe(
+                data => {
+                    this.processingSpeed = data;
                     this.processingSpeed = this.processingSpeed + " ms";
                 }
             ),
+
+            this.ConnectionService.getProcessingStatus().subscribe(
+                data => {
+                    this.processingSpeedStatus = data;
+                    if (this.processingSpeedStatus == "Normal")
+                    {
+                        this.processingSpeedColor = "#0cff85";
+                    }
+                    else{
+                        this.processingSpeedColor = "#ff111d";
+                    }
+                }
+            ),
+
+            this.ConnectionService.getServerStatus(this.currParam).subscribe(
+                data => {
+                    this.dcStatus = true;
+                    this.drcStatus = true;
+                    this.replicationSpeed = "";
+                }
+            ),
+
 
             this.ConnectionService.getQueueInsufficientSecurities(this.currParam).subscribe(
                 data => {
