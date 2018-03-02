@@ -17,6 +17,8 @@ export class SsssComponent {
 
           currParam : string = this.router.snapshot.queryParams["curr"];
 
+          ip : any = window.location.hostname;
+
           connOk: string = "assets/picture/ok.png";
           connBad: string = "assets/picture/x.png";
 
@@ -73,11 +75,11 @@ export class SsssComponent {
           //liquidity indicator
           queueInsufficientSecurities: any;
           queueInsufficientSecuritiesTotal: any;
-          queueInsufficientSecuritiesCount: any;
+          queueInsufficientSecuritiesMember: any;
 
           queueInsufficientFund: any;
           queueInsufficientFundTotal: any;
-          queueInsufficientFundCount: any;
+          queueInsufficientFundMember: any;
 
           maturitySecurities: any;
           maturitySecuritiesTotal: any;
@@ -355,14 +357,14 @@ export class SsssComponent {
                 }
             ),
 
-            this.ConnectionService.getProcessingTime().subscribe(
+            this.ConnectionService.getProcessingTime_SSSS().subscribe(
                 data => {
                     this.processingSpeed = data;
                     this.processingSpeed = this.processingSpeed + " ms";
                 }
             ),
 
-            this.ConnectionService.getProcessingStatus().subscribe(
+            this.ConnectionService.getProcessingStatus_SSSS().subscribe(
                 data => {
                     this.processingSpeedStatus = data;
                     if (this.processingSpeedStatus == "Normal")
@@ -390,21 +392,57 @@ export class SsssComponent {
                 }
             ),
 
+            this.ConnectionService.getQueueInsufficientSecuritiesMember(this.currParam).subscribe(
+                data => {
+                    this.queueInsufficientSecuritiesMember = data;
+                }
+            ),
+
+            this.ConnectionService.getQueueInsufficientSecuritiesTotal(this.currParam).subscribe(
+                data => {
+                    this.queueInsufficientSecuritiesTotal = data;
+                }
+            ),
+
             this.ConnectionService.getQueueInsufficientFund(this.currParam).subscribe(
                 data => {
                     this.queueInsufficientFund = data;
                 }
             ),
 
-            this.ConnectionService.getMaturitySecurities(this.currParam).subscribe(
+            this.ConnectionService.getQueueInsufficientFundMember(this.currParam).subscribe(
+                data => {
+                    this.queueInsufficientFundMember = data;
+                }
+            ),
+
+            this.ConnectionService.getQueueInsufficientFundTotal(this.currParam).subscribe(
+                data => {
+                    this.queueInsufficientFundTotal = data;
+                }
+            ),
+
+            this.ConnectionService.getMaturitySecurities().subscribe(
                 data => {
                     this.maturitySecurities = data;
                 }
             ),
 
-            this.ConnectionService.getCouponPayment(this.currParam).subscribe(
+            this.ConnectionService.getMaturitySecuritiesTotal().subscribe(
+                data => {
+                    this.maturitySecuritiesTotal = data;
+                }
+            ),
+
+            this.ConnectionService.getCouponPayment().subscribe(
                 data => {
                     this.couponPayment = data;
+                }
+            ),
+
+            this.ConnectionService.getCouponPaymentTotal().subscribe(
+                data => {
+                    this.couponPaymentTotal = data;
                 }
             ),
                   
@@ -467,7 +505,7 @@ export class SsssComponent {
               this.getData();
               this.interval_satu = setInterval(() => {
                   this.getData();
-              },2500);
+              },7500);
   
           }
 

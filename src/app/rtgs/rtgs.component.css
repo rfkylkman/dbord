@@ -146,7 +146,8 @@
 
 .contain {
     height: 83px;  
-    overflow-y: scroll;  
+    overflow-y: hidden;
+    overflow-x: hidden;  
   }
 
 .contain-fixed {
@@ -213,6 +214,16 @@ div.ui-widget-header.ui-datatable-scrollable-header {
     position: -o-sticky;
     top: 0;
     z-index: 100;
+}
+
+#orangeTable .ui-datatable .ui-datatable-thead > tr > th {
+    background: #ffa10a;
+    color: white;
+}
+
+#blueTable .ui-datatable .ui-datatable-thead > tr > th {
+    background: #1569ef;
+    color: white;
 }
 
 

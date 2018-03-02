@@ -11,7 +11,7 @@
                         <b>Statistical Indicator</b>
                     </p>
                     <div class="contain1">
-                        <p-dataTable class="ui-datatable" id="headerTabel" [value]="statisticalIndicatorTable" [responsive]="true" class="ui-datatable">
+                        <p-dataTable class="ui-datatable" id="blueTable" [value]="statisticalIndicatorTable" [responsive]="true" class="ui-datatable">
                             <p-column field="descripsion" header="Summary"></p-column>
                             <p-column field="volume" [style]="{'width': '70px', 'text-align':'right'}" header="Volume"></p-column>
                             <p-column field="amount" [style]="{'width': '150px'}" header="Amount">
@@ -35,7 +35,7 @@
                     <u style="font-size: 15px;">Error Information</u>
                     <div class="contain">
 
-                        <p-dataTable id="headerTabel" class="ui-datatable" [value]="errorInformation" [responsive]="true" scrollable="true" class="ui-datatable">
+                        <p-dataTable id="blueTable" class="ui-datatable" [value]="errorInformation" [responsive]="true" scrollable="true" class="ui-datatable">
                             <p-column field="code" header="Code"></p-column>
                             <p-column field="description" header="Description"></p-column>
                             <p-column field="time" header="Time"></p-column>
@@ -52,14 +52,13 @@
                             <p style="margin-top: 0px; margin-bottom:0px;">
                                 <b>Operational Indicator</b>
                             </p>
+                            <span  [style]="{'text-align':'right'}">{{today}}</span>
+                    
                             <table>
                                 <tr>
                                     <td style="">Business Day</td>
                                     <td>
                                         <p-message severity="info" text={{businessDay}}></p-message>
-                                    </td>
-                                    <td>
-                                        {{today}}
                                     </td>
                                 </tr>
                                 <tr>
@@ -98,10 +97,12 @@
                             <p style="font-size: 15px;">
                                 <u>Disconnected Member :</u>
                             </p>
-                            <p-dataTable id="headerTabel" class="ui-datatable" [value]="disconnectedMemberTable" [responsive]="true"  class="ui-datatable">
-                                <p-column field="bic" header="BIC"></p-column>
-                                <p-column field="lastConnected" header="Last Online"></p-column>
-                            </p-dataTable>
+                            <div class="contain">
+                                <p-dataTable id="orangeTable" class="ui-datatable" [value]="disconnectedMemberTable" scrollable="true"  class="ui-datatable">
+                                    <p-column field="bic" header="BIC"></p-column>
+                                    <p-column field="lastConnected" header="Last Online"></p-column>
+                                </p-dataTable>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -224,7 +225,7 @@
                             <tr>
                                 <td>
                                     <div class="contain">
-                                                <p-dataTable [value]="currentQueue" scrollable="true" class="ui-datatable">
+                                                <p-dataTable id="orangeTable" [value]="currentQueue" scrollable="true" class="ui-datatable">
                                                         <p-column field="time" header="Time" ></p-column>
                                                         <p-column field="bic" header="BIC" ></p-column>
                                                         <p-column field="amount" header="Amount" ></p-column>
@@ -232,8 +233,8 @@
                                         </div>
                                 </td>
                                 <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
-                                    {{currentQueueParticipant}}
-                                    Members
+                                        <span style="color: white; font-size: 40px;">{{currentQueueParticipant}}</span>
+                                        <span style="color: white; font-size: 15px;">Member</span>
                                 </td>
                             </tr>
                             <tr>
@@ -257,7 +258,7 @@
                             <tr>
                                 <td>
                                     <div class="contain">
-                                                <p-dataTable [value]="intradayTable" scrollable="true" class="ui-datatable">
+                                                <p-dataTable id="orangeTable" [value]="intradayTable" scrollable="true" class="ui-datatable">
                                                         <p-column field="bic" header="BIC" ></p-column>
                                                         <p-column field="amount" header="Amount" ></p-column>
                                                         <p-column field="paidStatus" [style]="{'width': '75px'}" header="Status" ></p-column>
@@ -265,8 +266,8 @@
                                         </div>
                                 </td>
                                 <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
-                                    {{intradayParticipant}}
-                                    Members
+                                        <span style="color: white; font-size: 40px;">{{intradayParticipant}}</span>
+                                        <span style="color: white; font-size: 15px;">Members</span>
                                 </td>
                             </tr>
                             <tr>

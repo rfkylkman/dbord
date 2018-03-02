@@ -144,8 +144,9 @@
 }
 
 .contain {
-    height: 83px;  
-    overflow-y: scroll;  
+    height: 80px;  
+    overflow-y: hidden;  
+    overflow-x: hidden;  
   }
 
 .processingStatus {
@@ -200,13 +201,24 @@
 
 div.ui-widget-header.ui-datatable-scrollable-header {
     position: sticky;
-    position: -webkit-sticky;
     position: -moz-sticky;
     position: -ms-sticky;
     position: -o-sticky;
     top: 0;
     z-index: 100;
 }
+
+
+#orangeTable .ui-datatable .ui-datatable-thead > tr > th {
+    background: #ffa10a;
+    color: white;
+}
+
+#blueTable .ui-datatable .ui-datatable-thead > tr > th {
+    background: #1569ef;
+    color: white;
+}
+
 
 #table td {
     border-radius: 0.4em;

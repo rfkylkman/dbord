@@ -9,8 +9,9 @@
                       <div class="Content">
                           <p style="margin-top: 0px; margin-bottom:0px;"><b>Statistical Indicator</b></p>
                           <div class="contain-fixed">
+                              
                               <p-dataTable 
-                                  id="headerTabel"
+                                  id="blueTable"
                                   [value]="statisticalIndicatorTable"
                                   [responsive]="true"
                                   class="ui-datatable">
@@ -24,12 +25,12 @@
                           <div class="rows">
                                 <div class="subContent-2-3a">
                                     
-                                        <p-chart type="horizontalBar" [data]="totalVolume" [options]="totalVolumeOption" height='70px'></p-chart>
+                                        <p-chart type="horizontalBar" [data]="totalVolume" [options]="totalVolumeOption" height='75px'></p-chart>
 
                                 </div>
                                 <div class="subContent-2-3a">
                                         
-                                        <p-chart type="horizontalBar" [data]="totalAmount" [options]="totalAmountOption"  height='70px'></p-chart>
+                                        <p-chart type="horizontalBar" [data]="totalAmount" [options]="totalAmountOption"  height='75px'></p-chart>
                                            
                                 </div>
                             </div>
@@ -42,13 +43,13 @@
                                 <u style="font-size: 15px;">Exchange Rate</u>
                           <div class="contain" style="height:auto;">
                                   <p-dataTable 
-                                      id="headerTabel"
+                                      id="orangeTable"
                                       [value]="exchangeRate"
                                       [responsive]="true"
                                       class="ui-datatable">
                                       <p-column field="currency" header="Currency" ></p-column>
                                       <p-column field="date" header="Date" ></p-column>
-                                      <p-column field="kurs" header="Kurs" ></p-column>
+                                      <p-column field="kurs" [style]="{'text-align':'center'}" header="Kurs" ></p-column>
                                   </p-dataTable>
                               </div> 
                       </div>
@@ -56,7 +57,7 @@
                             <u style="font-size: 15px;">Error Information</u>
                         <div class="contain" style="height:auto;">
                                 <p-dataTable 
-                                    id="headerTabel"
+                                    id="blueTable"
                                     [value]="errorInformation"
                                     [responsive]="true"
                                     class="ui-datatable">
@@ -115,31 +116,17 @@
                                   
                                   <div class="subContent-3" align="left">
                                           <p style="font-size: 15px;"><u>Disconnected Member :</u></p>
-                                          <p-dataTable 
-                                          id="headerTabel"
-                                          [value]="disconnectedMemberTable"
-                                          [responsive]="true"
-                                          tableStyleClass="prime-table"
-                                          class="ui-datatable">
-                                          <p-column field="bic" header="BIC" ></p-column>
-                                          <p-column field="lastConnected" header="Last Online" ></p-column>
-                                      </p-dataTable>
-                                          <p-dialog id="isiTabel" header="Car Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true">
-                                              <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="car">
-                                                  <div class="ui-grid-row">
-                                                      <div class="ui-grid-col-4"><label for="year">Year</label></div>
-                                                      <div class="ui-grid-col-8"><input pInputText id="year" [(ngModel)]="car.year" /></div>
-                                                  </div>
-                                                  <div class="ui-grid-row">
-                                                      <div class="ui-grid-col-4"><label for="brand">Brand</label></div>
-                                                      <div class="ui-grid-col-8"><input pInputText id="brand" [(ngModel)]="car.brand" /></div>
-                                                  </div>
-                                                  <div class="ui-grid-row">
-                                                      <div class="ui-grid-col-4"><label for="color">Color</label></div>
-                                                      <div class="ui-grid-col-8"><input pInputText id="color" [(ngModel)]="car.color" /></div>
-                                                  </div>
-                                              </div>
-                                          </p-dialog>
+                                          <div class="contain">
+                                            <p-dataTable 
+                                            id="orangeTable"
+                                            [value]="disconnectedMemberTable"
+                                            [responsive]="true"
+                                            scrollable="true"
+                                            class="ui-datatable">
+                                            <p-column field="bic" header="BIC" ></p-column>
+                                            <p-column field="lastConnected" [style]="{'font-size' :'13px'}" header="Last Online" ></p-column>
+                                            </p-dataTable>
+                                          </div>
                                   </div>
                               </div>
                           </div>
@@ -203,6 +190,7 @@
                                   </table>
                                   <div class="Content" style="border:0;" align="center">
                                   <table border="0">
+
                                       <tr>
                                           <td>
                                               <img src='assets/picture/server.png' width="50" height="50">
@@ -232,20 +220,21 @@
                                   <tr>
                                       <td>
                                           <div class="contain">
-                                                      <p-dataTable [value]="cars" scrollable="true" class="ui-datatable">
-                                                              <p-column field="year" header="Year" ></p-column>
-                                                              <p-column field="brand" header="Brand" ></p-column>
-                                                              <p-column field="color" header="Color" ></p-column>
+                                                      <p-dataTable id="orangeTable" [value]="queueInsufficientSecurities" scrollable="true" class="ui-datatable">
+                                                        <p-column field="bic" header="BIC" ></p-column>
+                                                        <p-column field="time" header="Time" ></p-column>
+                                                        <p-column field="amount" header="Amount" ></p-column>
                                                       </p-dataTable>
                                               </div>
                                       </td>
                                       <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
-                                          3
+                                          <span style="color: white; font-size: 40px;">{{queueInsufficientSecuritiesMember}}</span>
+                                          <span style="color: white; font-size: 15px;">Member</span>
                                       </td>
                                   </tr>
                                   <tr>
                                       <td align="right">
-                                          Total Amount (Rp) [Total]
+                                          Total Amount (Rp) {{queueInsufficientSecuritiesTotal}}
                                       </td>
                                   </tr>
                                       
@@ -260,20 +249,21 @@
                                       <tr>
                                           <td>
                                               <div class="contain">
-                                                          <p-dataTable [value]="cars" scrollable="true" class="ui-datatable">
-                                                                  <p-column field="year" header="Year" ></p-column>
-                                                                  <p-column field="brand" header="Brand" ></p-column>
-                                                                  <p-column field="color" header="Color" ></p-column>
+                                                          <p-dataTable id="orangeTable" [value]="queueInsufficientFund" scrollable="true" headerCssclass="ui-datatable">
+                                                                  <p-column field="bic" header="BIC" ></p-column>
+                                                                  <p-column field="time" header="Time" ></p-column>
+                                                                  <p-column field="amount" header="Amount" ></p-column>
                                                           </p-dataTable>
                                                   </div>
                                           </td>
                                           <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
-                                              3
+                                              <span style="color: white; font-size: 40px;">{{queueInsufficientFundMember}}</span>
+                                              <span style="color: white; font-size: 15px;">Member</span>
                                           </td>
                                       </tr>
                                       <tr>
                                           <td align="right">
-                                            Total Amount (Rp) [Total]
+                                            Total Amount (Rp) {{queueInsufficientFundTotal}}
                                           </td>
                                       </tr>
                                           
@@ -288,10 +278,10 @@
                                           <tr>
                                               <td>
                                                   <div class="contain">
-                                                              <p-dataTable [value]="cars"scrollable="true" class="ui-datatable">
-                                                                      <p-column field="year" header="Year" ></p-column>
-                                                                      <p-column field="brand" header="Brand" ></p-column>
-                                                                      <p-column field="color" header="Color" ></p-column>
+                                                              <p-dataTable id="orangeTable" [value]="maturitySecurities" scrollable="true" class="ui-datatable">
+                                                                <p-column field="instrumentCode" header="Code" ></p-column>
+                                                                <p-column field="date" header="Date" ></p-column>
+                                                                <p-column field="amount" header="Amount" ></p-column>
                                                               </p-dataTable>
                                                       </div>
                                               </td>
@@ -299,7 +289,7 @@
                                           </tr>
                                           <tr>
                                               <td align="right">
-                                                    Total Amount (Rp) [Total]
+                                                    Total Amount (Rp) {{maturitySecuritiesTotal}}
                                               </td>
                                           </tr>
                                               
@@ -314,17 +304,17 @@
                                               <tr>
                                                   <td>
                                                       <div class="contain">
-                                                                  <p-dataTable [value]="cars" scrollable="true" class="ui-datatable">
-                                                                          <p-column field="year" header="Year" ></p-column>
-                                                                          <p-column field="brand" header="Brand" ></p-column>
-                                                                          <p-column field="color" header="Color" ></p-column>
+                                                                  <p-dataTable id="orangeTable" [value]="couponPayment" scrollable="true" class="ui-datatable">
+                                                                          <p-column field="instrumentCode" header="Code" ></p-column>
+                                                                          <p-column field="date" header="Date" ></p-column>
+                                                                          <p-column field="amount" header="Amount" ></p-column>
                                                                   </p-dataTable>
                                                           </div>
                                                   </td>
                                               </tr>
                                               <tr>
                                                   <td align="right">
-                                                        Total Amount (Rp) [Total]
+                                                        Total Amount (Rp) {{couponPaymentTotal}}
                                                   </td>
                                               </tr>
                                                   

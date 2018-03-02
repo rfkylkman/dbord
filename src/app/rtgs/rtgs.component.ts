@@ -284,12 +284,13 @@ export class RtgsComponent {
                         }
                 }
             ),
-
+            /*
             this.ConnectionService.getErrorInformation(this.currParam).subscribe(
                 data => {
                     this.errorInformation = data;
                 }
             ),
+            */
 
             this.ConnectionService.getOperationalIndicators_windowTime().subscribe(
                 data => {

@@ -360,18 +360,16 @@ export class ConnectionService {
             .catch(this.handleError);
     }
 
-
-
-    getSurroundingStatus_SSSS(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <any> res.json()[itema].SurroundingStatus)
+    getProcessingTime_SSSS(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/serverperformancestatus')
+            .map((res:Response) => <any> res.json().processingTime)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
-    
-    getProcessingStatus_SSSS(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <any> res.json()[itema].ProcessingStatus)
+
+    getProcessingStatus_SSSS(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/operational/serverperformancestatus')
+            .map((res:Response) => <any> res.json().processingStatus)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
@@ -384,29 +382,71 @@ export class ConnectionService {
     }
 
     getQueueInsufficientSecurities(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <any> res.json()[itema].QueueInsufficientSecurities)
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/queue/insufficientsecurities/'+itema)
+            .map((res:Response) => <any> res.json().queueList)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getQueueInsufficientSecuritiesMember(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/queue/insufficientsecurities/'+itema)
+            .map((res:Response) => <any> res.json().numOfParticipants)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getQueueInsufficientSecuritiesTotal(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/queue/insufficientsecurities/'+itema)
+            .map((res:Response) => <any> res.json().sumOfTransactions)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
     getQueueInsufficientFund(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <any> res.json()[itema].QueueInsufficientFund)
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/queue/insufficientfund/'+itema)
+            .map((res:Response) => <any> res.json().queueList)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
 
-    getMaturitySecurities(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <any> res.json()[itema].MaturitySecurities)
+    getQueueInsufficientFundMember(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/queue/insufficientfund/'+itema)
+            .map((res:Response) => <any> res.json().numOfParticipants)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getQueueInsufficientFundTotal(itema: string): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/queue/insufficientfund/'+itema)
+            .map((res:Response) => <any> res.json().sumOfTransactions)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getMaturitySecurities(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/maturitysecurities')
+            .map((res:Response) => <any> res.json().transactionsList)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getMaturitySecuritiesTotal(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/maturitysecurities')
+            .map((res:Response) => <any> res.json().sumOfTransactions)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
     
-    getCouponPayment(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <any> res.json()[itema].CouponPayment)
+    getCouponPayment(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/couponpayment')
+            .map((res:Response) => <any> res.json().transactionsList)
+            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
+            .catch(this.handleError);
+    }
+
+    getCouponPaymentTotal(): Observable<any>{
+        return this.http.get('http://10.205.19.78:8080/dashboard/api/ssss/liquidity/couponpayment')
+            .map((res:Response) => <any> res.json().sumOfTransactions)
             .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE 
             .catch(this.handleError);
     }
