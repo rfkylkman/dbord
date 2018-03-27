@@ -1,6 +1,7 @@
 $(document).ready(function() {
     
     pageScroll();
+    pageScroll2();
 
     
   });
@@ -9,12 +10,23 @@ $(document).ready(function() {
     var objClass = document.getElementsByClassName("contain");
     for (var i=0;i<objClass.length;i++) {
       objClass[i].scrollTop = objClass[i].scrollTop + 1;
-      if ((objClass[i].scrollTop + 80) == objClass[i].scrollHeight){
+      if ((objClass[i].scrollTop + 85) == objClass[i].scrollHeight){
         objClass[i].scrollTop = -1;
       }
     }
     
-    my_time = setTimeout('pageScroll()',100);
+    my_time = setTimeout('pageScroll()',50);
   }
 
+  function pageScroll2() {
+    var objClass = document.getElementsByClassName("contain2");
+    for (var i=0;i<objClass.length;i++) {
+      objClass[i].scrollTop = objClass[i].scrollTop + 1;
+      if ((objClass[i].scrollTop + 85) == objClass[i].scrollHeight){
+        objClass[i].scrollTop = -1;
+      }
+    }
+    
+    my_time = setTimeout('pageScroll()',50);
+  }
 

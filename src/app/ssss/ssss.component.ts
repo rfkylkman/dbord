@@ -3,7 +3,8 @@ import { Car } from 'app/domain/car';
 import { Total } from 'app/domain/total';
 import { exchangeRate } from 'app/domain/exchangeRate';
 import { errorCode } from 'app/domain/errorCode';
-import { ConnectionService} from 'app/services/ConnectionService';
+import { ConnectionServiceSSSS} from 'app/services/ConnectionServiceSSSS';
+import { config } from 'app/services/config';
 import { Observable } from 'rxjs/Observable';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
@@ -11,6 +12,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   selector: 'app-ssss',
   templateUrl: './ssss.component.html',
   styleUrls: ['./ssss.component.css'],
+  providers:[config, ConnectionServiceSSSS],
   encapsulation : ViewEncapsulation.None
 })
 export class SsssComponent {
@@ -24,6 +26,13 @@ export class SsssComponent {
 
           statisticalIndicatorTable: any[];
           statisticalIndicatorChart: any[];
+
+          totalAmountToday: any;
+          totalAmountPrevDay: any;
+          totalAmountPrevWeek: any;
+          totalVolumeToday: any;
+          totalVolumePrevDay: any;
+          totalVolumePrevWeek: any;
 
           statisticalVolume: any;
           totalVolume: any;
@@ -68,9 +77,10 @@ export class SsssComponent {
           connETP: boolean;
 
           //server status
+          activeSystem: any;
           dcStatus : boolean;
           drcStatus : boolean;
-          replicationSpeed : any;
+          replicationTime : any;
 
           //liquidity indicator
           queueInsufficientSecurities: any;
@@ -91,13 +101,7 @@ export class SsssComponent {
 
           
           interval_satu: any;
-      
-          cars: Car[];
-      
-          cars2: Car[];
-      
-          total: Total[];
-      
+
           data: any;
       
           data2: any;
@@ -108,145 +112,164 @@ export class SsssComponent {
               legend: { position: 'bottom' }
             }
       
-          constructor(public ConnectionService: ConnectionService, private router:ActivatedRoute) {}
+          constructor(public ConnectionService: ConnectionServiceSSSS, private config: config, private router:ActivatedRoute) {}
       
           getData() {
 
             this.ConnectionService.getStatisticalIndicatorTable_SSSS(this.currParam).subscribe(
                 data => {
                     this.statisticalIndicatorTable = data;
+        
                 }
             ),
 
-            this.ConnectionService.getStatisticalVolume(this.currParam).subscribe(
+            this.ConnectionService.getTotalAmountToday(this.currParam).subscribe(
                 data => {
-                    this.statisticalVolume = data;
-                    this.totalVolumeLabel = this.statisticalVolume.map(item => item.period)
-                    this.totalVolumeData = this.statisticalVolume.map(item => item.volume)
+                    this.totalAmountToday = Math.round(data /1000000000);
+                }
+            ),
+            this.ConnectionService.getTotalAmountPrevDay(this.currParam).subscribe(
+                data => {
+                    this.totalAmountPrevDay = Math.round(data /1000000000);
+                }
+            ),
+            this.ConnectionService.getTotalAmountPrevWeek(this.currParam).subscribe(
+                data => {
+                    this.totalAmountPrevWeek = Math.round(data /1000000000);
+                }
+            ),
 
-                    this.totalVolume = {
-                        labels: this.totalVolumeLabel,
-                        datasets: [
-                            {
-                                data: this.totalVolumeData,
-                                backgroundColor: [
-                                    "#FF6384",
-                                    "#36A2EB",
-                                    "#FFCE56"
-                                ]
-                            }]
-                        },
-                    this.totalVolumeOption = {
-                        legend: {
-                            display: false,
-                              labels: {
-                                display: false
-                              }
-                          },
-                        maintainAspectRatio: true,
-                        scales: {
-                            xAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    display: false
-                                }
-                            }]
-                        },
-                        title: {
-                            display: true,
-                            text: 'Total Volume',
-                            position: 'top'
-                        },
-                        animation: {
-                            onComplete: function () {
-                                var chartInstance = this.chart,
-                                ctx = chartInstance.ctx;
-                                ctx.textAlign = 'center';
-                                ctx.textBaseline = 'bottom';
-                                this.data.datasets.forEach(function (dataset, i) {
-                                    var meta = chartInstance.controller.getDatasetMeta(i);
-                                    meta.data.forEach(function (bar, index) {
-                                        var data = dataset.data[index];
-                                        ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
-                                    });
-                                });
-                            }
+            this.ConnectionService.getTotalVolumeToday(this.currParam).subscribe(
+                data => {
+                    this.totalVolumeToday = data ;
+                }
+            ),
+            this.ConnectionService.getTotalVolumePrevDay(this.currParam).subscribe(
+                data => {
+                    this.totalVolumePrevDay = data;
+                }
+            ),
+            this.ConnectionService.getTotalVolumePrevWeek(this.currParam).subscribe(
+                data => {
+                    this.totalVolumePrevWeek = data;
+                }
+            ),
+
+            ///////////////////
+            this.totalVolume = {
+                labels: ["Today","Previous Day","Previous Week"],
+                datasets: [
+                    {
+                        backgroundColor: ['#FFCE56','#42A5F5','#FF6384'],
+                        data: [this.totalVolumeToday,this.totalVolumePrevDay,this.totalVolumePrevWeek]
+                    }
+                ]
+            }
+
+            this.totalVolumeOption = {
+                legend: {
+                    display: false,
+                      labels: {
+                        display: true
+                      }
+                  },
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
                         }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            display: true,
+                            fontSize: 11
+                        }
+                    }]
+                    
+                },
+                title: {
+                    display: true,
+                    text: 'Total Volume',
+                    position: 'top'
+                },
+                animation: {
+                    onComplete: function () {
+                        var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        ctx.font = "12px Calibri";
+                        this.data.datasets.forEach(function (dataset, i) {
+                            var meta = chartInstance.controller.getDatasetMeta(i);
+                            meta.data.forEach(function (bar, index) {
+                                var data = dataset.data[index];
+                                ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
+                            });
+                        });
                     }
                 }
-            ),
+                 
+            }
 
-            this.ConnectionService.getStatisticalAmount(this.currParam).subscribe(
-                data => {
-                    this.statisticalAmount = data;
-                    this.totalAmountLabel = this.statisticalAmount.map(item => item.period)
-                    this.totalAmountData = this.statisticalAmount.map(item => item.amount)
+            this.totalAmount = {
+                labels: ["Today","Previous Day","Previous Week"],
+                datasets: [
+                    {
+                        backgroundColor: ['#FFCE56','#42A5F5','#FF6384'],
+                        data: [this.totalAmountToday,this.totalAmountPrevDay,this.totalAmountPrevWeek]
+                    }
+                ]
+            }
 
-                    this.totalAmount = {
-                        labels: this.totalAmountLabel,
-                        datasets: [
-                            {
-                                data: this.totalAmountData,
-                                backgroundColor: [
-                                    "#FF6384",
-                                    "#36A2EB",
-                                    "#FFCE56"
-                                ],
-                                hoverBackgroundColor: [
-                                    "#FF6384",
-                                    "#36A2EB",
-                                    "#FFCE56"
-                                ]
-                            }]
-                        };
-                        this.totalAmountOption = {
-                            legend: {
-                                display: false,
-                                  labels: {
-                                    display: false
-                                  }
-                              },
-                            maintainAspectRatio: true,
-                            scales: {
-                                xAxes: [{
-                                    ticks: {
-                                        beginAtZero:true
-                                    }
-                                }],
-                                yAxes: [{
-                                    ticks: {
-                                        display: false
-                                    }
-                                }]
-                            },
-                            title: {
-                                display: true,
-                                text: 'Total Amount',
-                                position: 'top'
-                            },
-                            animation: {
-                                onComplete: function () {
-                                    var chartInstance = this.chart,
-                                    ctx = chartInstance.ctx;
-                                    ctx.textAlign = 'center';
-                                    ctx.textBaseline = 'bottom';
-                                    this.data.datasets.forEach(function (dataset, i) {
-                                        var meta = chartInstance.controller.getDatasetMeta(i);
-                                        meta.data.forEach(function (bar, index) {
-                                            var data = dataset.data[index];
-                                            ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
-                                        });
-                                    });
-                                }
-                            }
-                             
+            this.totalAmountOption = {
+                legend: {
+                    display: false,
+                      labels: {
+                        display: true
+                      }
+                  },
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
                         }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            display: true,
+                            fontSize: 11
+                            
+                        }
+                    }]
+                    
+                },
+                title: {
+                    display: true,
+                    text: 'Total Amount',
+                    position: 'top'
+                },
+                animation: {
+                    onComplete: function () {
+                        var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.font = "12px Calibri";
+                        this.data.datasets.forEach(function (dataset, i) {
+                            var meta = chartInstance.controller.getDatasetMeta(i);
+                            meta.data.forEach(function (bar, index) {
+                                var data = dataset.data[index];
+                                ctx.fillText(data, bar._model.x + 19, bar._model.y + 0);
+                            });
+                        });
+                    }
                 }
-            ),
+                 
+            }
+
+          
 
             this.ConnectionService.getExchangeRate().subscribe(
                 data => {
@@ -274,7 +297,6 @@ export class SsssComponent {
                     else{
                         this.timeExt = data;
                     }
-                    
                 }
             ),
 
@@ -320,7 +342,7 @@ export class SsssComponent {
                 },
                 
             ),
-            
+           
             this.ConnectionService.getDisconnectedMember_SSSS(this.currParam).subscribe(
                 data => {
                     this.disconnectedMemberTable = data;
@@ -377,14 +399,29 @@ export class SsssComponent {
                 }
             ),
 
-            this.ConnectionService.getServerStatus(this.currParam).subscribe(
+            this.ConnectionService.getDcStatus().subscribe(
                 data => {
-                    this.dcStatus = true;
-                    this.drcStatus = true;
-                    this.replicationSpeed = "";
+                    this.dcStatus = data;
                 }
             ),
 
+            this.ConnectionService.getDrcStatus().subscribe(
+                data => {
+                    this.drcStatus = data;
+                }
+            ),
+
+            this.ConnectionService.getActiveSystem().subscribe(
+                data => {
+                    this.activeSystem = data;
+                }
+            ),
+
+            this.ConnectionService.getReplicationTime().subscribe(
+                data => {
+                    this.replicationTime = data;
+                }
+            ),
 
             this.ConnectionService.getQueueInsufficientSecurities(this.currParam).subscribe(
                 data => {
@@ -444,24 +481,7 @@ export class SsssComponent {
                 data => {
                     this.couponPaymentTotal = data;
                 }
-            ),
-                  
-            this.ConnectionService.getDataSatu(this.currParam).subscribe(
-                      data => {
-                          this.cars = data;
-                      }
-                  )
-                  
-            this.ConnectionService.getDataDua(this.currParam).subscribe(
-                      data => {
-                          this.cars2 = data;
-                      }
-                  )
-            this.ConnectionService.getDataTotal(this.currParam).subscribe(
-                      data => {
-                          this.total = data;
-                      }
-                  )
+            )
 
                   var z = ['A','B','C']
                   this.data3 = {
@@ -503,10 +523,12 @@ export class SsssComponent {
       
           ngOnInit() {
               this.getData();
-              this.interval_satu = setInterval(() => {
-                  this.getData();
-              },7500);
-  
           }
+
+          ngAfterContentInit(){
+            this.interval_satu = setInterval(() => {
+                this.getData();
+            },10000);
+          }      
 
 }

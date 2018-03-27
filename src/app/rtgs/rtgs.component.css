@@ -6,6 +6,13 @@
     width: 100%;
 }
 
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
+
 .header {
     width: 20%;
     height: 10%;
@@ -51,7 +58,7 @@
 }
 
 .columnContent {
-    background: #ffffff;
+/*    background: #ffffff; */
     padding: 5px;
     margin-top: 2px;
     border: 1px transparent #ffe6e6;
@@ -62,7 +69,8 @@
 .Content{
     margin-top: 4px;
     padding: 5px;
-    border: 1px solid #0036f9;
+    background: #ffffff;    
+    border: 1px solid grey;
     border-radius: 3px;
 }
 
@@ -86,7 +94,7 @@
 
 .subContent-2-3{
     float: left;
-    width: 50%;
+    width: 53%;
     height: 100%;
 }
 
@@ -203,7 +211,7 @@
 }
 
 .ui-datatable{
-    font-size: 15px;
+    font-size: 13px;
 }
 
 div.ui-widget-header.ui-datatable-scrollable-header {

@@ -13,18 +13,20 @@
                     <div class="contain1">
                         <p-dataTable class="ui-datatable" id="blueTable" [value]="statisticalIndicatorTable" [responsive]="true" class="ui-datatable">
                             <p-column field="descripsion" header="Summary"></p-column>
-                            <p-column field="volume" [style]="{'width': '70px', 'text-align':'right'}" header="Volume"></p-column>
+                            <p-column field="volume" [style]="{'width': '70px', 'text-align':'right'}" header="Volume">
+                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.volume | number}} </div></ng-template>
+                            </p-column>
                             <p-column field="amount" [style]="{'width': '150px'}" header="Amount">
-                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount}} </div></ng-template>
+                                    <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number}} </div></ng-template>
                             </p-column>
                         </p-dataTable>
                     </div>
                     <div class="rows">
                             <div class="subContent-2-3a">
-                                <p-chart type="horizontalBar" [data]="totalVolume" [options]='totalVolumeOption' height='85px'></p-chart>
+                                <p-chart type="horizontalBar" [data]="totalVolume" [options]='totalVolumeOption' height='140'></p-chart>
                             </div>
                             <div class="subContent-2-3a">
-                                <p-chart type="horizontalBar" [data]="totalAmount" [options]='totalAmountOption' height='85px'></p-chart>
+                                <p-chart type="horizontalBar" [data]="totalAmount" [options]='totalAmountOption' height='140'></p-chart>
                             </div>
                         </div>
                 </div>
@@ -33,8 +35,7 @@
                         <b>Supporting Information</b>
                     </p>
                     <u style="font-size: 15px;">Error Information</u>
-                    <div class="contain">
-
+                    <div class="contain" style="height: 110px">
                         <p-dataTable id="blueTable" class="ui-datatable" [value]="errorInformation" [responsive]="true" scrollable="true" class="ui-datatable">
                             <p-column field="code" header="Code"></p-column>
                             <p-column field="description" header="Description"></p-column>
@@ -47,24 +48,26 @@
         <div class="column">
             <div class="columnContent">
                 <div class="Content">
+                    <p  style="margin-top: 0px; margin-bottom:0px; float: left;">
+                        <b>Operational Indicator</b>
+                    </p>
+                    <p  style="margin-top: 0px; margin-bottom:0px; float: right;">
+                        {{today}}
+                    </p>
                     <div class="rows">
                         <div class="subContent-1">
-                            <p style="margin-top: 0px; margin-bottom:0px;">
-                                <b>Operational Indicator</b>
-                            </p>
-                            <span  [style]="{'text-align':'right'}">{{today}}</span>
-                    
+                            
                             <table>
                                 <tr>
                                     <td style="">Business Day</td>
                                     <td>
-                                        <p-message severity="info" text={{businessDay}}></p-message>
+                                        <p-message style=" font-size: 15px;" severity="info" text={{businessDay}}></p-message>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>Time Extension</td>
                                     <td>
-                                        <p-message severity="info" text={{timeExt}}></p-message>
+                                        <p-message style=" font-size: 15px;" severity="info" text={{timeExt}}></p-message>
                                     </td>
                                 </tr>
                             </table>
@@ -88,7 +91,7 @@
                                     </td>
                                 </table>
                             </div>
-                            <div class="subContent-2-5">
+                            <div class="subContent-2-5" style="height: 100px">
                                 <p-chart type="pie" [data]="connectionStatus" [options]="connectionStatusOption"></p-chart>
                             </div>
                         </div>
@@ -97,7 +100,7 @@
                             <p style="font-size: 15px;">
                                 <u>Disconnected Member :</u>
                             </p>
-                            <div class="contain">
+                            <div class="contain"  style="height: 100px">
                                 <p-dataTable id="orangeTable" class="ui-datatable" [value]="disconnectedMemberTable" scrollable="true"  class="ui-datatable">
                                     <p-column field="bic" header="BIC"></p-column>
                                     <p-column field="lastConnected" header="Last Online"></p-column>
@@ -118,10 +121,10 @@
                                     <img src='assets/picture/sosa.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connSOSA ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connSOSA ? connOk : connBad" width="25" height="25">
                                 </td>
                                 <td rowspan="5">
-                                    <img src='assets/picture/arrow3.png' width="30" height="180">
+                                    <img src='assets/picture/allarrow.png' width="45" height="180">
                                 </td>
                                 <td rowspan="5">
                                     <img src='assets/picture/core-RTGS.png' width="130" height="80">
@@ -132,7 +135,7 @@
                                     <img src='assets/picture/hartis.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connHARTIS ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connHARTIS ? connOk : connBad" width="25" height="25">
                                 </td>
                             </tr>
                             <tr>
@@ -140,7 +143,7 @@
                                     <img src='assets/picture/sknbi.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connSKNBI ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connSKNBI ? connOk : connBad" width="25" height="25">
                                 </td>
                             </tr>
                             <tr>
@@ -148,7 +151,7 @@
                                     <img src='assets/picture/ssss.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connSSSS ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connSSSS ? connOk : connBad" width="25" height="25">
                                 </td>
                             </tr>
                             <tr>
@@ -156,7 +159,7 @@
                                     <img src='assets/picture/pvp.png' width="65" height="33">
                                 </td>
                                 <td>
-                                    <img [src]="connPVP ? connOk : connBad" width="15" height="15">
+                                    <img [src]="connPVP ? connOk : connBad" width="25" height="25">
                                 </td>
                             </tr>
                         </table>
@@ -188,17 +191,26 @@
                             <table>
                                 <u style="font-size: 15px;">Server & Replication Status</u>
                             </table>
-                            <div class="Content" style="border:0;" align="center">
+                            <div class="Content" style="border:0; height: 110px" align="center">
                                 <table border="0">
                                     <tr>
                                         <td>
-                                            <img src='assets/picture/server.png' width="50" height="50">
+                                            <img src='assets/picture/dr.png' width="50" height="65">
                                         </td>
                                         <td>
-                                            <img src='assets/picture/arrow.png' width="50" height="40">
+                                            <img src='assets/picture/arrow.png' width="50" height="30">
                                         </td>
                                         <td>
-                                            <img src='assets/picture/server.png' width="50" height="50">
+                                            <img src='assets/picture/drc.png' width="50" height="65">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <img [src]="dcStatus ? connOk : connBad" width="20" height="20">
+                                        </td>
+                                        <td style="font-size:11px; text-align:center">{{replicationTime}}</td>
+                                        <td align="center">
+                                            <img [src]="drcStatus ? connOk : connBad" width="20" height="20">
                                         </td>
                                     </tr>
                                 </table>
@@ -228,7 +240,9 @@
                                                 <p-dataTable id="orangeTable" [value]="currentQueue" scrollable="true" class="ui-datatable">
                                                         <p-column field="time" header="Time" ></p-column>
                                                         <p-column field="bic" header="BIC" ></p-column>
-                                                        <p-column field="amount" header="Amount" ></p-column>
+                                                        <p-column field="amount" header="Amount" >
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number}} </div></ng-template>
+                                                        </p-column>
                                                 </p-dataTable>
                                         </div>
                                 </td>
@@ -238,8 +252,8 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right">
-                                  Total Amount (Rp) {{currentQueueTotal}}
+                                <td align="right" style="font-size:13px">
+                                    Total Amount ({{currParam.toUpperCase()}}) {{currentQueueTotal | number:'1.0-2'}}
                                 </td>
                             </tr>
                                 
@@ -249,7 +263,7 @@
                 </div>
                 <div class="Content">
                     <u style="font-size: 15px;">Turn Over Ratio</u>
-                    <p-chart type="horizontalBar" [data]="data" [options]='dataOption'  height='130px'></p-chart>
+                    <p-chart type="horizontalBar" [data]="turnOverRatioChart" height='130px'></p-chart>
                 </div>
                 <div class="Content">
                     <u style="font-size: 15px;">Intraday Liquidity Facility</u>
@@ -257,7 +271,7 @@
                         <table id="table">
                             <tr>
                                 <td>
-                                    <div class="contain">
+                                    <div class="contain" style="height: 85px">
                                                 <p-dataTable id="orangeTable" [value]="intradayTable" scrollable="true" class="ui-datatable">
                                                         <p-column field="bic" header="BIC" ></p-column>
                                                         <p-column field="amount" header="Amount" ></p-column>
@@ -271,13 +285,13 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right">
-                                  Total Amount (Rp) {{intradayTotal1}}
+                                <td align="right" style="font-size:13px">
+                                  Total Amount ({{currParam.toUpperCase()}}) {{intradayTotal1 | number:'1.0-2'}}
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right">
-                                  Total Amount (Rp) {{intradayTotal2}}
+                                <td align="right" style="font-size:13px">
+                                  Total Amount ({{currParam.toUpperCase()}}) {{intradayTotal2 | number:'1.0-2'}}
                                 </td>
                             </tr>
                                 

@@ -16,21 +16,23 @@
                                   [responsive]="true"
                                   class="ui-datatable">
                                   <p-column field="descripsion" header="Summary" ></p-column>
-                                  <p-column field="volume" [style]="{'width': '70px', 'text-align':'right'}" header="Volume" ></p-column>
+                                  <p-column field="volume" [style]="{'width': '70px'}" header="Volume" >
+                                    <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.volume | number}} </div></ng-template>
+                                  </p-column>
                                   <p-column field="amount" [style]="{'width': '150px'}" header="Amount" >
-                                    <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount}} </div></ng-template>
+                                    <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number}} </div></ng-template>
                                   </p-column>
                               </p-dataTable>
                           </div>
                           <div class="rows">
                                 <div class="subContent-2-3a">
                                     
-                                        <p-chart type="horizontalBar" [data]="totalVolume" [options]="totalVolumeOption" height='75px'></p-chart>
+                                        <p-chart type="horizontalBar" [data]="totalVolume" [options]="totalVolumeOption" height='90'></p-chart>
 
                                 </div>
                                 <div class="subContent-2-3a">
                                         
-                                        <p-chart type="horizontalBar" [data]="totalAmount" [options]="totalAmountOption"  height='75px'></p-chart>
+                                        <p-chart type="horizontalBar" [data]="totalAmount" [options]="totalAmountOption"  height='90'></p-chart>
                                            
                                 </div>
                             </div>
@@ -41,29 +43,37 @@
                                     <b>Supporting Information</b>
                                 </p>
                                 <u style="font-size: 15px;">Exchange Rate</u>
-                          <div class="contain" style="height:auto;">
+                          <div class="contain">
                                   <p-dataTable 
                                       id="orangeTable"
                                       [value]="exchangeRate"
                                       [responsive]="true"
                                       class="ui-datatable">
-                                      <p-column field="currency" header="Currency" ></p-column>
-                                      <p-column field="date" header="Date" ></p-column>
-                                      <p-column field="kurs" [style]="{'text-align':'center'}" header="Kurs" ></p-column>
+                                      <p-column field="currency" header="Currency" [style]="{'width': '70px'}">
+                                            <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.currency}} </div></ng-template>
+                                      </p-column>
+                                      <p-column field="date" header="Date" [style]="{'width': '100px' }">
+                                            <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.date}} </div></ng-template>
+                                      </p-column>
+                                      <p-column field="kurs" [style]="{'text-align':'center'}" header="Kurs" >
+                                            <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.kurs | number:'1.0-2'}} </div></ng-template>
+                                      </p-column>
                                   </p-dataTable>
                               </div> 
                       </div>
                       <div class="Content">
                             <u style="font-size: 15px;">Error Information</u>
-                        <div class="contain" style="height:auto;">
+                        <div class="contain" style="height: 80px">
                                 <p-dataTable 
                                     id="blueTable"
                                     [value]="errorInformation"
-                                    [responsive]="true"
+                                    scrollable="true"
                                     class="ui-datatable">
-                                    <p-column field="code" header="Code" ></p-column>
+                                    <p-column field="code" header="Code" [style]="{'width': '70px'}" >
+                                            <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.code}} </div></ng-template>
+                                    </p-column>
                                     <p-column field="description" header="Description" ></p-column>
-                                    <p-column field="time" header="Time" ></p-column>
+                                    <p-column field="time" header="Time" [style]="{'width': '70px'}"></p-column>
                                 </p-dataTable>
                             </div> 
                     </div>
@@ -72,27 +82,32 @@
               <div class="column">
                   <div class="columnContent" >                  
                           <div class="Content">
+                                <p  style="margin-top: 0px; margin-bottom:0px; float: left;">
+                                        <b>Operational Indicator</b>
+                                    </p>
+                                    <p  style="margin-top: 0px; margin-bottom:0px; float: right;">
+                                        {{today}}
+                                    </p>
                               <div class="rows">
                                   <div class="subContent-1">
-                                          <p style="margin-top: 0px; margin-bottom:0px;"><b>Operational Indicator</b></p>
                                       <table>
                                             <tr>
                                                     <td style="">Business Day</td>
                                                     <td>
-                                                        <p-message severity="info" text={{businessDay}}></p-message>
+                                                        <p-message  style=" font-size: 15px;" severity="info" text={{businessDay}}></p-message>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Time Extension</td>
                                                     <td>
-                                                        <p-message severity="info" text={{timeExt}}></p-message>
+                                                        <p-message style=" font-size: 15px;" severity="info" text={{timeExt}}></p-message>
                                                     </td>
                                                 </tr>
                                       </table>
                                   </div>
                                   <div class="subContent-2" align="left">
                                         <p style="font-size: 15px;"><u> Connection Status:</u></p>
-                                        <div class="subContent-2-4" align="left">
+                                        <div class="subContent-2-4" align="left" id="table">
                                             <table>
                                                 <tr>
                                                     <td style="font-size:13px;">Connected</td>
@@ -116,7 +131,7 @@
                                   
                                   <div class="subContent-3" align="left">
                                           <p style="font-size: 15px;"><u>Disconnected Member :</u></p>
-                                          <div class="contain">
+                                          <div class="contain" style="height: 115px">
                                             <p-dataTable 
                                             id="orangeTable"
                                             [value]="disconnectedMemberTable"
@@ -139,25 +154,25 @@
                             <table>
                               <tr>
                                 <td><img src='assets/picture/sosa.png' width="65" height="33"></td>
-                                <td><img [src]="connSOSA ? connOk : connBad" width="15" height="15"></td>
-                                <td rowspan="5"><img src='assets/picture/arrow3.png' width="30" height="180"></td>
+                                <td><img [src]="connSOSA ? connOk : connBad" width="25" height="25"></td>
+                                <td rowspan="5"><img src='assets/picture/allarrow.png' width="45" height="180"></td>
                                 <td rowspan="5"><img src='assets/picture/core-SSSS.png' width="130" height="80"></td>
                               </tr>
                               <tr>
                                 <td><img src='assets/picture/hartis.png' width="65" height="33"></td>
-                                <td><img [src]="connHARTIS ? connOk : connBad" width="15" height="15"></td>
+                                <td><img [src]="connHARTIS ? connOk : connBad" width="25" height="25"></td>
                               </tr>
                               <tr>
                                 <td><img src='assets/picture/sknbi.png' width="65" height="33"></td>
-                                <td><img [src]="connSKNBI ? connOk : connBad" width="15" height="15"></td>
+                                <td><img [src]="connSKNBI ? connOk : connBad" width="25" height="25"></td>
                               </tr>
                               <tr>
                                 <td><img src='assets/picture/rtgs.png' width="65" height="33"></td>
-                                <td><img [src]="connRTGS ? connOk : connBad" width="15" height="15"></td>
+                                <td><img [src]="connRTGS ? connOk : connBad" width="25" height="25"></td>
                               </tr>
                               <tr>
                                 <td><img src='assets/picture/etp.png' width="65" height="33"></td>
-                                <td><img [src]="connETP ? connOk : connBad" width="15" height="15"></td>
+                                <td><img [src]="connETP ? connOk : connBad" width="25" height="25"></td>
                               </tr>
                             </table>
                           </div>
@@ -193,15 +208,24 @@
 
                                       <tr>
                                           <td>
-                                              <img src='assets/picture/server.png' width="50" height="50">
+                                              <img src='assets/picture/dr.png' width="50" height="65">
                                           </td>
                                           <td>
-                                              <img src='assets/picture/arrow.png' width="50" height="40">
+                                              <img src='assets/picture/arrow.png' width="50" height="30">
                                           </td>
                                           <td>
-                                              <img src='assets/picture/server.png' width="50" height="50">
+                                              <img src='assets/picture/drc.png' width="50" height="65">
                                           </td>
                                       </tr>
+                                      <tr>
+                                            <td align="center">
+                                                <img [src]="dcStatus ? connOk : connBad" width="20" height="20">
+                                            </td>
+                                            <td style="font-size:11px; text-align:center">{{replicationTime}}</td>
+                                            <td align="center">
+                                                <img [src]="drcStatus ? connOk : connBad" width="20" height="20">
+                                            </td>
+                                        </tr>
                                   </table>
                                   </div>
                               </div>
@@ -219,11 +243,15 @@
                               <table id="table">
                                   <tr>
                                       <td>
-                                          <div class="contain">
+                                          <div class="contain" >
                                                       <p-dataTable id="orangeTable" [value]="queueInsufficientSecurities" scrollable="true" class="ui-datatable">
                                                         <p-column field="bic" header="BIC" ></p-column>
-                                                        <p-column field="time" header="Time" ></p-column>
-                                                        <p-column field="amount" header="Amount" ></p-column>
+                                                        <p-column field="time" header="Time" [style]="{'width': '90px'}">
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.time}} </div></ng-template>
+                                                        </p-column>
+                                                        <p-column field="amount" header="Amount" >
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number:'1.0-2'}} </div></ng-template>
+                                                        </p-column>
                                                       </p-dataTable>
                                               </div>
                                       </td>
@@ -233,8 +261,8 @@
                                       </td>
                                   </tr>
                                   <tr>
-                                      <td align="right">
-                                          Total Amount (Rp) {{queueInsufficientSecuritiesTotal}}
+                                      <td align="right" style="font-size:13px">
+                                          Total Amount ({{currParam.toUpperCase()}}) {{queueInsufficientSecuritiesTotal | number:'1.0-2'}}
                                       </td>
                                   </tr>
                                       
@@ -248,11 +276,15 @@
                                   <table id="table">
                                       <tr>
                                           <td>
-                                              <div class="contain">
+                                              <div class="contain" style="height: 95px">
                                                           <p-dataTable id="orangeTable" [value]="queueInsufficientFund" scrollable="true" headerCssclass="ui-datatable">
                                                                   <p-column field="bic" header="BIC" ></p-column>
-                                                                  <p-column field="time" header="Time" ></p-column>
-                                                                  <p-column field="amount" header="Amount" ></p-column>
+                                                                  <p-column field="time" header="Time" [style]="{'width': '90px'}">
+                                                                        <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.time}} </div></ng-template>
+                                                                  </p-column>
+                                                                  <p-column field="amount" header="Amount" >
+                                                                        <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number:'1.0-2'}} </div></ng-template>
+                                                                  </p-column>
                                                           </p-dataTable>
                                                   </div>
                                           </td>
@@ -262,8 +294,8 @@
                                           </td>
                                       </tr>
                                       <tr>
-                                          <td align="right">
-                                            Total Amount (Rp) {{queueInsufficientFundTotal}}
+                                          <td align="right" style="font-size:13px">
+                                            Total Amount ({{currParam.toUpperCase()}}) {{queueInsufficientFundTotal | number:'1.0-2'}}
                                           </td>
                                       </tr>
                                           
@@ -277,19 +309,23 @@
                                       <table>
                                           <tr>
                                               <td>
-                                                  <div class="contain">
+                                                  <div class="contain" style="height: 90px">
                                                               <p-dataTable id="orangeTable" [value]="maturitySecurities" scrollable="true" class="ui-datatable">
                                                                 <p-column field="instrumentCode" header="Code" ></p-column>
-                                                                <p-column field="date" header="Date" ></p-column>
-                                                                <p-column field="amount" header="Amount" ></p-column>
+                                                                <p-column field="date" header="Date" [style]="{'width': '90px'}">
+                                                                        <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.date}} </div></ng-template>
+                                                                </p-column>
+                                                                <p-column field="amount" header="Amount" >
+                                                                        <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number:'1.0-2'}} </div></ng-template>
+                                                                </p-column>
                                                               </p-dataTable>
                                                       </div>
                                               </td>
                                               
                                           </tr>
                                           <tr>
-                                              <td align="right">
-                                                    Total Amount (Rp) {{maturitySecuritiesTotal}}
+                                              <td align="right" style="font-size:13px">
+                                                    Total Amount ({{currParam.toUpperCase()}}) {{maturitySecuritiesTotal  | number:'1.0-2'}}
                                               </td>
                                           </tr>
                                               
@@ -303,18 +339,22 @@
                                           <table>
                                               <tr>
                                                   <td>
-                                                      <div class="contain">
+                                                      <div class="contain" style="height: 90px">
                                                                   <p-dataTable id="orangeTable" [value]="couponPayment" scrollable="true" class="ui-datatable">
                                                                           <p-column field="instrumentCode" header="Code" ></p-column>
-                                                                          <p-column field="date" header="Date" ></p-column>
-                                                                          <p-column field="amount" header="Amount" ></p-column>
+                                                                          <p-column field="date" header="Date" [style]="{'width': '90px'}">
+                                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.date}} </div></ng-template>
+                                                                          </p-column>
+                                                                          <p-column field="amount" header="Amount" >
+                                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number:'1.0-2'}} </div></ng-template>
+                                                                          </p-column>
                                                                   </p-dataTable>
                                                           </div>
                                                   </td>
                                               </tr>
                                               <tr>
-                                                  <td align="right">
-                                                        Total Amount (Rp) {{couponPaymentTotal}}
+                                                  <td align="right" style="font-size:13px">
+                                                        Total Amount ({{currParam.toUpperCase()}}) {{couponPaymentTotal  | number:'1.0-2'}}
                                                   </td>
                                               </tr>
                                                   

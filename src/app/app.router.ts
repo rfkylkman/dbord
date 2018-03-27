@@ -11,10 +11,10 @@ import { AuthGuard } from '../auth/authentication';
 
 
 export const router: Routes = [
+
     {   path: '',
-        redirectTo : '/rtgs',
-        pathMatch : 'full',
-        canActivate : [AuthGuard]
+        redirectTo : '/rtgs?curr=IDR',
+        pathMatch : 'full'
     },
     {
         path: 'rtgs',
@@ -24,6 +24,7 @@ export const router: Routes = [
         path: 'ssss',
         component: SsssComponent
     }
+    
 ];
 
 

@@ -5,6 +5,7 @@ import { currentQueue } from 'app/domain/currentQueue';
 import { turnOverRatio } from 'app/domain/turnOverRatio';
 import { intradayLiquidityFacility } from 'app/domain/intradayLiquidityFacility';
 import { ConnectionService} from 'app/services/ConnectionService';
+import { config } from 'app/services/config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -13,6 +14,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   selector: 'app-rtgs',
   templateUrl: './rtgs.component.html',
   styleUrls: ['./rtgs.component.css'],
+  providers:[config, ConnectionService],
   encapsulation : ViewEncapsulation.None
 })
 export class RtgsComponent {
@@ -20,14 +22,6 @@ export class RtgsComponent {
           currParam : string = this.router.snapshot.queryParams["curr"];
 
           ip : any;
-
-/*
-          businessDay : string = "Morning 3";
-          timeExt : string = "60 Menit"
-
-          processingSpeed : string = "0.052";
-          processingSpeedStatus : string = "Normal";
-*/
           
 
           connOk: string = "assets/picture/ok.png";
@@ -36,13 +30,16 @@ export class RtgsComponent {
           interval_satu: any;
          
           newCar: boolean;
+
       
-          cars: Car[];
-      
-          cars2: Car[];
-      
-          statisticalIndicatorTable: Total[];
-          statisticalIndicatorChart: any[];
+          statisticalIndicatorTable: any;
+
+          totalAmountToday: any;
+          totalAmountPrevDay: any;
+          totalAmountPrevWeek: any;
+          totalVolumeToday: any;
+          totalVolumePrevDay: any;
+          totalVolumePrevWeek: any;
           
           statisticalVolume: any;
           totalVolume: any;
@@ -56,7 +53,7 @@ export class RtgsComponent {
           totalAmountData: any;
           totalAmountOption: any;
 
-          errorInformation : Total[];
+          errorInformation : any;
 
           //operationalIndicator
           operationalIndicator: any;
@@ -89,7 +86,7 @@ export class RtgsComponent {
           activeSystem: any;
           dcStatus : boolean;
           drcStatus : boolean;
-          replicationSpeed : any;
+          replicationTime : any;
 
           //throughput
           throughputModel: any;
@@ -110,8 +107,11 @@ export class RtgsComponent {
           
           //turn over ratio
           turnOverModel : any;
-          turnOverRatio : turnOverRatio[];
+          turnOverRatio : any;
           turnOverRatioLabel: any;
+          turnOverToday: any;
+          turnOverPDay: any;
+          turnOverPWeek: any;
           turnOverRatioData: any;
           turnOverRatioChart: any;
 
@@ -123,28 +123,22 @@ export class RtgsComponent {
           intradayTotal2: any;
           
 
-          data: any;
-          dataOption: any;
-      
-          data2: any;
-      
-          data3: any;
 
-          data4: any[] = [];
-          barChartLabels: string[] = [];
-
-          total: any;
-
-          data5: any[] = [];
       
           options: any = {
               legend: { position: 'bottom' }
           }
 
-          z: any[] = [];
-          z1: any[] = [];
       
-          constructor(private ConnectionService: ConnectionService, private router:ActivatedRoute) {}
+          constructor(private ConnectionService: ConnectionService, private router:ActivatedRoute, private config: config) {}
+
+          getConfig(){
+              this.config.getIP().subscribe(
+                  data => {
+                      this.ip = data;
+                  }
+              )
+          }
           
           getData() {
             
@@ -154,144 +148,157 @@ export class RtgsComponent {
                 }
             ),
 
-            this.ConnectionService.getStatisticalVolume(this.currParam).subscribe(
+            this.ConnectionService.getTotalAmountToday(this.currParam).subscribe(
                 data => {
-                    this.statisticalVolume = data;
-                    this.totalVolumeLabel = this.statisticalVolume.map(item => item.period)
-                    this.totalVolumeData = this.statisticalVolume.map(item => item.volume)
+                    this.totalAmountToday = Math.round(data /1000000000);
+                }
+            ),
+            this.ConnectionService.getTotalAmountPrevDay(this.currParam).subscribe(
+                data => {
+                    this.totalAmountPrevDay = Math.round(data /1000000000)
+                }
+            ),
+            this.ConnectionService.getTotalAmountPrevWeek(this.currParam).subscribe(
+                data => {
+                    this.totalAmountPrevWeek = Math.round(data /1000000000);
+                }
+            ),
 
-                    this.totalVolume = {
-                        labels: this.totalVolumeLabel,
-                        
-                        datasets: [
-                            {
-                                data: this.totalVolumeData,
-                                backgroundColor: [
-                                    "#FF6384",
-                                    "#36A2EB",
-                                    "#FFCE56"
-                                ]
-                            }]
-                        },
-                    this.totalVolumeOption = {
-                        legend: {
-                            display: false,
-                              labels: {
-                                display: false
-                              }
-                          },
-                        maintainAspectRatio: true,
-                        scales: {
-                            xAxes: [{
-                                ticks: {
-                                    beginAtZero:true
-                                }
-                            }],
-                            yAxes: [{
-                                ticks: {
-                                    display: false
-                                }
-                            }]
-                        },
-                        title: {
+            this.ConnectionService.getTotalVolumeToday(this.currParam).subscribe(
+                data => {
+                    this.totalVolumeToday = data ;
+                }
+            ),
+            this.ConnectionService.getTotalVolumePrevDay(this.currParam).subscribe(
+                data => {
+                    this.totalVolumePrevDay = data;
+                }
+            ),
+            this.ConnectionService.getTotalVolumePrevWeek(this.currParam).subscribe(
+                data => {
+                    this.totalVolumePrevWeek = data;
+                }
+            ),
+
+            this.totalVolume = {
+                labels: ["Today","Previous Day","Previous Week"],
+                datasets: [
+                    {
+                        backgroundColor: ['#FFCE56','#42A5F5','#FF6384'],
+                        data: [this.totalVolumeToday,this.totalVolumePrevDay,this.totalVolumePrevWeek]
+                    }
+                ]
+            }
+
+            this.totalVolumeOption = {
+                legend: {
+                    display: false,
+                    labels: {
+                        display: true
+                    }
+                },
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }],
+                    yAxes: [{
+                        ticks: {
                             display: true,
-                            text: 'Total Volume',
-                            position: 'top'
-                        },
-                        animation: {
-                            onComplete: function () {
-                                var chartInstance = this.chart,
-                                ctx = chartInstance.ctx;
-                                ctx.textAlign = 'center';
-                                ctx.textBaseline = 'bottom';
-                                this.data.datasets.forEach(function (dataset, i) {
-                                    var meta = chartInstance.controller.getDatasetMeta(i);
-                                    meta.data.forEach(function (bar, index) {
-                                        var data = dataset.data[index];
-                                        ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
-                                    });
-                                });
-                            }
-                        }   
+                            fontSize: 11
+                        }
+                    }]
+                    
+                },
+                title: {
+                    display: true,
+                    text: 'Total Volume',
+                    position: 'top'
+                },
+                animation: {
+                    onComplete: function () {
+                        var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'bottom';
+                        ctx.font = "12px Calibri";
+                        this.data.datasets.forEach(function (dataset, i) {
+                            var meta = chartInstance.controller.getDatasetMeta(i);
+                            meta.data.forEach(function (bar, index) {
+                                var data = dataset.data[index];
+                                ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
+                            });
+                        });
                     }
                 }
-            ),
+                
+            }
 
-            this.ConnectionService.getStatisticalAmount(this.currParam).subscribe(
-                data => {
-                    this.statisticalAmount = data;
-                    this.totalAmountLabel = this.statisticalAmount.map(item => item.period)
-                    this.totalAmountData = this.statisticalAmount.map(item => item.amount)
+            this.totalAmount = {
+                labels: ["Today","Previous Day","Previous Week"],
+                datasets: [
+                    {
+                        backgroundColor: ['#FFCE56','#42A5F5','#FF6384'],
+                        data: [this.totalAmountToday,this.totalAmountPrevDay,this.totalAmountPrevWeek]
+                    }
+                ]
+            }
 
-                    this.totalAmount = {
-                        labels: this.totalAmountLabel,
-                        datasets: [
-                            {
-                                data: this.totalAmountData,
-                                backgroundColor: [
-                                    "#FF6384",
-                                    "#36A2EB",
-                                    "#FFCE56"
-                                ],
-                                hoverBackgroundColor: [
-                                    "#FF6384",
-                                    "#36A2EB",
-                                    "#FFCE56"
-                                ]
-                            }]
-                        };
-                        this.totalAmountOption = {
-                            legend: {
-                                display: false,
-                                  labels: {
-                                    display: false
-                                  }
-                              },
-                            maintainAspectRatio: true,
-                            scales: {
-                                xAxes: [{
-                                    ticks: {
-                                        beginAtZero:true
-                                    }
-                                }],
-                                yAxes: [{
-                                    ticks: {
-                                        display: false
-                                    }
-                                }]
-                            },
-                            title: {
-                                display: true,
-                                text: 'Total Amount',
-                                position: 'top'
-                            },
-                            animation: {
-                                onComplete: function () {
-                                    var chartInstance = this.chart,
-                                    ctx = chartInstance.ctx;
-                                    ctx.textAlign = 'center';
-                                    ctx.textBaseline = 'bottom';
-                                    this.data.datasets.forEach(function (dataset, i) {
-                                        var meta = chartInstance.controller.getDatasetMeta(i);
-                                        meta.data.forEach(function (bar, index) {
-                                            var data = dataset.data[index];
-                                            ctx.fillText(data, bar._model.x + 14, bar._model.y + 8);
-                                        });
-                                    });
-                                }
-                            }
-                             
+            this.totalAmountOption = {
+                legend: {
+                    display: false,
+                    labels: {
+                        display: true
+                    }
+                },
+                maintainAspectRatio: false,
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero:true
                         }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            display: true,
+                            fontSize: 11
+                            
+                        }
+                    }]
+                    
+                },
+                title: {
+                    display: true,
+                    text: 'Total Amount',
+                    position: 'top'
+                },
+                animation: {
+                    onComplete: function () {
+                        var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+                        ctx.textAlign = 'center';
+                        ctx.textBaseline = 'middle';
+                        ctx.font = "12px Calibri";
+                        this.data.datasets.forEach(function (dataset, i) {
+                            var meta = chartInstance.controller.getDatasetMeta(i);
+                            meta.data.forEach(function (bar, index) {
+                                var data = dataset.data[index];
+                                ctx.fillText(data, bar._model.x + 19, bar._model.y + 0);
+                            });
+                        });
+                    }
                 }
-            ),
-            /*
+                
+            }
+            
             this.ConnectionService.getErrorInformation(this.currParam).subscribe(
                 data => {
                     this.errorInformation = data;
                 }
             ),
-            */
-
+            
             this.ConnectionService.getOperationalIndicators_windowTime().subscribe(
                 data => {
                     this.businessDay = data
@@ -324,7 +331,6 @@ export class RtgsComponent {
 
             this.ConnectionService.getMembersDisconnected(this.currParam).subscribe(
                 data => {
-                   //this.connected = data;
                     this.disconnected = data;      
                     
                     
@@ -398,17 +404,6 @@ export class RtgsComponent {
             this.ConnectionService.getProcessingTime().subscribe(
                 data => {
                     this.processingSpeed = data;
-                    /*
-                    if(this.processingSpeed >= 300)
-                    {
-                        this.processingSpeedStatus = "Slow";
-                        this.processingSpeedColor = "#ff111d";
-                    }
-                    else{
-                        this.processingSpeedStatus = "Normal";
-                        this.processingSpeedColor = "#0cff85";
-                    }
-                    */
                     this.processingSpeed = this.processingSpeed + " ms";
                 }
             ),
@@ -426,23 +421,43 @@ export class RtgsComponent {
                 }
             ),
 
-            this.ConnectionService.getServerStatus(this.currParam).subscribe(
+            this.ConnectionService.getDcStatus().subscribe(
                 data => {
-                    this.dcStatus = true;
-                    this.drcStatus = true;
-                    this.replicationSpeed = "";
+                    this.dcStatus = data;
                 }
             ),
+
+            this.ConnectionService.getDrcStatus().subscribe(
+                data => {
+                    this.drcStatus = data;
+                }
+            ),
+
+            this.ConnectionService.getActiveSystem().subscribe(
+                data => {
+                    this.activeSystem = data;
+                }
+            ),
+
+            this.ConnectionService.getReplicationTime().subscribe(
+                data => {
+                    this.replicationTime = data;
+                }
+            ),
+
+
 
             this.ConnectionService.getThroughput(this.currParam).subscribe(
                 data => {
                     this.throughput = data;
-                    this.throughputLabel = this.throughput.map(item => item.Periode);
+                    this.throughputLabel = this.throughput.map(item => item.periode);
                     this.throughputDataBlock1 = this.throughput.map(item => item.block1);
                     this.throughputDataBlock2 = this.throughput.map(item => item.block2);
                     this.throughputDataBlock3 = this.throughput.map(item => item.block3);
                     this.throughputDataBlock4 = this.throughput.map(item => item.block4);
                     this.throughputDataBlock5 = this.throughput.map(item => item.block5);
+
+                    var ticks = [0,30,60,100];
                     
                     
 
@@ -451,51 +466,44 @@ export class RtgsComponent {
                         datasets: [
                             {
                                 data: this.throughputDataBlock1,
-                                backgroundColor: [
-                                    "#FFCE56",
-                                    "#FFCE56",
-                                    "#FFCE56"
-                                ]
+                                backgroundColor: "#FFCE56"
                             },
                             {
                                 data: this.throughputDataBlock2,
-                                backgroundColor: [
-                                    "#42A5F5",
-                                    "#42A5F5",
-                                    "#42A5F5"
-                                ]
+                                backgroundColor: "#42A5F5"
                             },
                             {
                                 data: this.throughputDataBlock3,
-                                backgroundColor: [
-                                    "#FF6384",
-                                    "#FF6384",
-                                    "#FF6384"
-                                ]
+                                backgroundColor: "#FF6384"
                             },
                             {
                                 data: this.throughputDataBlock4,
-                                backgroundColor: [
-                                    "red",
-                                    "red",
-                                    "red"
-                                ]
+                                backgroundColor: "red"
                             },
                             {
                                 data: this.throughputDataBlock5,
-                                backgroundColor: [
-                                    "green",
-                                    "green",
-                                    "green"
-                                ]
+                                backgroundColor: "green"
                             }
                         
                         ]
                         };
+
                     this.throughputOption = {
                         scales: {
                                 xAxes: [{
-                                    stacked: true
+                                    stacked: true,
+                                    ticks: {
+                                        min: ticks[0],
+                                        max: ticks[ticks.length-1],
+                                        stepSize:30
+                                    },
+                                    afterBuildTicks: function(scale) {
+                                        scale.ticks = ticks;
+                                        return;
+                                      },
+                                      beforeUpdate: function(oScale) {
+                                        return;
+                                      }
                                 }],
                                 yAxes: [{
                                     stacked: true
@@ -550,6 +558,32 @@ export class RtgsComponent {
             this.ConnectionService.getTurnOverRatio(this.currParam).subscribe(
                 data => {
                     this.turnOverRatio = data;
+                    this.turnOverRatioLabel = this.turnOverRatio.map(item => item.className);
+                    this.turnOverToday= this.turnOverRatio.map(item => item.TD);
+                    this.turnOverPDay = this.turnOverRatio.map(item => item.PD);
+                    this.turnOverPWeek = this.turnOverRatio.map(item => item.PW);
+
+                    this.turnOverRatioChart = {
+                        labels: this.turnOverRatioLabel,
+                        datasets:   [
+                                {
+                                    data: this.turnOverToday,
+                                    label: "Today",
+                                    backgroundColor: "#FFCE56"
+                                },
+                                {
+                                    data: this.turnOverPDay,
+                                    label: "Previous Day",
+                                    backgroundColor: "#42A5F5"
+                                },
+                                {
+                                    data: this.turnOverPWeek,
+                                    label: "Previous Week",
+                                    backgroundColor: "#FF6384"
+                                }
+                            
+                            ]
+                        };
                 }
             ),
 
@@ -575,57 +609,21 @@ export class RtgsComponent {
                 data => {
                     this.intradayTotal2 = data
                 }
-            ),
+            )
 
-
-                    
-            
-            this.ConnectionService.getDataDua(this.currParam).subscribe(
-                data => {
-                          this.cars2 = data;
-                      }
-                  ),
-            this.ConnectionService.getDataTotal(this.currParam).subscribe(
-                data => {
-                          this.total = data;
-                      }
-                  )
-
-
-                    var a = ['A','B','C','D'];
-                        this.data = {
-                          labels: a,
-                          datasets: [
-                              {
-                                  label: '.',
-                                  backgroundColor: '#FFCE56',
-                                  borderColor: '#FFCE58',
-                                  data: [28, 48, 40, 19, 86, 27, 90]
-                              },
-                              {
-                                  label: '.',
-                                  backgroundColor: '#42A5F5',
-                                  borderColor: '#1E88E5',
-                                  data: [65, 59, 80, 81, 56, 55, 40]
-                              },
-                              
-                              {
-                                label: '.',
-                                backgroundColor: '#FF6384',
-                                borderColor: '#FF6386',
-                                data: [28, 48, 40, 19, 86, 27, 90]
-                            }
-                          ]
-                        };
 
           }
 
           ngOnInit() {
-              //this.getIP();
+              this.getConfig();
               this.getData();
-              this.interval_satu = setInterval(() => {
-                  this.getData();
-              },7500);
+
+          }
+
+          ngAfterContentInit(){
+            this.interval_satu = setInterval(() => {
+                this.getData();
+            },10000);
           }
             
           

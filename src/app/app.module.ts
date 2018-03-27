@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { Routes, RouterModule } from '@angular/router';
-import { InputTextModule,ChartModule, ButtonModule, DataTableModule, DialogModule,TabViewModule,FieldsetModule,MessageModule }  from 'primeng/primeng';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { ChartModule, DataTableModule,MessageModule }  from 'primeng/primeng';
 
 
 import { ChartsModule } from 'ng2-charts';
@@ -30,19 +31,16 @@ import { SsssComponent } from './ssss/ssss.component';
     FormsModule,
     DataTableModule,
     HttpModule,
-    InputTextModule, 
-    DialogModule,
-    ButtonModule,
+
     ChartModule, // PrimeNG
-    TabViewModule,
-    FieldsetModule,
+
     MessageModule,
     RouterModule,
     routes,
     ChartsModule // ng2-Charts
     //TableModule
   ],
-  providers: [],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
