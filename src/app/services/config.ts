@@ -11,9 +11,14 @@ export class config {
 
     constructor(private http: Http) {}
 
-    getIP(): Observable<string>{
+    getTitle(): Observable<string>{
         return this.http.get('assets/conf/config.json')
-        .map((res:Response) => <string> res.json().region)   
+        .map((res:Response) => <string> res.json().title)   
+    }
+
+    getInterval(): Observable<string>{
+        return this.http.get('assets/conf/config.json')
+        .map((res:Response) => <string> res.json().interval)   
     }
 
 }

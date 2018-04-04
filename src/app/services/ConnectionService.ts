@@ -41,6 +41,7 @@ export class ConnectionService {
     getTotalAmountToday(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalAmountToDay)
+            .do(data=> console.log('All: ' + JSON.stringify(data)))
             
             
     }
@@ -48,6 +49,7 @@ export class ConnectionService {
     getTotalAmountPrevDay(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalAmountPrevDay)
+            .do(data=> console.log('All: ' + JSON.stringify(data)))
             
             
     }
@@ -55,6 +57,7 @@ export class ConnectionService {
     getTotalAmountPrevWeek(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalAmountPrevWeek)
+            .do(data=> console.log('All: ' + JSON.stringify(data)))
             
             
     }
@@ -62,21 +65,21 @@ export class ConnectionService {
     getTotalVolumeToday(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalVolumeToDay)
-            
+            .do(data=> console.log('All: ' + JSON.stringify(data)))
             
     }
 
     getTotalVolumePrevDay(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalVolumePrevDay)
-            
+            .do(data=> console.log('All: ' + JSON.stringify(data)))
             
     }
 
     getTotalVolumePrevWeek(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalVolumePrevWeek)
-            
+            .do(data=> console.log('All: ' + JSON.stringify(data)))
     }
 
     getErrorInformation(itema: string): Observable<any>{
@@ -269,240 +272,5 @@ export class ConnectionService {
             .catch(this.handleError);
             
     }
-/*
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// SSSS
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    getStatisticalIndicatorTable_SSSS(itema: string): Observable<any>{
-    return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/statistical/settlementsummary/'+itema.toUpperCase())
-        .map((res:Response) => <any> res.json().currentDay)
-        
-        
-    }
-
-    getStatisticalVolume_SSSS(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <any> res.json()[itema].StatisticalIndicatorChart.totalVolume)
-            
-            
-    }
-
-    getStatisticalAmount_SSSS(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <any> res.json()[itema].StatisticalIndicatorChart.totalAmount)
-            
-            
-    }
-
-    getExchangeRate(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/statistical/exchangerateinfo')
-            .map((res:Response) => <any> res.json())
-            
-            
-    }
-
-    getErrorInformation_SSSS(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/statistical/supporterrorinfos')
-            .map((res:Response) => <any> res.json())
-            
-            
-    }
-
-    getOperationalIndicators_windowTime_SSSS(): Observable<string>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/businessday')
-            .map((res:Response) => <string> res.json().windowTime)
-            
-            
-    }
-
-    getOperationalIndicators_extended_SSSS(): Observable<string>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/businessday')
-            .map((res:Response) => <string> res.json().extendedPeriod)
-            
-            
-    }
-
-    getOperationalIndicators_today_SSSS(): Observable<string>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/businessday')
-            .map((res:Response) => <string> res.json().valueDate)
-            
-            
-    }
-
-    getDisconnectedMember_SSSS(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/membersconnectionstatus')
-            .map((res:Response) => <any> res.json().disconnectedMembers)
-            
-            
-    }
-
-    getMembersConnected_SSSS(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/membersconnectionstatus')
-            .map((res:Response) => <any> res.json().numOfConnectedMembers)
-            
-            
-    }
-
-    getMembersDisconnected_SSSS(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/membersconnectionstatus')
-            .map((res:Response) => <any> res.json().numOfDisconnectedMembers)
-            
-            
-    }
-
-    getETPstatus(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/systemconnections')
-            .map((res:Response) => <any> res.json().bietp)
-            
-            
-    }
-
-    getRTGSstatus(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/systemconnections')
-            .map((res:Response) => <any> res.json().birtgs)
-            
-            
-    }
-
-    getHartisstatus_SSSS(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/systemconnections')
-            .map((res:Response) => <any> res.json().hartis)
-            
-            
-    }
-
-    getBIsosastatus_SSSS(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/systemconnections')
-            .map((res:Response) => <any> res.json().bisosa)
-            
-            
-    }
-
-    getSKNstatus_SSSS(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/systemconnections')
-            .map((res:Response) => <any> res.json().sknbi)
-            
-            
-    }
-
-    getProcessingTime_SSSS(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/serverperformancestatus')
-            .map((res:Response) => <any> res.json().processingTime)
-            
-            
-    }
-
-    getProcessingStatus_SSSS(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/operational/serverperformancestatus')
-            .map((res:Response) => <any> res.json().processingStatus)
-            
-            
-    }
-
-    getServerStatus_SSSS(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small1.json')
-            .map((res:Response) => <any> res.json()[itema].ServerStatus)
-            
-            
-    }
-
-    getQueueInsufficientSecurities(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/queue/insufficientsecurities/'+itema.toUpperCase())
-            .map((res:Response) => <any> res.json().queueList)
-            
-            
-    }
-
-    getQueueInsufficientSecuritiesMember(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/queue/insufficientsecurities/'+itema.toUpperCase())
-            .map((res:Response) => <any> res.json().numOfParticipants)
-            
-            
-    }
-
-    getQueueInsufficientSecuritiesTotal(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/queue/insufficientsecurities/'+itema.toUpperCase())
-            .map((res:Response) => <any> res.json().sumOfTransactions)
-            
-            
-    }
-
-    getQueueInsufficientFund(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/queue/insufficientfund/'+itema.toUpperCase())
-            .map((res:Response) => <any> res.json().queueList)
-            
-            
-    }
-
-    getQueueInsufficientFundMember(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/queue/insufficientfund/'+itema.toUpperCase())
-            .map((res:Response) => <any> res.json().numOfParticipants)
-            
-            
-    }
-
-    getQueueInsufficientFundTotal(itema: string): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/queue/insufficientfund/'+itema.toUpperCase())
-            .map((res:Response) => <any> res.json().sumOfTransactions)
-            
-            
-    }
-
-    getMaturitySecurities(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/maturitysecurities')
-            .map((res:Response) => <any> res.json().transactionsList)
-            
-            
-    }
-
-    getMaturitySecuritiesTotal(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/maturitysecurities')
-            .map((res:Response) => <any> res.json().sumOfTransactions)
-            
-            
-    }
-    
-    getCouponPayment(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/couponpayment')
-            .map((res:Response) => <any> res.json().transactionsList)
-            
-            
-    }
-
-    getCouponPaymentTotal(): Observable<any>{
-        return this.http.get('http://10.216.37.14:40401/dashboard/api/ssss/liquidity/couponpayment')
-            .map((res:Response) => <any> res.json().sumOfTransactions)
-            
-            
-    }
-// TEST
-*/
-/*
-    getDataSatu(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <any> res.json()[itema].isi)
-            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE
-            
-    }
-
-    getDataDua(itema: string): Observable<any>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <any> res.json()[itema].isi2)
-            .do(data => console.log('All: ' + JSON.stringify(data))) //DEBUG USE
-            
-    }
-
-    getDataTotal(itema: string): Observable<Total[]>{
-        return this.http.get('assets/data/cars-small.json')
-            .map((res:Response) => <Total[]> res.json()[itema].isi3)
-            .do(data=> console.log('All: ' + JSON.stringify(data)))
-            .catch(this.handleError)
-    }
-*/
-
- 
-
 
 }

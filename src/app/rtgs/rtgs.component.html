@@ -48,34 +48,39 @@
         <div class="column">
             <div class="columnContent">
                 <div class="Content">
-                    <p  style="margin-top: 0px; margin-bottom:0px; float: left;">
+                    <p  style="margin-top: 0px; margin-bottom:7px; float: left;">
                         <b>Operational Indicator</b>
                     </p>
-                    <p  style="margin-top: 0px; margin-bottom:0px; float: right;">
-                        {{today}}
+                    <p  style="margin-top: 0px; margin-bottom:7px; float: right;">
+                        <b>{{today}}</b>
                     </p>
                     <div class="rows">
-                        <div class="subContent-1">
-                            
+                        <div class="subContent-1">     
                             <table>
                                 <tr>
-                                    <td style="">Business Day</td>
+                                    <td><font size='3'>Business Day</font></td>
+                                    <td>:</td>
                                     <td>
-                                        <p-message style=" font-size: 15px;" severity="info" text={{businessDay}}></p-message>
+                                        <font color='#004fce' size='3'> 
+                                            <b>{{businessDay}}</b>
+                                        </font>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Time Extension</td>
+                                    <td><font size='3'>Time Extension</font></td>
+                                    <td>:</td>
                                     <td>
-                                        <p-message style=" font-size: 15px;" severity="info" text={{timeExt}}></p-message>
+                                        <font color='#004fce' size='3'> 
+                                            {{timeExt}}
+                                        </font>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="subContent-2">
-                            <p style="font-size: 15px;"><u> Connection Status:</u></p>
+                            <p style="font-size: 15px; margin-top: 7px;"><u> Connection Status:</u></p>
                             <div class="subContent-2-4" align="left">
-                                <table>
+                                <table id="table">
                                     <tr>
                                         <td style="font-size:13px;">Connected</td>
                                         <td></td>
@@ -97,10 +102,10 @@
                         </div>
 
                         <div class="subContent-3" align="left">
-                            <p style="font-size: 15px;">
+                            <p style="font-size: 15px; margin-top: 7px;">
                                 <u>Disconnected Member :</u>
                             </p>
-                            <div class="contain"  style="height: 100px">
+                            <div class="contain" style="height: 100px">
                                 <p-dataTable id="orangeTable" class="ui-datatable" [value]="disconnectedMemberTable" scrollable="true"  class="ui-datatable">
                                     <p-column field="bic" header="BIC"></p-column>
                                     <p-column field="lastConnected" header="Last Online"></p-column>
@@ -114,7 +119,7 @@
                     <p style="margin-top: 0px;  font-size: 15px;">
                         <u>Surrrounding Connection Status</u>
                     </p>
-                    <div class="Content" align="center" style="border: 0;">
+                    <div class="Content" align="center" style="border: 0; height: 225px" >
                         <table>
                             <tr>
                                 <td>
@@ -236,7 +241,7 @@
                         <table id="table">
                             <tr>
                                 <td>
-                                    <div class="contain">
+                                    <div class="contain" style="height:80px">
                                                 <p-dataTable id="orangeTable" [value]="currentQueue" scrollable="true" class="ui-datatable">
                                                         <p-column field="time" header="Time" ></p-column>
                                                         <p-column field="bic" header="BIC" ></p-column>
@@ -273,13 +278,19 @@
                                 <td>
                                     <div class="contain" style="height: 85px">
                                                 <p-dataTable id="orangeTable" [value]="intradayTable" scrollable="true" class="ui-datatable">
-                                                        <p-column field="bic" header="BIC" ></p-column>
-                                                        <p-column field="amount" header="Amount" ></p-column>
-                                                        <p-column field="paidStatus" [style]="{'width': '75px'}" header="Status" ></p-column>
+                                                        <p-column field="bic" header="BIC" >
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.bic}} </div></ng-template>
+                                                        </p-column>
+                                                        <p-column field="amount" header="Amount" >
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number}} </div></ng-template>
+                                                        </p-column>
+                                                        <p-column field="paidStatus" [style]="{'width': '75px'}" header="Status" >
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.paidStatus}} </div></ng-template>
+                                                        </p-column>
                                                 </p-dataTable>
                                         </div>
                                 </td>
-                                <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
+                                <td rowspan="3" width="80px" align="center" bgcolor="#ffa10a">
                                         <span style="color: white; font-size: 40px;">{{intradayParticipant}}</span>
                                         <span style="color: white; font-size: 15px;">Members</span>
                                 </td>

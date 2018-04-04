@@ -291,7 +291,7 @@ export class SsssComponent {
 
             this.ConnectionService.getOperationalIndicators_extended_SSSS().subscribe(
                 data => {
-                    if (data == "0"){
+                    if (data == ""){
                         this.timeExt = "-"
                     }
                     else{
