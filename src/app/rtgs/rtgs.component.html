@@ -1,6 +1,7 @@
 <div class="masterheader">
-    <div class="header"> Dashboard</div>
-    <div class="header2"> SISTEM BI-RTGS </div>
+    <div class="header"> DASHBOARD</div>
+    <div class="header2"> BI-RTGS </div>
+    <div class="headerLogo" align="center"><img src='assets/picture/bi-putih.png' width="220" height="44"></div>
 </div>
 <div class="background">
     <div class="rows">
@@ -9,6 +10,7 @@
                 <div class="Content">
                     <p style="margin-top: 0px; margin-bottom:0px;">
                         <b>Statistical Indicator</b>
+                        {{interval_2}}
                     </p>
                     <div class="contain1">
                         <p-dataTable class="ui-datatable" id="blueTable" [value]="statisticalIndicatorTable" [responsive]="true" class="ui-datatable">
@@ -34,12 +36,12 @@
                     <p style="margin-top: 0px; margin-bottom:0px;">
                         <b>Supporting Information</b>
                     </p>
-                    <u style="font-size: 15px;">Error Information</u>
+                    <b style="font-size: 15px; color:#636363">Error Information</b>
                     <div class="contain" style="height: 110px">
                         <p-dataTable id="blueTable" class="ui-datatable" [value]="errorInformation" [responsive]="true" scrollable="true" class="ui-datatable">
+                            <p-column field="time" header="Time"></p-column>
                             <p-column field="code" header="Code"></p-column>
                             <p-column field="description" header="Description"></p-column>
-                            <p-column field="time" header="Time"></p-column>
                         </p-dataTable>
                     </div>
                 </div>
@@ -71,14 +73,15 @@
                                     <td>:</td>
                                     <td>
                                         <font color='#004fce' size='3'> 
-                                            {{timeExt}}
+                                            <b>{{timeExt}}</b>
                                         </font>
                                     </td>
                                 </tr>
                             </table>
                         </div>
                         <div class="subContent-2">
-                            <p style="font-size: 15px; margin-top: 7px;"><u> Connection Status:</u></p>
+                            <p style="font-size: 14px; color:#636363; margin-top: 7px;">
+                                <b> Connection Status :</b></p>
                             <div class="subContent-2-4" align="left">
                                 <table id="table">
                                     <tr>
@@ -102,13 +105,13 @@
                         </div>
 
                         <div class="subContent-3" align="left">
-                            <p style="font-size: 15px; margin-top: 7px;">
-                                <u>Disconnected Member :</u>
+                            <p style="font-size: 14px; color:#636363; margin-top: 7px;">
+                                <b>Disconnected Member :</b>
                             </p>
                             <div class="contain" style="height: 100px">
                                 <p-dataTable id="orangeTable" class="ui-datatable" [value]="disconnectedMemberTable" scrollable="true"  class="ui-datatable">
                                     <p-column field="bic" header="BIC"></p-column>
-                                    <p-column field="lastConnected" header="Last Online"></p-column>
+                                    <p-column field="lastConnected" header="Last Connected"></p-column>
                                 </p-dataTable>
                             </div>
                         </div>
@@ -116,8 +119,8 @@
                 </div>
 
                 <div class="Content" align="left">
-                    <p style="margin-top: 0px;  font-size: 15px;">
-                        <u>Surrrounding Connection Status</u>
+                    <p style="margin-top: 0px; color:#636363;  font-size: 15px;">
+                        <b>Surrrounding Connection Status</b>
                     </p>
                     <div class="Content" align="center" style="border: 0; height: 225px" >
                         <table>
@@ -177,7 +180,7 @@
                             <table id="table">
                                 <tr>
                                     <td>
-                                        <u style="font-size: 15px;">Processing Status</u>
+                                        <b style="font-size: 14px; color:#636363">Processing Status</b>
                                     </td>
                                 </tr>
                                 <tr>
@@ -194,7 +197,7 @@
                         </div>
                         <div class="subContent-3-2">
                             <table>
-                                <u style="font-size: 15px;">Server & Replication Status</u>
+                                <b style="font-size: 14px; color:#636363">Server & Replication Status</b>
                             </table>
                             <div class="Content" style="border:0; height: 110px" align="center">
                                 <table border="0">
@@ -203,7 +206,7 @@
                                             <img src='assets/picture/dr.png' width="50" height="65">
                                         </td>
                                         <td>
-                                            <img src='assets/picture/arrow.png' width="50" height="30">
+                                            <img [src]="activeSystem=='DC' ? arrow1 : arrow2" width="50" height="30">
                                         </td>
                                         <td>
                                             <img src='assets/picture/drc.png' width="50" height="65">
@@ -232,15 +235,15 @@
                     <p style="margin-top: 0px; margin-bottom:0px;">
                         <b>Liquidity Indicator</b>
                     </p>
-                    <u style="font-size: 15px;">Throughput</u>
+                    <b style="font-size: 14px; color:#636363">Throughput</b>
                     <p-chart type="horizontalBar" [data]="throughputChart" [options]='throughputOption' height='75px'></p-chart>
                 </div>
                 <div class="Content">
-                    <u style="font-size: 15px;">Current Queue</u>
+                    <b style="font-size: 14px; color:#636363">Current Queue</b>
                     <div class="rows">
                         <table id="table">
                             <tr>
-                                <td>
+                                <td colspan="2">
                                     <div class="contain" style="height:80px">
                                                 <p-dataTable id="orangeTable" [value]="currentQueue" scrollable="true" class="ui-datatable">
                                                         <p-column field="time" header="Time" ></p-column>
@@ -251,14 +254,17 @@
                                                 </p-dataTable>
                                         </div>
                                 </td>
-                                <td rowspan="2" width="80px" align="center" bgcolor="#ffa10a">
+                                <td rowspan="2" width="70px" align="center" bgcolor="#ffa10a">
                                         <span style="color: white; font-size: 40px;">{{currentQueueParticipant}}</span>
-                                        <span style="color: white; font-size: 15px;">Member</span>
+                                        <span style="color: white; font-size: 14px;">Member</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" style="font-size:13px">
-                                    Total Amount ({{currParam.toUpperCase()}}) {{currentQueueTotal | number:'1.0-2'}}
+                                <td align="right" style="font-size:12px" width="60%">
+                                   <b> Total Amount ({{currParam.toUpperCase()}}) : </b>
+                                </td>
+                                <td align="right" style="font-size:12px">
+                                    {{currentQueueTotal | number:'1.0-2'}}
                                 </td>
                             </tr>
                                 
@@ -267,42 +273,51 @@
                     </div>
                 </div>
                 <div class="Content">
-                    <u style="font-size: 15px;">Turn Over Ratio</u>
-                    <p-chart type="horizontalBar" [data]="turnOverRatioChart" height='130px'></p-chart>
+                    <b style="font-size: 14px; color:#636363">Turn Over Ratio</b>
+                    <p-chart type="horizontalBar" [data]="turnOverRatioChart" [options]="turnOverRatioOption" height='130px'></p-chart>
                 </div>
                 <div class="Content">
-                    <u style="font-size: 15px;">Intraday Liquidity Facility</u>
+                    <b style="font-size: 14px; color:#636363">Intraday Liquidity Facility</b>
                     <div class="rows">
                         <table id="table">
                             <tr>
-                                <td>
+                                <td colspan="2">
                                     <div class="contain" style="height: 85px">
                                                 <p-dataTable id="orangeTable" [value]="intradayTable" scrollable="true" class="ui-datatable">
+                                                        <p-column field="time" header="Time" >
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div [ngStyle]="{'color': changeColor(data.paidStatus), 'text-align': 'center'}"> {{data.time}} </div></ng-template>
+                                                        </p-column>
                                                         <p-column field="bic" header="BIC" >
-                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.bic}} </div></ng-template>
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div [ngStyle]="{'color': changeColor(data.paidStatus), 'text-align': 'center'}"> {{data.bic}} </div></ng-template>
                                                         </p-column>
                                                         <p-column field="amount" header="Amount" >
-                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: right;"> {{data.amount | number}} </div></ng-template>
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div [ngStyle]="{'color': changeColor(data.paidStatus), 'text-align': 'right'}"> {{data.amount | number}} </div></ng-template>
                                                         </p-column>
                                                         <p-column field="paidStatus" [style]="{'width': '75px'}" header="Status" >
-                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div style="text-align: center;"> {{data.paidStatus}} </div></ng-template>
+                                                                <ng-template let-col let-data="rowData" pTemplate="body"><div [ngStyle]="{'color': changeColor(data.paidStatus), 'text-align': 'center'}"> {{data.paidStatus}} </div></ng-template>
                                                         </p-column>
                                                 </p-dataTable>
                                         </div>
                                 </td>
                                 <td rowspan="3" width="80px" align="center" bgcolor="#ffa10a">
-                                        <span style="color: white; font-size: 40px;">{{intradayParticipant}}</span>
-                                        <span style="color: white; font-size: 15px;">Members</span>
+                                        <span style="color: white; font-size: 39px;">{{intradayParticipant}}</span>
+                                        <span style="color: white; font-size: 14px;">Member</span>
                                 </td>
                             </tr>
                             <tr>
+                                <td align="right" style="font-size:13px" width="70%">
+                                    <b>Total Amount ({{currParam.toUpperCase()}}) :</b>
+                                </td>
                                 <td align="right" style="font-size:13px">
-                                  Total Amount ({{currParam.toUpperCase()}}) {{intradayTotal1 | number:'1.0-2'}}
+                                    {{intradayTotal1 | number:'1.0-2'}}
                                 </td>
                             </tr>
                             <tr>
-                                <td align="right" style="font-size:13px">
-                                  Total Amount ({{currParam.toUpperCase()}}) {{intradayTotal2 | number:'1.0-2'}}
+                                <td align="right" style="font-size:13px" width="70%">
+                                    <b>Total Amount ({{currParam.toUpperCase()}}) :</b>
+                                </td>
+                                <td align="right" style="font-size:13px" width="70%">
+                                    {{intradayTotal2 | number:'1.0-2'}}
                                 </td>
                             </tr>
                                 

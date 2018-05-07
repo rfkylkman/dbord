@@ -8,8 +8,8 @@ $(document).ready(function() {
     var objClass = document.getElementsByClassName("contain");
     for (var i=0;i<objClass.length;i++) {
       objClass[i].scrollTop = objClass[i].scrollTop + 1;
-      if ((objClass[i].scrollTop + 100) == objClass[i].scrollHeight){
-        objClass[i].scrollTop = 1;
+      if ((objClass[i].scrollTop + 85) == objClass[i].scrollHeight){
+        objClass[i].scrollTop = -1;
       }
     }
     

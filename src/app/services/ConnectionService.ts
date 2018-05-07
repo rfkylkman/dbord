@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
-import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/take';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Injectable()
@@ -20,13 +20,11 @@ export class ConnectionService {
         return Observable.throw(error.json().error || 'Connection error');
     }
 
-    getIPaddress(): Observable<string>{
-        return this.http.get('https://ipinfo.io/json/?callback')
-        .map((res:Response) => <string> res.json().ip)
-        .do(data => console.log('All: '+ JSON.stringify(data)))
-        
-        
+    getInterval(): Observable<string>{
+        return this.http.get('http://10.216.37.14:40401/dashboard/api/sysparam/refreshinterval')
+        .map((res:Response) => <string> res.json().refreshInterval).take(1)   
     }
+
 
 // RTGS
 
@@ -41,7 +39,7 @@ export class ConnectionService {
     getTotalAmountToday(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalAmountToDay)
-            .do(data=> console.log('All: ' + JSON.stringify(data)))
+           .do(data=> console.log('All: ' + JSON.stringify(data)))
             
             
     }
@@ -49,15 +47,12 @@ export class ConnectionService {
     getTotalAmountPrevDay(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalAmountPrevDay)
-            .do(data=> console.log('All: ' + JSON.stringify(data)))
-            
             
     }
 
     getTotalAmountPrevWeek(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalAmountPrevWeek)
-            .do(data=> console.log('All: ' + JSON.stringify(data)))
             
             
     }
@@ -65,21 +60,18 @@ export class ConnectionService {
     getTotalVolumeToday(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalVolumeToDay)
-            .do(data=> console.log('All: ' + JSON.stringify(data)))
             
     }
 
     getTotalVolumePrevDay(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalVolumePrevDay)
-            .do(data=> console.log('All: ' + JSON.stringify(data)))
             
     }
 
     getTotalVolumePrevWeek(itema: string): Observable<any>{
         return this.http.get('http://10.216.37.14:40401/dashboard/api/rtgs/statistical/settlementsummary/'+itema.toUpperCase())
             .map((res:Response) => <any> res.json().totalVolumePrevWeek)
-            .do(data=> console.log('All: ' + JSON.stringify(data)))
     }
 
     getErrorInformation(itema: string): Observable<any>{

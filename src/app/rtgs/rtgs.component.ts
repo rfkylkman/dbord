@@ -5,7 +5,12 @@ import { currentQueue } from 'app/domain/currentQueue';
 import { turnOverRatio } from 'app/domain/turnOverRatio';
 import { intradayLiquidityFacility } from 'app/domain/intradayLiquidityFacility';
 import { ConnectionService} from 'app/services/ConnectionService';
-import { config } from 'app/services/config';
+import { Http, Response } from '@angular/http';
+import { switchMap } from 'rxjs/operators';
+import { interval } from 'rxjs/observable/interval';
+import 'rxjs/add/operator/take';
+
+import { config } from 'assets/conf/config';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -14,24 +19,38 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
   selector: 'app-rtgs',
   templateUrl: './rtgs.component.html',
   styleUrls: ['./rtgs.component.css'],
-  providers:[config, ConnectionService],
+  providers:[ConnectionService],
   encapsulation : ViewEncapsulation.None
 })
 export class RtgsComponent {
 
           currParam : string = this.router.snapshot.queryParams["curr"];
 
-          ip : any;
-          
-
           connOk: string = "assets/picture/ok.png";
           connBad: string = "assets/picture/x.png";
-    
-          interval_satu: any;
-         
-          newCar: boolean;
 
-      
+          arrow1: string = "assets/picture/arrow.png";
+          arrow2: string = "assets/picture/arrow2.png";
+    
+          intervalStatisticalIndicator: any;
+          intervalSupportInfo: any;
+          intervalOperationalInfo: any;
+          intervalSurroundingStatus: any;
+          intervalThroughput:any;
+          intervalQueueStatus:any ;
+          intervalTOR:any;
+          intervalILF:any;
+
+          interval_1:number;
+          interval_2: any;
+          interval_3:any;
+          interval_4:any;
+          interval_5:any;
+          interval_6:any;
+          interval_7:any;
+          interval_8:any;
+
+
           statisticalIndicatorTable: any;
 
           totalAmountToday: any;
@@ -114,6 +133,7 @@ export class RtgsComponent {
           turnOverPWeek: any;
           turnOverRatioData: any;
           turnOverRatioChart: any;
+          turnOverRatioOption: any;
 
           //intraday
           intradayTable : any;
@@ -130,8 +150,9 @@ export class RtgsComponent {
           }
 
       
-          constructor(private ConnectionService: ConnectionService, private router:ActivatedRoute, private config: config) {}
-          
+          //constructor(private ConnectionService: ConnectionService, private router:ActivatedRoute, private config: config) {}
+          constructor(private ConnectionService: ConnectionService, private router:ActivatedRoute,private http: Http) {}
+
           getDataStatisticalIndicator() {
             
             this.ConnectionService.getStatisticalIndicatorTable(this.currParam).subscribe(
@@ -286,7 +307,7 @@ export class RtgsComponent {
             )
           }
 
-          getErrorInfo(){
+          getSupportInfo(){
             this.ConnectionService.getErrorInformation(this.currParam).subscribe(
                 data => {
                     this.errorInformation = data;
@@ -494,7 +515,10 @@ export class RtgsComponent {
                                     ticks: {
                                         min: ticks[0],
                                         max: ticks[ticks.length-1],
-                                        stepSize:30
+                                        stepSize:30,
+                                        callback: function(value, index, values) {
+                                            return value +'%' ;
+                                        }
                                     },
                                     afterBuildTicks: function(scale) {
                                         scale.ticks = ticks;
@@ -566,6 +590,8 @@ export class RtgsComponent {
                     this.turnOverPDay = this.turnOverRatio.map(item => item.PD);
                     this.turnOverPWeek = this.turnOverRatio.map(item => item.PW);
 
+                    
+
                     this.turnOverRatioChart = {
                         labels: this.turnOverRatioLabel,
                         datasets:   [
@@ -587,6 +613,34 @@ export class RtgsComponent {
                             
                             ]
                         };
+
+                    var ticks = [0,20,40,60,80,100,120,140];
+                    this.turnOverRatioOption = {
+                        scales: {
+                            xAxes: [{
+                                stacked: false,
+                                ticks: {
+                                    min: ticks[0],
+                                    max: ticks[ticks.length-1],
+                                    stepSize:20,
+                                    callback: function(value, index, values) {
+                                        return value +'%' ;
+                                    }
+                                },
+                                afterBuildTicks: function(scale) {
+                                    scale.ticks = ticks;
+                                    return;
+                                  },
+                                  beforeUpdate: function(oScale) {
+                                    return;
+                                  }
+                            }],
+                            yAxes: [{
+                                stacked: false
+                            }]
+                        }  
+                    }
+                    
                 }
             )
               
@@ -618,24 +672,59 @@ export class RtgsComponent {
             )
           }
 
+    changeColor(value){
+            return value=="Active" ?'red' : 'blue' //
+            }
+
           ngOnInit() {
               this.getDataStatisticalIndicator();
-              this.getErrorInfo();
+              this.getSupportInfo();
               this.getOperationalInfo();
               this.getSurroundingStatus();
               this.getThroughput();
               this.getCurrentQueue();
               this.getTurnOverRatio();
               this.getILF();
-              this.interval_satu = setInterval(() => {
+           
+            this.intervalStatisticalIndicator = setInterval(() => {
+                this.getDataStatisticalIndicator();
+            },config.interval);
+
+
+
+            this.intervalSupportInfo = setInterval(() => {
+                this.getSupportInfo();
+            },config.interval);
+
+            this.intervalOperationalInfo = setInterval(() => {
                 this.getOperationalInfo();
-            },20000);
+            },config.interval);
+
+            this.intervalSurroundingStatus = setInterval(() => {
+                this.getSurroundingStatus();
+            },config.interval);
+
+            this.intervalThroughput = setInterval(() => {
+                this.getThroughput();
+            },config.interval);
+
+            this.intervalQueueStatus = setInterval(() => {
+                this.getCurrentQueue();
+            },config.interval);
+
+            this.intervalTOR = setInterval(() => {
+                this.getTurnOverRatio();
+            },config.interval);
+
+            this.intervalILF = setInterval(() => {
+                this.getILF();
+            },config.interval  );
 
           }
 
 
           ngOnDestroy(){
-              clearInterval(this.interval_satu);
+              clearInterval(this.intervalOperationalInfo);
           }
           
           
